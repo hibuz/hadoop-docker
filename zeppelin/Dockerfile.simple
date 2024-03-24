@@ -1,0 +1,96 @@
+# == Info =======================================
+# hibuz/bash==hibuz/hadoop-base(SIZE: 279MB) -> hibuz/zeppelin-dev(SIZE: 4.22GB)
+
+# == Build ======================================
+# docker build -t hibuz/zeppelin-dev:simple -f Dockerfile.simple .
+# or
+# docker build -t hibuz/zeppelin-dev:simple --build-arg ZEPPELIN_VERSION=x.y.z -f Dockerfile.simple .
+
+# == Run and Attatch ============================
+# docker run --rm -it -p 8083:8083 -p 9995:9995 -p 18080:18080 --name zeppelin-tmp hibuz/zeppelin-dev:simple
+# 
+# docker exec -it zeppelin-tmp bash
+
+
+# == Init =======================================
+FROM hibuz/hadoop-base
+
+# == Package Setting ============================
+ARG JDK_VERSION=${JDK_VERSION:-11}
+RUN sudo apt-get update && DEBIAN_FRONTEND=noninteractive sudo apt-get install -y --no-install-recommends \
+      openjdk-${JDK_VERSION}-jdk \
+      python3 \
+      python3-pip \
+      ssh \
+      netcat \
+      libsnappy-dev \
+    && sudo ln -s /usr/bin/python3 /usr/bin/python \
+    && python -m pip install --upgrade pip \
+    && sudo rm -rf /var/lib/apt/lists/*
+
+# == Install ============================
+ARG SPARK_VERSION=${SPARK_VERSION:-3.5.1}
+ENV SPARK_HOME /home/${DEFAULT_USER}/spark-${SPARK_VERSION}
+
+RUN set -x \
+    && DOWNLOAD_URL="https://archive.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop3.tgz" \
+    && curl -fSL "$DOWNLOAD_URL" -o download.tar.gz \
+    && tar -xvf download.tar.gz \
+    && mv spark-${SPARK_VERSION}-bin-* $SPARK_HOME \
+    && mkdir /tmp/spark-events \
+    && rm download.tar.gz
+
+ARG FLINK_VERSION=${FLINK_VERSION:-1.17.2}
+ENV FLINK_HOME /home/${DEFAULT_USER}/flink-${FLINK_VERSION}
+
+RUN set -x \
+    && DOWNLOAD_URL="https://archive.apache.org/dist/flink/flink-${FLINK_VERSION}/flink-${FLINK_VERSION}-bin-scala_2.12.tgz" \
+    && curl -fSL "$DOWNLOAD_URL" -o download.tar.gz \
+    && tar -xvf download.tar.gz \
+    && rm download.tar.gz
+
+ARG ZEPPELIN_VERSION=${ZEPPELIN_VERSION:-0.11.0}
+ENV ZEPPELIN_HOME /home/${DEFAULT_USER}/zeppelin-${ZEPPELIN_VERSION}
+
+RUN set -x \
+    && DOWNLOAD_URL="https://archive.apache.org/dist/zeppelin/zeppelin-${ZEPPELIN_VERSION}/zeppelin-${ZEPPELIN_VERSION}-bin-all.tgz" \
+    && curl -fSL "$DOWNLOAD_URL" -o download.tar.gz \
+    && tar -xvf download.tar.gz \
+    && mv zeppelin-${ZEPPELIN_VERSION}-bin-all $ZEPPELIN_HOME \
+    && rm download.tar.gz
+
+# == Env Setting ============================
+ENV PATH $PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin:$FLINK_HOME/bin:$ZEPPELIN_HOME/bin
+ENV ZEPPELIN_ADDR 0.0.0.0
+ENV ZEPPELIN_PORT 9995
+ENV USE_HADOOP false
+ENV DISABLE_JEMALLOC true
+
+RUN echo "export HADOOP_CLASSPATH=\$(\$HADOOP_HOME/bin/hadoop classpath)" >> $FLINK_HOME/bin/config.sh \
+    && cd $FLINK_HOME/lib \
+    && curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-table-api-java-bridge/${FLINK_VERSION}/flink-table-api-java-bridge-${FLINK_VERSION}.jar" \
+    && curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-table-api-scala-bridge_2.12/${FLINK_VERSION}/flink-table-api-scala-bridge_2.12-${FLINK_VERSION}.jar" \
+    #&& curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-sql-avro-confluent-registry/${FLINK_VERSION}/flink-sql-avro-confluent-registry-${FLINK_VERSION}.jar" \
+    #&& curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-csv/${FLINK_VERSION}/flink-csv-${FLINK_VERSION}.jar" \
+    #&& curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-json/${FLINK_VERSION}/flink-json-${FLINK_VERSION}.jar" \
+    #&& curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-parquet/${FLINK_VERSION}/flink-parquet-${FLINK_VERSION}.jar" \
+    #&& curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-sql-connector-hbase-2.2/3.0.0-1.17/flink-sql-connector-hbase-2.2-3.0.0-1.17.jar" \
+    #&& curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-sql-connector-hive-3.1.3_2.12/${FLINK_VERSION}/flink-sql-connector-hive-3.1.3_2.12-${FLINK_VERSION}.jar" \
+    #&& curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-sql-connector-kafka/3.1.0-1.18/flink-sql-connector-kafka-3.1.0-1.18.jar" \
+    #&& curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-sql-connector-elasticsearch7/3.0.1-1.17/flink-sql-connector-elasticsearch7-3.0.1-1.17.jar" \
+    #&& curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-sql-jdbc-driver-bundle/1.19.0/flink-sql-jdbc-driver-bundle-1.19.0.jar" \
+    #&& curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-connector-jdbc/3.1.2-1.18/flink-connector-jdbc-3.1.2-1.18.jar" \
+    #&& curl -O "https://repo1.maven.org/maven2/mysql/mysql-connector-java/8.0.30/mysql-connector-java-8.0.30.jar" \
+    #&& curl -O "https://jdbc.postgresql.org/download/postgresql-42.7.3.jar" \
+    && cp ../opt/flink-sql-*.jar ../opt/flink-python-*.jar ./ \
+    && sed -i "s/#rest.port: 8081/rest.port: 8083/" $FLINK_HOME/conf/flink-conf.yaml \
+    && sed -i "s/bind-address: localhost/bind-address: 0.0.0.0/" $FLINK_HOME/conf/flink-conf.yaml
+
+RUN pip install jupyter grpcio protobuf==3.19.6 pandas apache-flink==${FLINK_VERSION}
+
+
+WORKDIR ${ZEPPELIN_HOME}
+
+EXPOSE 4040 8083 $ZEPPELIN_PORT
+
+ENTRYPOINT $ZEPPELIN_HOME/bin/zeppelin-daemon.sh start && bash

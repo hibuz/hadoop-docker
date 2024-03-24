@@ -1,0 +1,44 @@
+# docker compose build flink-base
+# docker compose up --build
+
+# docker compose exec zeppelin-dev bash
+# or
+# docker exec -it zeppelin bash
+version: "3.9"
+services:
+
+  flink-base:
+    image: hibuz/flink-dev:${FLINK_VERSION:-latest}
+    build:
+      context: ../flink
+      args:
+        FLINK_VERSION: ${FLINK_VERSION}
+    entrypoint: bash
+    #tty: true
+
+  zeppelin-dev:
+    container_name: zeppelin
+    image: hibuz/zeppelin-dev
+    build: 
+      context: .
+      args:
+        FLINK_VERSION: ${FLINK_VERSION}
+    ports:
+      - 9870:9870
+      - 8088:8088
+      - 10002:10002
+      - 16010:16010
+      - 19888:19888
+      - 4040:4040
+      - 8080:8080
+      - 8081:8081
+      - 18080:18080
+      - 8083:8083
+      - 9995:9995
+    #command: yarn,historyserver,flink,spark,hive,hbase
+    volumes:
+      - zeppelin-vol:/tmp
+      #- ../../zeppelin-example:/home/hadoop/zeppelin-x.y.z/notebook:rw
+
+volumes:
+  zeppelin-vol: {}
