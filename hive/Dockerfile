@@ -7,7 +7,7 @@
 # docker build -t hibuz/hive-dev --build-arg HIVE_VERSION=x.y.z .
 
 # == Run and Attatch ============================
-# docker run --rm -it -p 9870:9870 -p 10002:10002 --name hive-tmp hibuz/hive-dev
+# docker run --rm -it -p 9083:9083 -p 9870:9870 -p 10002:10002 --name hive-tmp hibuz/hive-dev
 # 
 # docker exec -it hive-tmp bash
 
@@ -37,7 +37,9 @@ RUN cp $HIVE_HOME/conf/hive-env.sh.template $HIVE_HOME/conf/hive-env.sh \
     && cp $HIVE_HOME/conf/hive-default.xml.template $HIVE_HOME/conf/hive-site.xml \
     && sed -i "s/&#8;/ /" $HIVE_HOME/conf/hive-site.xml
 
-RUN core_conf="<property><name>system:java.io.tmpdir</name><value>/tmp</value></property>" \
+RUN core_conf="<property><name>system:java.io.tmpdir</name><value>/tmp/hive/java</value></property>\
+                <property><name>system:user.name</name><value>${DEFAULT_USER}</value></property>\
+                <property><name>hive.metastore.uris</name><value>thrift://localhost:9083</value></property>" \
     && escaped_core_conf=$(echo $core_conf | sed 's/\//\\\//g') \
     && sed -i "/<\/configuration>/ s/.*/${escaped_core_conf}&/" $HIVE_HOME/conf/hive-site.xml
 
@@ -51,6 +53,6 @@ COPY docker-entrypoint.sh /
 
 WORKDIR ${HIVE_HOME}
 
-EXPOSE 10002
+EXPOSE 9083 10002
 
 ENTRYPOINT ["/docker-entrypoint.sh"]

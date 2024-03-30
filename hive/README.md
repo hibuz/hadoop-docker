@@ -21,6 +21,12 @@ docker exec -it hive bash
 ### Hive DDL Operation example
 ``` bash
 
+# Connect to HiveServer2 with hive shell:
+~/hive-3.1.x$ hive
+hive> show databases;
+
+hive> quit;
+
 # Connect to HiveServer2 with Beeline from shell:
 ~/hive-3.1.x$ beeline -n hadoop -u jdbc:hive2://localhost:10000
 ...

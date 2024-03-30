@@ -22,6 +22,7 @@ fi
 if [ ! -d "$HIVE_HOME/metastore_db" ]; then
     init-hive-dfs.sh
     schematool -dbType derby -initSchema
+    schematool -dbType derby -info
 fi
 
 if [[ "$1" == *"hbase"* ]]; then
@@ -33,4 +34,11 @@ hdfs dfsadmin -report
 
 jps
 
-hiveserver2
+
+mkdir $HIVE_HOME/logs
+nohup hive --service metastore 2>&1 | tee $HIVE_HOME/logs/metastore.log &
+sleep 2
+
+nohup hiveserver2 2>&1 | tee $HIVE_HOME/logs/hisveserver2.log &
+sleep 1
+tail -f $HIVE_HOME/logs/hisveserver2.log
