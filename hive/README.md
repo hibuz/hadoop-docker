@@ -21,30 +21,20 @@ docker exec -it hive bash
 ### Hive DDL Operation example
 ``` bash
 
-# Connect to HiveServer2 with hive shell:
-~/hive-3.1.x$ hive
-hive> show databases;
-
-hive> quit;
-
 # Connect to HiveServer2 with Beeline from shell:
-~/hive-3.1.x$ beeline -n hadoop -u jdbc:hive2://localhost:10000
-...
+~/hive-4.x.x$ hive
+Beeline version 4.x.x by Apache Hive
+
+beeline> !connect jdbc:hive2://localhost:10000 hadoop tiger
 Connecting to jdbc:hive2://localhost:10000
-Connected to: Apache Hive (version 3.1.x)
-Driver: Hive JDBC (version 3.1.x)
+Connected to: Apache Hive (version 4.x.x)
+Driver: Hive JDBC (version 4.x.x)
 Transaction isolation: TRANSACTION_REPEATABLE_READ
-Beeline version 3.1.x by Apache Hive
 
 # Beeline is started with the JDBC URL of the HiveServer2
 # First, create a table with tab-delimited text file format:
 0: jdbc:hive2://localhost:10000> CREATE TABLE pokes (foo INT, bar STRING);
-...
-INFO  : OK
-INFO  : Concurrency mode is disabled, not creating a lock manager
-No rows affected (0.334 seconds)
 
-# Show table
 0: jdbc:hive2://localhost:10000> show tables;
 ...
 +-----------+
@@ -55,21 +45,27 @@ No rows affected (0.334 seconds)
 1 row selected (0.257 seconds)
 
 # Loading data from flat example file into Hive:
-0: jdbc:hive2://localhost:10000> LOAD DATA LOCAL INPATH '/home/hadoop/hive-3.1.3/examples/files/kv1.txt' OVERWRITE INTO TABLE pokes;
+0: jdbc:hive2://localhost:10000> LOAD DATA LOCAL INPATH './examples/files/kv1.txt' OVERWRITE INTO TABLE pokes;
+
+# Show data in table pokes:
+0: jdbc:hive2://localhost:10000> SELECT * FROM pokes limit 1;
 ...
-INFO  : OK
-INFO  : Concurrency mode is disabled, not creating a lock manager
-No rows affected (1.336 seconds
++------------+------------+
+| pokes.foo  | pokes.bar  |
++------------+------------+
+| 238        | val_238    |
++------------+------------+
+1 row selected (0.274 seconds)
 
 # Count the number of rows in table pokes:
-0: jdbc:hive2://localhost:10000> SELECT COUNT(*) FROM pokes;
+0: jdbc:hive2://localhost:10000> SELECT count(*) FROM pokes;
 ...
 +------+
 | _c0  |
 +------+
 | 500  |
 +------+
-1 row selected (5.163 seconds)
+1 row selected (0.274 seconds)
 
 # Exit Beeline Shell
 0: jdbc:hive2://localhost:10000> !q

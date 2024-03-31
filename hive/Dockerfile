@@ -1,5 +1,5 @@
 # == Info =======================================
-# hibuz/hbase-dev(SIZE: 2.86GB) -> hibuz/hive-dev(SIZE: 3.23GB)
+# hibuz/spark-dev(SIZE: 3.53GB) -> hibuz/hive-dev(SIZE: 4.05GB)
 
 # == Build ======================================
 # docker build -t hibuz/hive-dev .
@@ -13,10 +13,10 @@
 
 
 # == Init =======================================
-FROM hibuz/hbase-dev
+FROM hibuz/spark-dev
 
 # == Install ============================
-ARG HIVE_VERSION=${HIVE_VERSION:-3.1.3}
+ARG HIVE_VERSION=${HIVE_VERSION:-4.0.0}
 ENV HIVE_HOME /home/${DEFAULT_USER}/hive-${HIVE_VERSION}
 
 RUN set -x \
@@ -26,16 +26,13 @@ RUN set -x \
     && mv apache-hive-${HIVE_VERSION}-bin $HIVE_HOME \
     && rm download.tar.gz
 
-RUN rm $HIVE_HOME/lib/guava-19.0.jar \
-    && cp $HADOOP_HOME/share/hadoop/hdfs/lib/guava-27.0-jre.jar $HIVE_HOME/lib/
-
 # == Env Setting ============================
 ENV PATH $PATH:$HIVE_HOME/bin
 
-RUN cp $HIVE_HOME/conf/hive-env.sh.template $HIVE_HOME/conf/hive-env.sh \
+RUN mv $SPARK_HOME/bin/beeline $SPARK_HOME/bin/spark-beeline \
+    && cp $HIVE_HOME/conf/hive-env.sh.template $HIVE_HOME/conf/hive-env.sh \
     && echo "export HADOOP_HEAPSIZE=512" >> $HIVE_HOME/conf/hive-env.sh \
-    && cp $HIVE_HOME/conf/hive-default.xml.template $HIVE_HOME/conf/hive-site.xml \
-    && sed -i "s/&#8;/ /" $HIVE_HOME/conf/hive-site.xml
+    && cp $HIVE_HOME/conf/hive-default.xml.template $HIVE_HOME/conf/hive-site.xml
 
 RUN core_conf="<property><name>system:java.io.tmpdir</name><value>/tmp/hive/java</value></property>\
                 <property><name>system:user.name</name><value>${DEFAULT_USER}</value></property>\

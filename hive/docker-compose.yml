@@ -11,13 +11,17 @@ services:
     image: hibuz/hive-dev
     build: .
     ports:
-      - 9083:9083
       - 9870:9870
       - 8088:8088
-      - 10002:10002
-      - 16010:16010
       - 19888:19888
-    #command: hbase,yarn,historyserver
+      - 16010:16010
+      - 4040:4040
+      - 8080:8080
+      - 8081:8081
+      - 18080:18080
+      - 9083:9083
+      - 10002:10002
+    #command: spark,hbase,yarn,historyserver
     volumes:
       - hive-vol:/tmp
 

@@ -20,6 +20,8 @@ if [[ "$1" == *"historyserver"* ]]; then
 fi
 
 if [ ! -d "$HIVE_HOME/metastore_db" ]; then
+    hdfs dfs -mkdir -p /user/hive/warehouse
+    hdfs dfs -chmod g+w /user/hive/warehouse
     init-hive-dfs.sh
     schematool -dbType derby -initSchema
     schematool -dbType derby -info
@@ -30,15 +32,17 @@ if [[ "$1" == *"hbase"* ]]; then
     nohup hbase master start 2>&1 | tee $HBASE_HOME/logs/hbase-master.log &
 fi
 
-hdfs dfsadmin -report
-
-jps
+if [[ "$1" == *"spark"* ]]; then
+    start-master.sh
+    start-workers.sh spark://localhost:7077
+fi
 
 
 mkdir $HIVE_HOME/logs
 nohup hive --service metastore 2>&1 | tee $HIVE_HOME/logs/metastore.log &
-sleep 2
+hdfs dfsadmin -report
 
 nohup hiveserver2 2>&1 | tee $HIVE_HOME/logs/hisveserver2.log &
-sleep 1
+jps
+
 tail -f $HIVE_HOME/logs/hisveserver2.log
