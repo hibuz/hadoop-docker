@@ -34,14 +34,4 @@ hdfs dfsadmin -report
 
 jps
 
-if [[ "$1" == *"hive"* ]]; then
-    cd $HIVE_HOME
-
-    if [ ! -d "$HIVE_HOME/metastore_db" ]; then
-        init-hive-dfs.sh
-        schematool -dbType derby -initSchema
-    fi
-    hiveserver2
-else
-    tail -f $SPARK_HOME/logs/*master*.out
-fi
+tail -f $SPARK_HOME/logs/*master*.out

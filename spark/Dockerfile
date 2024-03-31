@@ -1,5 +1,5 @@
 # == Info =======================================
-# hibuz/hive-dev(SIZE: 3.23GB) -> hibuz/spark-dev(SIZE: 3.89GB)
+# hibuz/hbase-dev(SIZE: 2.86GB) -> hibuz/spark-dev(SIZE: 3.53GB)
 
 # == Build ======================================
 # docker build -t hibuz/spark-dev .
@@ -13,7 +13,7 @@
 
 
 # == Init =======================================
-FROM hibuz/hive-dev
+FROM hibuz/hbase-dev
 
 # == Package Setting ============================
 RUN sudo apt-get update && sudo apt-get install -y \

@@ -13,8 +13,8 @@ services:
     ports:
       - 9870:9870
       - 8088:8088
-      - 16010:16010
       - 19888:19888
+      - 16010:16010
     #command: yarn,historyserver
     volumes:
       - hbase-vol:/tmp

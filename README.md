@@ -17,9 +17,9 @@ docker compose up hadoop-dev --no-build
   # hadoop
   ubuntu-docker/hadoop$ docker compose build hadoop-base
   ubuntu-docker/hadoop$ docker build -t hibuz/hadoop-dev .
-  # hbase|hive|spark
-  ubuntu-docker/hadoop/(hbase|hive|spark)$ docker compose up --build
-  # spark-base for zeppelin
+  # hbase|spark|hive|flink
+  ubuntu-docker/hadoop/(hbase|spark|hive|flink)$ docker compose up --build
+  # flink-base for zeppelin
   ubuntu-docker/hadoop/zeppelin$ docker compose build flink-base
   # zeppelin
   ubuntu-docker/hadoop/zeppelin$ docker compose up --build
