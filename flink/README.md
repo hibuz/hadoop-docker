@@ -12,9 +12,8 @@ docker compose up --no-build
 docker exec -it flink bash
 ```
 
-### Flink example
+### Run some of the examples provided:
 ``` bash
-
 # To deploy the example word count job to the running cluster, issue the following command:
 ~/flink-1.x.x$ flink run examples/streaming/WordCount.jar
 Executing example with default input data.
@@ -39,6 +38,76 @@ Job Runtime: 1302 ms
 (d,4)
 ```
 
+### Prepare csv data
+``` bash
+~/flink-x.y.z$ hdfs dfs -mkdir -p /user/hadoop/flink
+~/flink-x.y.z$ hdfs dfs -put $SPARK_HOME/examples/src/main/resources/people.csv flink
+```
+
+### Interactive Analysis with Flink SQL Client
+``` bash
+~/flink-x.y.z$ sql-client.sh
+    ______ _ _       _       _____  ____  _         _____ _ _            _  BETA   
+   |  ____| (_)     | |     / ____|/ __ \| |       / ____| (_)          | |  
+   | |__  | |_ _ __ | | __ | (___ | |  | | |      | |    | |_  ___ _ __ | |_ 
+   |  __| | | | '_ \| |/ /  \___ \| |  | | |      | |    | | |/ _ \ '_ \| __|
+   | |    | | | | | |   <   ____) | |__| | |____  | |____| | |  __/ | | | |_ 
+   |_|    |_|_|_| |_|_|\_\ |_____/ \___\_\______|  \_____|_|_|\___|_| |_|\__|
+          
+        Welcome! Enter 'HELP;' to list all available commands. 'QUIT;' to exit.
+
+Command history file path: /home/hadoop/.flink-sql-history
+
+# Create and use hive catalog
+Flink SQL> CREATE CATALOG myhive WITH (
+    'type' = 'hive',
+    'hive-conf-dir' = '/home/hadoop/hive-4.0.0/conf'
+);
+[INFO] Execute statement succeed.
+
+Flink SQL> USE CATALOG myhive;
+[INFO] Execute statement succeed.
+
+# Connecting To FileSystem(csv)
+Flink SQL> CREATE TABLE people (
+    name VARCHAR,
+    age INT,
+    job VARCHAR
+) WITH ( 
+    'connector' = 'filesystem',
+    'path' = 'hdfs://localhost:9000/user/hadoop/flink/people.csv',
+    'format' = 'csv',
+    'csv.field-delimiter' = ';',
+    'csv.ignore-parse-errors' = 'true'
+);
+[INFO] Execute statement succeed.
+
+Flink SQL> SELECT * from people WHERE age = 30;
+                  SQL Query Result (Table)                                                            
+ Table program finished.                                        Page: Last of 1
+                           name         age                            job
+                          Jorge          30                      Developer
+
+Flink SQL> exit;
+[INFO] Exiting Flink SQL CLI Client...
+
+Shutting down the session...
+done.
+```
+
+### Verify the table is also visible to Hive via Beeline CLI:
+``` bash
+# Connect to HiveServer2 with Beeline from shell:
+~/flink-x.y.z$ beeline -n hadoop -u jdbc:hive2://localhost:10000
+
+0: jdbc:hive2://localhost:10000> show tables;
++-----------+
+| tab_name  |
++-----------+
+| people    |
++-----------+
+```
+
 ### Stops containers and removes containers, networks, and volumes created by `up`.
 ``` bash
 
@@ -55,3 +124,5 @@ docker compose down -v
 
 # Reference
 - https://nightlies.apache.org/flink/flink-docs-stable/docs/try-flink/local_installation
+- https://nightlies.apache.org/flink/flink-docs-stable/docs/dev/table/sql/gettingstarted
+- https://nightlies.apache.org/flink/flink-docs-stable/docs/connectors/table/hive/overview

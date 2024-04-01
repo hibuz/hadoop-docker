@@ -32,12 +32,6 @@ if [[ "$1" == *"spark"* ]]; then
     start-workers.sh spark://localhost:7077
 fi
 
-./bin/start-cluster.sh
-
-hdfs dfsadmin -report
-
-jps
-
 if [[ "$1" == *"hive"* ]]; then
     cd $HIVE_HOME
 
@@ -45,7 +39,16 @@ if [[ "$1" == *"hive"* ]]; then
         init-hive-dfs.sh
         schematool -dbType derby -initSchema
     fi
-    hiveserver2
-else
-    tail -f $FLINK_HOME/log/flink-*-standalonesession-*.log
+    mkdir $HIVE_HOME/logs
+    nohup hive --service metastore 2>&1 | tee $HIVE_HOME/logs/metastore.log &
+    sleep 2
+    nohup hiveserver2 2>&1 | tee $HIVE_HOME/logs/hisveserver2.log &
 fi
+
+$FLINK_HOME/bin/start-cluster.sh
+
+hdfs dfsadmin -report
+
+jps
+
+tail -f $FLINK_HOME/log/flink-*-standalonesession-*.log

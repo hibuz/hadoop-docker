@@ -13,15 +13,16 @@ services:
     ports:
       - 9870:9870
       - 8088:8088
-      - 10002:10002
-      - 16010:16010
       - 19888:19888
+      - 16010:16010
       - 4040:4040
       - 8080:8080
       - 8081:8081
       - 18080:18080
+      - 9083:9083
+      - 10002:10002
       - 8083:8083
-    #command: spark,hive,hbase,yarn,historyserver
+    command: hive #hive,spark,hbase,yarn,historyserver
     volumes:
       - flink-vol:/tmp
 
