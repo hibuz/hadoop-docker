@@ -1,5 +1,5 @@
 # == Info =======================================
-# hibuz/flink-dev(SIZE: 4.43GB) -> hibuz/zeppelin-dev(SIZE: 6.91GB)
+# hibuz/flink-dev(SIZE: 4.69GB) -> hibuz/zeppelin-dev(SIZE: 7.18GB)
 
 # == Build ======================================
 # docker build -t hibuz/zeppelin-dev .
@@ -33,8 +33,6 @@ ENV ZEPPELIN_ADDR 0.0.0.0
 ENV ZEPPELIN_PORT 9995
 
 RUN cp $ZEPPELIN_HOME/conf/zeppelin-env.sh.template $ZEPPELIN_HOME/conf/zeppelin-env.sh \
-    #&& echo "export ZEPPELIN_HOME=$ZEPPELIN_HOME" >> ~/.bash_profile \
-    #&& echo "export PATH=\$PATH:\$ZEPPELIN_HOME/bin" >> ~/.bash_profile \
     && echo "export PYSPARK_PYTHON=/usr/bin/python" >> $ZEPPELIN_HOME/conf/zeppelin-env.sh \
     && cp $HIVE_HOME/jdbc/hive-jdbc-*.jar $ZEPPELIN_HOME/interpreter/jdbc
 

@@ -1,5 +1,5 @@
 # == Info =======================================
-# hibuz/bash==hibuz/hadoop-base(SIZE: 279MB) -> hibuz/zeppelin-dev(SIZE: 4.22GB)
+# hibuz/bash==hibuz/hadoop-base(SIZE: 279MB) -> hibuz/zeppelin-dev(SIZE: 4.3GB)
 
 # == Build ======================================
 # docker build -t hibuz/zeppelin-dev:simple -f Dockerfile.simple .
@@ -66,19 +66,21 @@ ENV ZEPPELIN_PORT 9995
 ENV USE_HADOOP false
 ENV DISABLE_JEMALLOC true
 
+# flink-connector-<NAME> which is a thin JAR including only the connector code, but excluding eventual third-party dependencies
+# flink-sql-connector-<NAME> which is an uber JAR ready to use with all the connector third-party dependencies
 RUN echo "export HADOOP_CLASSPATH=\$(\$HADOOP_HOME/bin/hadoop classpath)" >> $FLINK_HOME/bin/config.sh \
     && cd $FLINK_HOME/lib \
     && curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-table-api-java-bridge/${FLINK_VERSION}/flink-table-api-java-bridge-${FLINK_VERSION}.jar" \
     && curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-table-api-scala-bridge_2.12/${FLINK_VERSION}/flink-table-api-scala-bridge_2.12-${FLINK_VERSION}.jar" \
+    && curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-csv/${FLINK_VERSION}/flink-csv-${FLINK_VERSION}.jar" \
+    && curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-json/${FLINK_VERSION}/flink-json-${FLINK_VERSION}.jar" \
+    && curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-parquet/${FLINK_VERSION}/flink-parquet-${FLINK_VERSION}.jar" \
+    && curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-sql-connector-hive-3.1.3_2.12/${FLINK_VERSION}/flink-sql-connector-hive-3.1.3_2.12-${FLINK_VERSION}.jar" \
+    && curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-sql-connector-hbase-2.2/3.0.0-1.17/flink-sql-connector-hbase-2.2-3.0.0-1.17.jar" \
     #&& curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-sql-avro-confluent-registry/${FLINK_VERSION}/flink-sql-avro-confluent-registry-${FLINK_VERSION}.jar" \
-    #&& curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-csv/${FLINK_VERSION}/flink-csv-${FLINK_VERSION}.jar" \
-    #&& curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-json/${FLINK_VERSION}/flink-json-${FLINK_VERSION}.jar" \
-    #&& curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-parquet/${FLINK_VERSION}/flink-parquet-${FLINK_VERSION}.jar" \
-    #&& curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-sql-connector-hbase-2.2/3.0.0-1.17/flink-sql-connector-hbase-2.2-3.0.0-1.17.jar" \
-    #&& curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-sql-connector-hive-3.1.3_2.12/${FLINK_VERSION}/flink-sql-connector-hive-3.1.3_2.12-${FLINK_VERSION}.jar" \
     #&& curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-sql-connector-kafka/3.1.0-1.18/flink-sql-connector-kafka-3.1.0-1.18.jar" \
     #&& curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-sql-connector-elasticsearch7/3.0.1-1.17/flink-sql-connector-elasticsearch7-3.0.1-1.17.jar" \
-    #&& curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-sql-jdbc-driver-bundle/1.19.0/flink-sql-jdbc-driver-bundle-1.19.0.jar" \
+    #&& curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-sql-jdbc-driver-bundle/${FLINK_VERSION}/flink-sql-jdbc-driver-bundle-${FLINK_VERSION}.jar" \
     #&& curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-connector-jdbc/3.1.2-1.18/flink-connector-jdbc-3.1.2-1.18.jar" \
     #&& curl -O "https://repo1.maven.org/maven2/mysql/mysql-connector-java/8.0.30/mysql-connector-java-8.0.30.jar" \
     #&& curl -O "https://jdbc.postgresql.org/download/postgresql-42.7.3.jar" \

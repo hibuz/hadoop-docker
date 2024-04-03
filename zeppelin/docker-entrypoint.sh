@@ -27,6 +27,11 @@ if [[ "$1" == *"hbase"* ]]; then
     nohup hbase master start 2>&1 | tee $HBASE_HOME/logs/hbase-master.log &
 fi
 
+if [[ "$1" == *"spark"* ]]; then
+    start-master.sh
+    start-workers.sh spark://localhost:7077
+fi
+
 if [[ "$1" == *"hive"* ]]; then
     cd $HIVE_HOME
 
@@ -34,12 +39,8 @@ if [[ "$1" == *"hive"* ]]; then
         init-hive-dfs.sh
         schematool -dbType derby -initSchema
     fi
-    hiveserver2 &
-fi
-
-if [[ "$1" == *"spark"* ]]; then
-    start-master.sh
-    start-workers.sh spark://localhost:7077
+    mkdir $HIVE_HOME/logs
+    nohup hiveserver2 --hiveconf hive.metastore.uris=' ' 2>&1 | tee $HIVE_HOME/logs/hisveserver2.log &
 fi
 
 if [[ "$1" == *"flink"* ]]; then
