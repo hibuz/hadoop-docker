@@ -86,6 +86,43 @@ pip install matplotlib seaborn bokeh plotnine holoviews hvplot altair vega_datas
 
 - Flink Tutorial
   1. Flink Basics
+  2. Three Essential Steps for Building Flink Job
+    - PyFlink Table Api : AttributeError: 'str' object has no attribute '_j_expr'
+    - Scala Table Api : error: type mismatch;
+    - Flink Sql : org.apache.flink.table.api.TableException: findAndCreateTableSource failed.
+    - Query mysql : Interpreter mysql not found
+  3. Flink Job Control Tutorial
+    - Register Data Source : error: type mismatch;
+    - Resume flink sql job without savepoint : SQL validation failed. From line 1, column 32 to line 1, column 34: Object 'log' not found
+  4. Streaming ETL
+    - Transform the data in source table and write it to sink table : findAndCreateTableSource failed.
+  5. Streaming Data Analytics
+    - error: type mismatch;, Object 'log' not found
+  6. Batch ETL
+    - Display table via z.show in PyFlink : NameError: name 'bt_env' is not defined
+  7. Batch Data Analytics
+    - Python UDF : name 'bt_env' is not defined
+    - Use python udf in sql : 
+org.apache.flink.table.api.ValidationException: SQL validation failed. From line 1, column 8 to line 1, column 30: No match found for function signature python_upper(<CHARACTER>)
+  8. Logistic Regression (Alink)
+    - ModuleNotFoundError: No module named 'pyflink.dataset'
+    - NameError: name 'OneHotEncoder' is not defined
+    - NameError: name 'LogisticRegression' is not defined
+    - NameError: name 'metrics' is not defined
+    - NameError: name 'predict' is not defined
+
+- Python Tutorial
+  1. IPython Basic
+  2. IPython Visualization Tutorial
+    - Seaborn > The `size` parameter has been renamed to `height`! 
+    - HvPlot > !pip install intake intake_parquet intake_xarray s3fs
+  3. Keras Binary Classification (IMDB)
+    - !pip install keras==2.15.0 tensorflow==2.15.0
+
+- Spark Tutorial  
+  2. Spark Basic Features
+  3. Spark SQL (PySpark), Spark SQL (Scala)
+  4. Spark MlLib
 
 ### Stops containers and removes containers, networks, and volumes created by `up`.
 ``` bash
