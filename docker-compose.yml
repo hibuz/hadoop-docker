@@ -4,7 +4,6 @@
 # docker compose exec hadoop-dev bash
 # or
 # docker exec -it hadoop bash
-version: "3.9"
 services:
 
   hadoop-base:
@@ -12,7 +11,7 @@ services:
     build:
       context: ../
       args:
-        DEFAULT_USER: ${DEFAULT_USER:-hadoop}
+        DEFAULT_USER: hadoop
 
   hadoop-dev:
     container_name: hadoop

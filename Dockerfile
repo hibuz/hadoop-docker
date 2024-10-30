@@ -1,5 +1,5 @@
 # == Info =======================================
-# hibuz/bash==hibuz/hadoop-base(SIZE: 279MB) -> hibuz/hadoop-dev(SIZE: 2.46GB)
+# hibuz/bash==hibuz/hadoop-base(SIZE: 262MB) -> hibuz/hadoop-dev(SIZE: 2.3GB)
 
 # == Build ======================================
 # docker build -t hibuz/hadoop-dev .
@@ -14,18 +14,19 @@
 
 # == Init =======================================
 FROM hibuz/hadoop-base
+LABEL org.opencontainers.image.authors="hibuz@hibuz.com"
 
 # == Package Setting ============================
-ARG JDK_VERSION=${JDK_VERSION:-8}
-RUN sudo apt-get update && DEBIAN_FRONTEND=noninteractive sudo apt-get install -y --no-install-recommends \
-      openjdk-${JDK_VERSION}-jdk \
-      ssh \
-      netcat \
-      libsnappy-dev \
+ARG JDK_VERSION=11
+RUN sudo apt update && DEBIAN_FRONTEND=noninteractive sudo apt install -y --no-install-recommends \
+    openjdk-${JDK_VERSION}-jdk-headless \
+    ssh \
+    netcat-openbsd \
+    libsnappy-dev \
     && sudo rm -rf /var/lib/apt/lists/*
 
 # == Install ============================
-ARG HADOOP_VERSION=${HADOOP_VERSION:-3.4.0}
+ARG HADOOP_VERSION=3.4.1
 RUN set -x \
     && DOWNLOAD_URL="https://archive.apache.org/dist/hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz" \
     && curl -fSL "$DOWNLOAD_URL" -o download.tar.gz \
@@ -33,11 +34,11 @@ RUN set -x \
     && rm download.tar.gz
 
 # == Env Setting ============================
-ENV JAVA_HOME /usr/lib/jvm/java-${JDK_VERSION}-openjdk-amd64
-ENV HADOOP_HOME /home/${DEFAULT_USER}/hadoop-${HADOOP_VERSION}
-ENV HADOOP_CONF_DIR $HADOOP_HOME/etc/hadoop
-ENV PATH $PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
-ENV LD_LIBRARY_PATH $HADOOP_HOME/lib/native
+ENV JAVA_HOME=/usr/lib/jvm/java-${JDK_VERSION}-openjdk-amd64
+ENV HADOOP_HOME=/home/${DEFAULT_USER}/hadoop-${HADOOP_VERSION}
+ENV HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
+ENV PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
+ENV LD_LIBRARY_PATH=$HADOOP_HOME/lib/native
 
 RUN echo "export HADOOP_HOME=$HADOOP_HOME" >> ~/.bashrc \
     && echo "export HADOOP_CLASSPATH=\$(\$HADOOP_HOME/bin/hadoop classpath)" >> ~/.bashrc \
@@ -62,7 +63,9 @@ RUN core_conf="<property><name>fs.defaultFS</name><value>hdfs://localhost:9000</
     && sed -i "/<\/configuration>/ s/.*/${escaped_mapred_conf}&/" $HADOOP_CONF_DIR/mapred-site.xml \
     && sed -i "/<\/configuration>/ s/.*/${escaped_yarn_conf}&/" $HADOOP_CONF_DIR/yarn-site.xml
 
-RUN ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa && cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys && chmod 0600 ~/.ssh/authorized_keys
+RUN ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa \
+    && cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys \
+    && chmod 0600 ~/.ssh/authorized_keys
 COPY ssh_config .ssh/config
 
 
