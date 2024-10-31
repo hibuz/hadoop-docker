@@ -1,8 +1,8 @@
 # Quick usage for hbase-dev docker image
 - Docker build and run
 ``` bash
-git clone https://github.com/hibuz/ubuntu-docker
-cd ubuntu-docker/hadoop/hbase
+git clone https://github.com/hibuz/hadoop-docker
+cd hadoop-docker/hbase
 
 docker compose up --no-build
 ```
@@ -76,16 +76,18 @@ hbase:006:0> exit
 ### HBase, MapReduce
 ``` bash
 # hbase rowcounter test or
-~/hbase-x.y.z$ hadoop jar $HBASE_HOME/lib/hbase-mapreduce-2.5.8-hadoop3.jar rowcounter test
+~/hbase-x.y.z$ hadoop jar $HBASE_HOME/lib/hbase-mapreduce-2.6.1-hadoop3.jar rowcounter test
 
 ...
 2022-02-26 11:38:51,306 INFO mapreduce.Job: Job job_local756224404_0001 running in uber mode : false
 2022-02-26 11:38:51,310 INFO mapreduce.Job:  map 100% reduce 0%
 2022-02-26 11:38:51,317 INFO mapreduce.Job: Job job_local756224404_0001 completed successfully
-2022-02-26 11:38:51,343 INFO mapreduce.Job: Counters: 33
+2022-02-26 11:38:51,343 INFO mapreduce.Job: Counters: 47
 ...
-
 ```
+
+# Visit hbase dashboard
+- Master Info: http://localhost:16010
 
 ### Stops containers and removes containers, networks, and volumes created by `up`.
 ``` bash
@@ -97,9 +99,6 @@ docker compose down -v
  ✔ Volume hbase_hbase-vol  Removed
  ✔ Network hbase_default   Removed
 ```
-
-# Visit hbase dashboard
-- Master Info: http://localhost:16010
 
 # Reference
 - https://hbase.apache.org/book.html#_get_started_with_hbase

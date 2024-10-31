@@ -3,7 +3,6 @@
 # docker compose exec hbase-dev bash
 # or
 # docker exec -it hbase bash
-version: "3.9"
 services:
 
   hbase-dev:
@@ -18,7 +17,7 @@ services:
     #command: yarn,historyserver
     volumes:
       - hbase-vol:/tmp
-      #- ../../../hbase-example:/home/hadoop/hbase-example:rw
+      #- ../../hbase-example:/home/hadoop/hbase-example:rw
 
 volumes:
   hbase-vol: {}
