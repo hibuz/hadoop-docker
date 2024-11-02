@@ -1,8 +1,8 @@
 # Quick usage for spark-dev docker image
 - Docker build and run
 ``` bash
-git clone https://github.com/hibuz/ubuntu-docker
-cd ubuntu-docker/hadoop/spark
+git clone https://github.com/hibuz/hadoop-docker
+cd hadoop-docker/spark
 
 docker compose up --no-build
 ```
@@ -98,6 +98,13 @@ hdfs dfs -cat output2/* |grep PySpark
 [![PySpark      1
 ```
 
+# Visit spark dashboards
+- Master Web UI: http://localhost:8080
+- Worker Web UI: http://localhost:8081
+- Spark History Server: http://localhost:18080
+- Spark Jobs: http://localhost:4040
+![Spark Jobs](.assets/spark_jobs.jpg)
+
 ### Stops containers and removes containers, networks, and volumes created by `up`.
 ``` bash
 
@@ -108,14 +115,6 @@ docker compose down -v
  ✔ Volume spark_spark-vol  Removed
  ✔ Network spark_default   Removed
 ```
-
-# Visit spark dashboards
-
-- Master Web UI: http://localhost:8080
-- Worker Web UI: http://localhost:8081
-- Spark History Server: http://localhost:18080
-- Spark Jobs: http://localhost:4040
-![Spark Jobs](.assets/spark_jobs.jpg)
 
 # Reference
 - https://spark.apache.org/docs/latest/quick-start.html

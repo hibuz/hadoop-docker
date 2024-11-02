@@ -1,5 +1,5 @@
 # == Info =======================================
-# hibuz/hbase-dev(SIZE: 2.86GB) -> hibuz/spark-dev(SIZE: 3.53GB)
+# hibuz/hbase-dev(SIZE: 2.74GB) -> hibuz/spark-dev(SIZE: 3.65GB)
 
 # == Build ======================================
 # docker build -t hibuz/spark-dev .
@@ -14,15 +14,20 @@
 
 # == Init =======================================
 FROM hibuz/hbase-dev
-
-# == Package Setting ============================
-RUN sudo apt-get update && sudo apt-get install -y \
-    python3 python3-pip \
-    && sudo rm -rf /var/lib/apt/lists/*
+LABEL org.opencontainers.image.authors="hibuz@hibuz.com"
 
 # == Install ============================
-ARG SPARK_VERSION=${SPARK_VERSION:-3.5.1}
-ENV SPARK_HOME /home/${DEFAULT_USER}/spark-${SPARK_VERSION}
+ARG MINICONDA_VERSION=py310_24.9.2-0
+ENV CONDA_HOME=/opt/conda
+
+RUN set -x \
+    && DOWNLOAD_URL="https://repo.anaconda.com/miniconda/Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh" \
+    && curl -fSL "$DOWNLOAD_URL" -o miniconda.sh \
+    && sudo bash miniconda.sh -b -p ${CONDA_HOME} \
+    && rm miniconda.sh
+
+ARG SPARK_VERSION=3.5.3
+ENV SPARK_HOME=/home/${DEFAULT_USER}/spark-${SPARK_VERSION}
 
 RUN set -x \
     && DOWNLOAD_URL="https://archive.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-without-hadoop.tgz" \
@@ -33,13 +38,11 @@ RUN set -x \
     && rm download.tar.gz
 
 # == Env Setting ============================
-ENV PATH $PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin
+ENV PATH=$PATH:$CONDA_HOME/bin:$SPARK_HOME/bin:$SPARK_HOME/sbin
 
 RUN cp $SPARK_HOME/conf/spark-env.sh.template $SPARK_HOME/conf/spark-env.sh \
     && echo "export HADOOP_HOME=$HADOOP_HOME" >> $SPARK_HOME/conf/spark-env.sh \
-    && echo "export SPARK_DIST_CLASSPATH=\$(\$HADOOP_HOME/bin/hadoop classpath)" >> $SPARK_HOME/conf/spark-env.sh \
-    && sudo ln -s /usr/bin/python3 /usr/bin/python \
-    && python -m pip install --upgrade pip
+    && echo "export SPARK_DIST_CLASSPATH=\$(\$HADOOP_HOME/bin/hadoop classpath)" >> $SPARK_HOME/conf/spark-env.sh
 
 
 COPY docker-entrypoint.sh /
