@@ -1,8 +1,8 @@
 # Quick usage for hive-dev docker image
 - Docker build and run
 ``` bash
-git clone https://github.com/hibuz/ubuntu-docker
-cd ubuntu-docker/hadoop/hive
+git clone https://github.com/hibuz/hadoop-docker
+cd hadoop-docker/hive
 
 docker compose up --no-build
 
@@ -72,6 +72,9 @@ Transaction isolation: TRANSACTION_REPEATABLE_READ
 Closing: 0: jdbc:hive2://localhost:10000
 ```
 
+# Visit hive dashboard
+- http://localhost:10002
+
 ### Stops containers and removes containers, networks, and volumes created by `up`.
 ``` bash
 
@@ -82,9 +85,6 @@ docker compose down -v
  ✔ Volume hive_hive-vol  Removed
  ✔ Network hive_default  Removed
 ```
-
-# Visit hive dashboard
-- http://localhost:10002
 
 # Reference
 - https://cwiki.apache.org/confluence/display/Hive/GettingStarted

@@ -3,7 +3,6 @@
 # docker compose exec hive-dev bash
 # or
 # docker exec -it hive bash
-version: "3.9"
 services:
 
   hive-dev:
