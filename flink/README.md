@@ -1,8 +1,8 @@
 # Quick usage for flink-dev docker image
 - Docker build and run
 ``` bash
-git clone https://github.com/hibuz/ubuntu-docker
-cd ubuntu-docker/hadoop/flink
+git clone https://github.com/hibuz/hadoop-docker
+cd hadoop-docker/flink
 
 docker compose up --no-build
 ```
@@ -61,7 +61,7 @@ Command history file path: /home/hadoop/.flink-sql-history
 # Create and use hive catalog
 Flink SQL> CREATE CATALOG myhive WITH (
     'type' = 'hive',
-    'hive-conf-dir' = '/home/hadoop/hive-4.0.0/conf'
+    'hive-conf-dir' = '/home/hadoop/hive-4.0.1/conf'
 );
 [INFO] Execute statement succeed.
 
@@ -106,7 +106,14 @@ done.
 +-----------+
 | people    |
 +-----------+
+1 rows selected (0.481 seconds)
+
+0: jdbc:hive2://localhost:10000> !q
+Closing: 0: jdbc:hive2://localhost:10000
 ```
+
+#  Visit flink dashboard
+- http://localhost:8083
 
 ### Stops containers and removes containers, networks, and volumes created by `up`.
 ``` bash
@@ -118,9 +125,6 @@ docker compose down -v
  ✔ Volume flink_flink-vol  Removed
  ✔ Network flink_default   Removed
 ```
-
-#  Visit flink dashboard
-- http://localhost:8083
 
 # Reference
 - https://nightlies.apache.org/flink/flink-docs-stable/docs/try-flink/local_installation

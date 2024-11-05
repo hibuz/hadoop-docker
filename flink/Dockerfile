@@ -1,5 +1,5 @@
 # == Info =======================================
-# hibuz/hive-dev(SIZE: 4.05GB) -> hibuz/flink-dev(SIZE: 4.69GB)
+# hibuz/hive-dev(SIZE: 4.12GB) -> hibuz/flink-dev(SIZE: 4.76GB)
 
 # == Build ======================================
 # docker build -t hibuz/flink-dev .
@@ -14,10 +14,11 @@
 
 # == Init =======================================
 FROM hibuz/hive-dev
+LABEL org.opencontainers.image.authors="hibuz@hibuz.com"
 
 # == Install ============================
-ARG FLINK_VERSION=${FLINK_VERSION:-1.19.0}
-ENV FLINK_HOME /home/${DEFAULT_USER}/flink-${FLINK_VERSION}
+ARG FLINK_VERSION=1.20.0
+ENV FLINK_HOME=/home/${DEFAULT_USER}/flink-${FLINK_VERSION}
 
 RUN set -x \
     && DOWNLOAD_URL="https://archive.apache.org/dist/flink/flink-${FLINK_VERSION}/flink-${FLINK_VERSION}-bin-scala_2.12.tgz" \
@@ -27,7 +28,7 @@ RUN set -x \
     && rm download.tar.gz
 
 # == Env Setting ============================
-ENV PATH $PATH:$FLINK_HOME/bin
+ENV PATH=$PATH:$FLINK_HOME/bin
 
 RUN echo "export HADOOP_CLASSPATH=\$(\$HADOOP_HOME/bin/hadoop classpath)" >> $FLINK_HOME/bin/config.sh \
     && cd $FLINK_HOME/lib \
