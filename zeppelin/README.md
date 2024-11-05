@@ -1,8 +1,8 @@
 # Quick usage for zeppelin-dev docker image
 - Docker build and run
 ``` bash
-git clone https://github.com/hibuz/ubuntu-docker
-cd ubuntu-docker/hadoop/zeppelin
+git clone https://github.com/hibuz/hadoop-docker
+cd hadoop-docker/zeppelin
 
 docker compose up --no-build
 ```
@@ -78,18 +78,18 @@ wordCounts.show()
 ```python
 %sh
 
-## Installation
-sudo apt update & sudo apt install wget unzip
+## Pre-requisites for Tutorials
+sudo apt update && sudo apt install wget unzip
 
 pip install matplotlib seaborn bokeh plotnine holoviews hvplot altair vega_datasets plotly
 ```
 
-- Flink Tutorial
+- Flink Tutorial (known issues)
   1. Flink Basics
   2. Three Essential Steps for Building Flink Job
     - PyFlink Table Api : AttributeError: 'str' object has no attribute '_j_expr'
     - Scala Table Api : error: type mismatch;
-    - Flink Sql : org.apache.flink.table.api.TableException: findAndCreateTableSource failed.
+    - Flink Sql : TableException: Cannot find table '`default_catalog`...
     - Query mysql : Interpreter mysql not found
   3. Flink Job Control Tutorial
     - Register Data Source : error: type mismatch;
@@ -102,8 +102,7 @@ pip install matplotlib seaborn bokeh plotnine holoviews hvplot altair vega_datas
     - Display table via z.show in PyFlink : NameError: name 'bt_env' is not defined
   7. Batch Data Analytics
     - Python UDF : name 'bt_env' is not defined
-    - Use python udf in sql : 
-org.apache.flink.table.api.ValidationException: SQL validation failed. From line 1, column 8 to line 1, column 30: No match found for function signature python_upper(<CHARACTER>)
+    - Use python udf in sql : ValidationException: SQL validation failed. From line 1, column 8 to line 1, column 30: No match found for function signature python_upper(<CHARACTER>)
   8. Logistic Regression (Alink)
     - ModuleNotFoundError: No module named 'pyflink.dataset'
     - NameError: name 'OneHotEncoder' is not defined
@@ -124,6 +123,12 @@ org.apache.flink.table.api.ValidationException: SQL validation failed. From line
   3. Spark SQL (PySpark), Spark SQL (Scala)
   4. Spark MlLib
 
+# Visit zeppelin dashboards
+- Zeppelin Tutorials: http://localhost:9995
+- Spark Jobs (Optional) : http://localhost:4040
+- Flink Dashboard (Optional) : http://localhost:8083
+![Zeppelin Tutorials](.assets/zeppelin_dev.jpg)
+
 ### Stops containers and removes containers, networks, and volumes created by `up`.
 ``` bash
 docker compose down -v
@@ -134,10 +139,3 @@ docker compose down -v
  ✔ Volume zeppelin_zeppelin-vol     Removed
  ✔ Network zeppelin_default         Removed
 ```
-
-# Visit zeppelin dashboards
-
-- Zeppelin Tutorials: http://localhost:9995
-- Spark Jobs (Optional) : http://localhost:4040
-- Flink Dashboard (Optional) : http://localhost:8083
-![Zeppelin Tutorials](.assets/zeppelin_dev.jpg)

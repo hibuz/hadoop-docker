@@ -4,7 +4,6 @@
 # docker compose exec zeppelin-dev bash
 # or
 # docker exec -it zeppelin bash
-version: "3.9"
 services:
 
   flink-base:
