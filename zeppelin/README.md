@@ -113,7 +113,7 @@ pip install matplotlib seaborn bokeh plotnine holoviews hvplot altair vega_datas
 - Python Tutorial
   1. IPython Basic
   2. IPython Visualization Tutorial
-    - Seaborn > The `size` parameter has been renamed to `height`! 
+    - Seaborn > remove size : lmplot() got an unexpected keyword argument 'size'
     - HvPlot > !pip install intake intake_parquet intake_xarray s3fs
   3. Keras Binary Classification (IMDB)
     - !pip install keras==2.15.0 tensorflow==2.15.0

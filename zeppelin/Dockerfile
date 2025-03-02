@@ -1,5 +1,5 @@
 # == Info =======================================
-# hibuz/flink-dev(SIZE: 4.76GB) -> hibuz/zeppelin-dev(SIZE: 7.16GB)
+# hibuz/flink-dev(SIZE: 8.11GB) -> hibuz/zeppelin-dev(SIZE: 12.3GB)
 
 # == Build ======================================
 # docker build -t hibuz/zeppelin-dev .
@@ -18,7 +18,7 @@ FROM hibuz/flink-dev:${FLINK_VERSION}
 LABEL org.opencontainers.image.authors="hibuz@hibuz.com"
 
 # == Install ============================
-ARG ZEPPELIN_VERSION=0.11.2
+ARG ZEPPELIN_VERSION=0.12.0
 ENV ZEPPELIN_HOME=/home/${DEFAULT_USER}/zeppelin-${ZEPPELIN_VERSION}
 
 RUN set -x \

@@ -53,4 +53,4 @@ hdfs dfsadmin -report
 
 jps
 
-tail -f $ZEPPELIN_HOME/logs/zeppelin--*.log
+tail -f $ZEPPELIN_HOME/logs/zeppelin-*.log
