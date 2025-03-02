@@ -9,7 +9,7 @@ services:
   hadoop-base:
     image: hibuz/hadoop-base
     build:
-      context: ../
+      context: ../ubuntu-docker
       args:
         DEFAULT_USER: hadoop
 

@@ -1,5 +1,5 @@
 # == Info =======================================
-# hibuz/bash==hibuz/hadoop-base(SIZE: 262MB) -> hibuz/hadoop-dev(SIZE: 2.3GB)
+# hibuz/bash==hibuz/hadoop-base(SIZE: 427MB) -> hibuz/hadoop-dev(SIZE: 3.65GB)
 
 # == Build ======================================
 # docker build -t hibuz/hadoop-dev .
@@ -13,7 +13,7 @@
 
 
 # == Init =======================================
-FROM hibuz/hadoop-base
+FROM hibuz/hadoop-base:24.04
 LABEL org.opencontainers.image.authors="hibuz@hibuz.com"
 
 # == Package Setting ============================
