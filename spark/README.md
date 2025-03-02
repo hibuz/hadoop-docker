@@ -35,7 +35,7 @@ Welcome to
    /___/ .__/\_,_/_/ /_/\_\   version 3.x.x
       /_/
          
-Using Scala version 2.12.18 (OpenJDK 64-Bit Server VM, Java 1.8.0_392)
+Using Scala version 2.12.18 (OpenJDK 64-Bit Server VM, Java 11.0.26)
 Type in expressions to have them evaluated.
 Type :help for more information.
 
@@ -63,7 +63,7 @@ Welcome to
    /__ / .__/\_,_/_/ /_/\_\   version 3.x.x
       /_/
 
-Using Python version 3.10.12 (main, Nov 20 2023 15:14:05)
+Using Python version 3.10.16 (main, Dec 11 2024 16:24:50)
 Spark context Web UI available at http://74285e639cf8:4040
 Spark context available as 'sc' (master = local[*], app id = local-1645883920521).
 SparkSession available as 'spark'.
