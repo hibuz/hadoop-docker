@@ -1,5 +1,5 @@
 # == Info =======================================
-# hibuz/hive-dev(SIZE: 4.12GB) -> hibuz/flink-dev(SIZE: 4.76GB)
+# hibuz/hive-dev(SIZE: 6.93GB) -> hibuz/flink-dev(SIZE: 8.17GB)
 
 # == Build ======================================
 # docker build -t hibuz/flink-dev .
@@ -17,7 +17,7 @@ FROM hibuz/hive-dev
 LABEL org.opencontainers.image.authors="hibuz@hibuz.com"
 
 # == Install ============================
-ARG FLINK_VERSION=1.20.0
+ARG FLINK_VERSION=1.20.1
 ENV FLINK_HOME=/home/${DEFAULT_USER}/flink-${FLINK_VERSION}
 
 RUN set -x \
