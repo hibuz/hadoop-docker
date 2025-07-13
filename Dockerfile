@@ -64,10 +64,11 @@ RUN core_conf="<property><name>fs.defaultFS</name><value>hdfs://localhost:9000</
     && sed -i "/<\/configuration>/ s/.*/${escaped_yarn_conf}&/" $HADOOP_CONF_DIR/yarn-site.xml
 
 RUN ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa \
-    && cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys \
-    && chmod 0600 ~/.ssh/authorized_keys
+    && cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+
 COPY ssh_config .ssh/config
 
+RUN sudo chmod 0600 ~/.ssh/*
 
 COPY docker-entrypoint.sh /
 
