@@ -17,7 +17,7 @@ FROM hibuz/hadoop-base
 LABEL org.opencontainers.image.authors="hibuz@hibuz.com"
 
 # == Package Setting ============================
-ARG JDK_VERSION=21
+ARG JDK_VERSION=11
 RUN sudo apt update && DEBIAN_FRONTEND=noninteractive sudo apt install -y --no-install-recommends \
   openjdk-${JDK_VERSION}-jdk-headless \
   tini \
@@ -29,7 +29,7 @@ RUN sudo apt update && DEBIAN_FRONTEND=noninteractive sudo apt install -y --no-i
   && sudo apt clean
 
 # == Install ============================
-ARG SPARK_VERSION=4.0.0
+ARG SPARK_VERSION=3.5.6
 ENV SPARK_HOME=/home/${DEFAULT_USER}/spark-${SPARK_VERSION}
 
 RUN set -x \
@@ -50,7 +50,7 @@ RUN set -x \
     && mv zeppelin-${ZEPPELIN_VERSION}-bin-all $ZEPPELIN_HOME \
     && rm download.tar.gz
 
-ARG FLINK_VERSION=2.0.0
+ARG FLINK_VERSION=1.17.2
 ENV FLINK_HOME=/home/${DEFAULT_USER}/flink-${FLINK_VERSION}
 
 RUN set -x \
@@ -59,7 +59,7 @@ RUN set -x \
     && tar -xvf download.tar.gz \
     && rm download.tar.gz
 
-ARG MINICONDA_VERSION=py311_25.5.1-0
+ARG MINICONDA_VERSION=py310_25.5.1-0
 ENV CONDA_HOME=/opt/conda
 
 RUN set -x \
@@ -88,8 +88,8 @@ RUN echo "export HADOOP_CLASSPATH=\$(\$HADOOP_HOME/bin/hadoop classpath)" >> $FL
     && curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-sql-connector-hive-3.1.3_2.12/${FLINK_VERSION}/flink-sql-connector-hive-3.1.3_2.12-${FLINK_VERSION}.jar" \
     && curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-sql-connector-hbase-2.2/4.0.0-1.19/flink-sql-connector-hbase-2.2-4.0.0-1.19.jar" \
     && cp ../opt/flink-sql-*.jar ../opt/flink-python-*.jar ./ 
-
-RUN pip install jupyter grpcio protobuf pandas apache-flink==${FLINK_VERSION}
+    
+RUN pip install jupyter grpcio protobuf==3.19.6 pandas apache-flink==${FLINK_VERSION}
 
 COPY docker-entrypoint.sh /
 

@@ -81,7 +81,7 @@ wordCounts.show()
 ## Pre-requisites for Tutorials
 sudo apt update && sudo apt install wget unzip
 
-pip install matplotlib seaborn bokeh plotnine holoviews hvplot altair vega_datasets plotly
+pip install matplotlib seaborn bokeh==2.4.3 pyarrow==11.0.0 plotnine holoviews hvplot altair vega_datasets plotly
 ```
 
 - Flink Tutorial (known issues)
@@ -118,10 +118,12 @@ pip install matplotlib seaborn bokeh plotnine holoviews hvplot altair vega_datas
   3. Keras Binary Classification (IMDB)
     - !pip install keras==2.15.0 tensorflow==2.15.0
 
-- Spark Tutorial  
+- Spark Tutorial
+  Set th spark interpreters > zeppelin.spark.enableSupportedVersionCheck > false (spark >= 4.0.0)
   2. Spark Basic Features
   3. Spark SQL (PySpark), Spark SQL (Scala)
   4. Spark MlLib
+  8. PySpark Conda Env in Yarn Mode
 
 # Visit zeppelin dashboards
 - Zeppelin Tutorials: http://localhost:9995
