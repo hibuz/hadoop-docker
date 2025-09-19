@@ -1,5 +1,5 @@
 # == Info =======================================
-# hibuz/spark-dev(SIZE: 6.06GB) -> hibuz/hive-dev(SIZE: 6.93GB)
+# hibuz/spark-dev(SIZE: 3.22GB) -> hibuz/hive-dev(SIZE: 3.68GB)
 
 # == Build ======================================
 # docker build -t hibuz/hive-dev .
@@ -21,7 +21,7 @@ ARG HIVE_VERSION=4.0.1
 ENV HIVE_HOME=/home/${DEFAULT_USER}/hive-${HIVE_VERSION}
 
 RUN set -x \
-    && DOWNLOAD_URL="https://archive.apache.org/dist/hive/hive-${HIVE_VERSION}/apache-hive-${HIVE_VERSION}-bin.tar.gz" \
+    && DOWNLOAD_URL="https://dlcdn.apache.org/hive/hive-${HIVE_VERSION}/apache-hive-${HIVE_VERSION}-bin.tar.gz" \
     && curl -fSL "$DOWNLOAD_URL" -o download.tar.gz \
     && tar -xvf download.tar.gz \
     && mv apache-hive-${HIVE_VERSION}-bin $HIVE_HOME \

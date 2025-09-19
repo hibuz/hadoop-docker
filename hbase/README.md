@@ -76,7 +76,7 @@ hbase:006:0> exit
 ### HBase, MapReduce
 ``` bash
 # hbase rowcounter test or
-~/hbase-x.y.z$ hadoop jar $HBASE_HOME/lib/hbase-mapreduce-2.6.2-hadoop3.jar rowcounter test
+~/hbase-x.y.z$ hadoop jar $HBASE_HOME/lib/hbase-mapreduce-2.6.3-hadoop3.jar rowcounter test
 
 ...
 2022-02-26 11:38:51,306 INFO mapreduce.Job: Job job_local756224404_0001 running in uber mode : false

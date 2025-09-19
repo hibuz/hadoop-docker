@@ -3,14 +3,14 @@
 | App        | Version        | Date         | Size   |
 | --------   | -------------- | ------------ | ------ |
 | Ubuntu     | 24.04.1 LTS    | `2024-08-20` | 117MB  |
-| Hadoop     | 3.4.1          | `2024-10-18` | 3.65GB |
-| Hbase      | 2.6.2          | `2025-02-20` | 4.44GB |
-| Spark      | 3.5.5          | `2025-02-27` | 6.06GB |
-| Hive       | 4.0.1          | `2024-10-02` | 6.93GB |
-| Flink      | 1.20.1         | `2025-02-11` | 8.17GB |
-| Zeppelin   | 0.12.0         | `2025-01-31` | 12.3GB |
-| Java       | 11.0.26        | `2025-01-21` | 487M   |
-| Miniconda3 | py310_25.1.1-2 | `2025-02-11` | 137.4M |
+| Hadoop     | 3.4.2          | `2025-08-28` | 1.8GB  |
+| Hbase      | 2.6.3          | `2025-07-15` | 2.25GB |
+| Spark      | 3.5.6          | `2025-05-23` | 3.22GB |
+| Hive       | 4.0.1          | `2024-10-02` | 3.68GB |
+| Flink      | 1.20.2         | `2025-06-13` | 4.33GB |
+| Zeppelin   | 0.12.0         | `2025-01-31` | 6.61GB |
+| Java       | 11.0.28        | `2025-07-15` | -      |
+| Miniconda3 | py310_25.7.0-2 | `2025-08-25` | 139.9M |
 
 # Quick usage for hadoop-dev docker image
 - Docker build and run
@@ -23,7 +23,7 @@
 
 ## Docker build & run for custom hadoop user and version
 - see [Dockerfile](Dockerfile)
-  <details><summary>Hadoop Build Order</summary>
+  <details><summary>Hadoop Docker Build & Push Order</summary>
 
   ``` bash
   # hadoop
@@ -34,6 +34,11 @@
   hadoop-docker/zeppelin$ docker compose build flink-base
   # zeppelin
   hadoop-docker/zeppelin$ docker compose up --build
+
+
+  # docker taagging & push
+  docker tag hibuz/hadoop-dev hibuz/hadoop-dev:3.x.x
+  docker push hibuz/hadoop-dev:3.x.x
   ```
   </details>
 
@@ -90,3 +95,10 @@ docker compose down -v
 - [Execute MapReduce jobs](https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/SingleCluster.html#Execution)
 - https://github.com/rancavil/hadoop-single-node-cluster
 - https://github.com/big-data-europe/docker-hadoop
+
+# TODOs
+```
+Hive 4.1.0 error
+
+ Exception in thread "main" java.lang.UnsupportedClassVersionError: org/apache/hive/service/server/HiveServer2 has been compiled by a more recent version of the Java Runtime (class file version 61.0), this version of the Java Runtime only recognizes class file versions up to 55.0
+```

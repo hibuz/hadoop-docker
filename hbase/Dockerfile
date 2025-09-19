@@ -1,5 +1,5 @@
 # == Info =======================================
-# hibuz/hadoop-dev(SIZE: 3.65GB) -> hibuz/hbase-dev(SIZE: 2.74GB)
+# hibuz/hadoop-dev(SIZE: 1.8GB) -> hibuz/hbase-dev(SIZE: 2.25GB)
 
 # == Build ======================================
 # docker build -t hibuz/hbase-dev .
@@ -17,11 +17,11 @@ FROM hibuz/hadoop-dev
 LABEL org.opencontainers.image.authors="hibuz@hibuz.com"
 
 # == Install ============================
-ARG HBASE_VERSION=2.6.2
+ARG HBASE_VERSION=2.6.3
 ENV HBASE_HOME=/home/${DEFAULT_USER}/hbase-${HBASE_VERSION}
 
 RUN set -x \
-    && DOWNLOAD_URL="https://archive.apache.org/dist/hbase/${HBASE_VERSION}/hbase-${HBASE_VERSION}-hadoop3-client-bin.tar.gz" \
+    && DOWNLOAD_URL="https://dlcdn.apache.org/hbase/${HBASE_VERSION}/hbase-${HBASE_VERSION}-hadoop3-client-bin.tar.gz" \
     && curl -fSL "$DOWNLOAD_URL" -o download.tar.gz \
     && tar -xvf download.tar.gz \
     && mv hbase-${HBASE_VERSION}* $HBASE_HOME \

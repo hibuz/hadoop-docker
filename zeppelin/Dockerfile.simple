@@ -1,5 +1,5 @@
 # == Info =======================================
-# hibuz/bash==hibuz/hadoop-base(SIZE: 262MB) -> hibuz/zeppelin-dev(SIZE: 4.56GB)
+# hibuz/bash==hibuz/hadoop-base(SIZE: 292MB) -> hibuz/zeppelin-dev(SIZE: 4.53GB)
 
 # == Build ======================================
 # docker build -t hibuz/zeppelin-dev:simple -f Dockerfile.simple .
@@ -33,7 +33,7 @@ ARG SPARK_VERSION=3.5.6
 ENV SPARK_HOME=/home/${DEFAULT_USER}/spark-${SPARK_VERSION}
 
 RUN set -x \
-    && DOWNLOAD_URL="https://archive.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop3.tgz" \
+    && DOWNLOAD_URL="https://dlcdn.apache.org/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop3.tgz" \
     && curl -fSL "$DOWNLOAD_URL" -o download.tar.gz \
     && tar -xvf download.tar.gz \
     && mv spark-${SPARK_VERSION}-bin-* $SPARK_HOME \
@@ -44,7 +44,7 @@ ARG ZEPPELIN_VERSION=0.12.0
 ENV ZEPPELIN_HOME=/home/${DEFAULT_USER}/zeppelin-${ZEPPELIN_VERSION}
 
 RUN set -x \
-    && DOWNLOAD_URL="https://archive.apache.org/dist/zeppelin/zeppelin-${ZEPPELIN_VERSION}/zeppelin-${ZEPPELIN_VERSION}-bin-all.tgz" \
+    && DOWNLOAD_URL="https://dlcdn.apache.org/zeppelin/zeppelin-${ZEPPELIN_VERSION}/zeppelin-${ZEPPELIN_VERSION}-bin-all.tgz" \
     && curl -fSL "$DOWNLOAD_URL" -o download.tar.gz \
     && tar -xvf download.tar.gz \
     && mv zeppelin-${ZEPPELIN_VERSION}-bin-all $ZEPPELIN_HOME \
@@ -54,12 +54,12 @@ ARG FLINK_VERSION=1.17.2
 ENV FLINK_HOME=/home/${DEFAULT_USER}/flink-${FLINK_VERSION}
 
 RUN set -x \
-    && DOWNLOAD_URL="https://archive.apache.org/dist/flink/flink-${FLINK_VERSION}/flink-${FLINK_VERSION}-bin-scala_2.12.tgz" \
+    && DOWNLOAD_URL="https://dlcdn.apache.org/flink/flink-${FLINK_VERSION}/flink-${FLINK_VERSION}-bin-scala_2.12.tgz" \
     && curl -fSL "$DOWNLOAD_URL" -o download.tar.gz \
     && tar -xvf download.tar.gz \
     && rm download.tar.gz
 
-ARG MINICONDA_VERSION=py310_25.5.1-0
+ARG MINICONDA_VERSION=py310_25.7.0-2
 ENV CONDA_HOME=/opt/conda
 
 RUN set -x \

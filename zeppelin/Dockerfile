@@ -1,5 +1,5 @@
 # == Info =======================================
-# hibuz/flink-dev(SIZE: 8.11GB) -> hibuz/zeppelin-dev(SIZE: 12.3GB)
+# hibuz/flink-dev(SIZE: 4.3GB) -> hibuz/zeppelin-dev(SIZE: 6.61GB)
 
 # == Build ======================================
 # docker build -t hibuz/zeppelin-dev .
@@ -22,7 +22,7 @@ ARG ZEPPELIN_VERSION=0.12.0
 ENV ZEPPELIN_HOME=/home/${DEFAULT_USER}/zeppelin-${ZEPPELIN_VERSION}
 
 RUN set -x \
-    && DOWNLOAD_URL="https://archive.apache.org/dist/zeppelin/zeppelin-${ZEPPELIN_VERSION}/zeppelin-${ZEPPELIN_VERSION}-bin-all.tgz" \
+    && DOWNLOAD_URL="https://dlcdn.apache.org/zeppelin/zeppelin-${ZEPPELIN_VERSION}/zeppelin-${ZEPPELIN_VERSION}-bin-all.tgz" \
     && curl -fSL "$DOWNLOAD_URL" -o download.tar.gz \
     && tar -xvf download.tar.gz \
     && mv zeppelin-${ZEPPELIN_VERSION}-bin-all $ZEPPELIN_HOME \

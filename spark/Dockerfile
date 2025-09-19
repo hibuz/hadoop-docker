@@ -1,5 +1,5 @@
 # == Info =======================================
-# hibuz/hbase-dev(SIZE: 4.44GB) -> hibuz/spark-dev(SIZE: 6.06GB)
+# hibuz/hbase-dev(SIZE: 2.25GB) -> hibuz/spark-dev(SIZE: 3.22GB)
 
 # == Build ======================================
 # docker build -t hibuz/spark-dev .
@@ -17,7 +17,7 @@ FROM hibuz/hbase-dev
 LABEL org.opencontainers.image.authors="hibuz@hibuz.com"
 
 # == Install ============================
-ARG MINICONDA_VERSION=py310_25.1.1-2
+ARG MINICONDA_VERSION=py310_25.7.0-2
 ENV CONDA_HOME=/opt/conda
 
 RUN set -x \
@@ -26,11 +26,11 @@ RUN set -x \
     && sudo bash miniconda.sh -b -p ${CONDA_HOME} \
     && rm miniconda.sh
 
-ARG SPARK_VERSION=3.5.5
+ARG SPARK_VERSION=3.5.6
 ENV SPARK_HOME=/home/${DEFAULT_USER}/spark-${SPARK_VERSION}
 
 RUN set -x \
-    && DOWNLOAD_URL="https://archive.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-without-hadoop.tgz" \
+    && DOWNLOAD_URL="https://dlcdn.apache.org/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-without-hadoop.tgz" \
     && curl -fSL "$DOWNLOAD_URL" -o download.tar.gz \
     && tar -xvf download.tar.gz \
     && mv spark-${SPARK_VERSION}-bin-* $SPARK_HOME \

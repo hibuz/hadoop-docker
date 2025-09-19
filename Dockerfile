@@ -1,5 +1,5 @@
 # == Info =======================================
-# hibuz/bash==hibuz/hadoop-base(SIZE: 427MB) -> hibuz/hadoop-dev(SIZE: 3.65GB)
+# hibuz/bash==hibuz/hadoop-base(SIZE: 292MB) -> hibuz/hadoop-dev(SIZE: 3.65GB)
 
 # == Build ======================================
 # docker build -t hibuz/hadoop-dev .
@@ -23,12 +23,14 @@ RUN sudo apt update && DEBIAN_FRONTEND=noninteractive sudo apt install -y --no-i
     ssh \
     netcat-openbsd \
     libsnappy-dev \
-    && sudo rm -rf /var/lib/apt/lists/*
+    && sudo rm -rf /var/lib/apt/lists/* \
+    && sudo apt autoclean \
+    && sudo apt clean
 
 # == Install ============================
-ARG HADOOP_VERSION=3.4.1
+ARG HADOOP_VERSION=3.4.2
 RUN set -x \
-    && DOWNLOAD_URL="https://archive.apache.org/dist/hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz" \
+    && DOWNLOAD_URL="https://dlcdn.apache.org/hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}-lean.tar.gz" \
     && curl -fSL "$DOWNLOAD_URL" -o download.tar.gz \
     && tar -xvf download.tar.gz \
     && rm download.tar.gz
