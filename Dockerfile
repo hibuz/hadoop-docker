@@ -20,6 +20,7 @@ LABEL org.opencontainers.image.authors="hibuz@hibuz.com"
 ARG JDK_VERSION=11
 RUN sudo apt update && DEBIAN_FRONTEND=noninteractive sudo apt install -y --no-install-recommends \
     openjdk-${JDK_VERSION}-jdk-headless \
+    tini \
     ssh \
     netcat-openbsd \
     libsnappy-dev \

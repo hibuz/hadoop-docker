@@ -101,4 +101,7 @@ docker compose down -v
 Hive 4.1.0 error
 
  Exception in thread "main" java.lang.UnsupportedClassVersionError: org/apache/hive/service/server/HiveServer2 has been compiled by a more recent version of the Java Runtime (class file version 61.0), this version of the Java Runtime only recognizes class file versions up to 55.0
+
+Zeppelin 0.12.0 error
+Caused by: java.lang.Exception: This is not officially supported spark version: 4.0.1 
 ```
