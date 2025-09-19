@@ -10,7 +10,10 @@
         "extensions": [
           "mhutchie.git-graph",
           "seatonjiang.gitmoji-vscode"
-        ]
+        ],
+        "settings": {
+          "locale": "en"
+        }
       }
     }
 }
