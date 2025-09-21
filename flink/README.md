@@ -1,6 +1,6 @@
 # Quick usage for flink-dev docker image
 - Docker build and run
-``` bash
+```bash
 git clone https://github.com/hibuz/hadoop-docker
 cd hadoop-docker/flink
 
@@ -8,12 +8,12 @@ docker compose up --no-build
 ```
 
 ### Attach to running container
-``` bash
+```bash
 docker exec -it flink bash
 ```
 
 ### Run some of the examples provided:
-``` bash
+```bash
 # To deploy the example word count job to the running cluster, issue the following command:
 ~/flink-x.y.z$ flink run examples/streaming/WordCount.jar
 Executing example with default input data.
@@ -39,13 +39,13 @@ Job Runtime: 1302 ms
 ```
 
 ### Prepare csv data
-``` bash
+```bash
 ~/flink-x.y.z$ hdfs dfs -mkdir -p /user/hadoop/flink
 ~/flink-x.y.z$ hdfs dfs -put $SPARK_HOME/examples/src/main/resources/people.csv flink
 ```
 
 ### Interactive Analysis with Flink SQL Client
-``` bash
+```bash
 ~/flink-x.y.z$ sql-client.sh
     ______ _ _       _       _____  ____  _         _____ _ _            _  BETA   
    |  ____| (_)     | |     / ____|/ __ \| |       / ____| (_)          | |  
@@ -96,7 +96,7 @@ done.
 ```
 
 ### Verify the table is also visible to Hive via Beeline CLI:
-``` bash
+```bash
 # Connect to HiveServer2 with Beeline from shell:
 ~/flink-x.y.z$ beeline -n hadoop -u jdbc:hive2://localhost:10000
 
@@ -116,7 +116,7 @@ Closing: 0: jdbc:hive2://localhost:10000
 - http://localhost:8083
 
 ### Stops containers and removes containers, networks, and volumes created by `up`.
-``` bash
+```bash
 
 docker compose down -v
 

@@ -1,6 +1,6 @@
 # Quick usage for hive-dev docker image
 - Docker build and run
-``` bash
+```bash
 git clone https://github.com/hibuz/hadoop-docker
 cd hadoop-docker/hive
 
@@ -14,12 +14,12 @@ hive  | Hive Session ID = 405b164b-bf28-4b43-bdc1-3fb9d764efe4
 ```
 
 ### Attach to running container
-``` bash
+```bash
 docker exec -it hive bash
 ```
 
 ### Hive DDL Operation example
-``` bash
+```bash
 
 # Connect to HiveServer2 with Beeline from shell:
 ~/hive-4.x.x$ hive
@@ -76,7 +76,7 @@ Closing: 0: jdbc:hive2://localhost:10000
 - http://localhost:10002
 
 ### Stops containers and removes containers, networks, and volumes created by `up`.
-``` bash
+```bash
 
 docker compose down -v
 

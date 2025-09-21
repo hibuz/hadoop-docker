@@ -1,6 +1,6 @@
 # Quick usage for zeppelin-dev docker image
 - Docker build and run
-``` bash
+```bash
 git clone https://github.com/hibuz/hadoop-docker
 cd hadoop-docker/zeppelin
 
@@ -8,19 +8,19 @@ docker compose up --no-build
 ```
 
 ### Attach to running container
-``` bash
+```bash
 docker exec -it zeppelin bash
 ```
 
 ### Prepare input data
-``` bash
+```bash
 # prepare input data
 ~/zeppelin-0.xx.x$ hdfs dfs -mkdir -p /user/hadoop
 ~/zeppelin-0.xx.x$ hdfs dfs -put $SPARK_HOME/README.md
 ```
 
 ### Interactive Analysis with the PySpark
-``` bash
+```bash
 ~/zeppelin-0.xx.x$ pyspark
 Welcome to
       ____              __
@@ -135,7 +135,7 @@ pip install matplotlib seaborn bokeh==2.4.3 pyarrow==11.0.0 plotnine holoviews h
 ![Zeppelin Tutorials](.assets/zeppelin_dev.jpg)
 
 ### Stops containers and removes containers, networks, and volumes created by `up`.
-``` bash
+```bash
 docker compose down -v
 
 [+] Running 4/4

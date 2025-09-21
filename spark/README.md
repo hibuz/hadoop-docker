@@ -1,6 +1,6 @@
 # Quick usage for spark-dev docker image
 - Docker build and run
-``` bash
+```bash
 git clone https://github.com/hibuz/hadoop-docker
 cd hadoop-docker/spark
 
@@ -8,12 +8,12 @@ docker compose up --no-build
 ```
 
 ### Attach to running container
-``` bash
+```bash
 docker exec -it spark bash
 ```
 
 ### Prepare input data
-``` bash
+```bash
 
 # prepare input data
 hdfs dfs -mkdir -p /user/hadoop
@@ -21,7 +21,7 @@ hdfs dfs -put $SPARK_HOME/README.md
 ```
 
 ### Interactive Analysis with the Spark Shell
-``` bash
+```bash
 
 ~/spark-3.x.x$ spark-shell
 
@@ -52,7 +52,7 @@ scala> :q
 ```
 
 ### Interactive Analysis with the PySpark
-``` bash
+```bash
 
 ~/spark-3.x.x$ pyspark
 
@@ -89,7 +89,7 @@ Row(value='# Apache Spark')
 ```
 
 ### Test WordCount MapReduce
-``` bash
+```bash
 
 hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-*.jar wordcount ./README.md output2
 
@@ -106,7 +106,7 @@ hdfs dfs -cat output2/* |grep PySpark
 ![Spark Jobs](.assets/spark_jobs.jpg)
 
 ### Stops containers and removes containers, networks, and volumes created by `up`.
-``` bash
+```bash
 
 docker compose down -v
 

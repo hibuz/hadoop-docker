@@ -1,6 +1,6 @@
 # Quick usage for hbase-dev docker image
 - Docker build and run
-``` bash
+```bash
 git clone https://github.com/hibuz/hadoop-docker
 cd hadoop-docker/hbase
 
@@ -8,7 +8,7 @@ docker compose up --no-build
 ```
 
 ### Attach to running container
-``` bash
+```bash
 docker exec -it hbase bash
 
 ~/hbase-x.y.z$ hdfs dfs -ls /hbase
@@ -28,7 +28,7 @@ drwx--x--x   - hadoop supergroup          0 2022-04-01 10:25 /hbase/staging
 ```
 
 ### HBase shell example
-``` bash
+```bash
 
 # Connect to HBase.
 ~/hbase-x.y.z$ hbase shell
@@ -74,7 +74,7 @@ hbase:006:0> exit
 ```
 
 ### HBase, MapReduce
-``` bash
+```bash
 # hbase rowcounter test or
 ~/hbase-x.y.z$ hadoop jar $HBASE_HOME/lib/hbase-mapreduce-2.6.3-hadoop3.jar rowcounter test
 
@@ -90,7 +90,7 @@ hbase:006:0> exit
 - Master Info: http://localhost:16010
 
 ### Stops containers and removes containers, networks, and volumes created by `up`.
-``` bash
+```bash
 
 docker compose down -v
 

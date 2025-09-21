@@ -1,23 +1,23 @@
 ## Basic Hibuz Bigdata Stack information
 <details><summary>Details</summary>
 
-  ``` bash
-  # run
-  cd hadoop-docker/zeppelin
-  docker compose up --no-build
+```bash
+# run
+cd hadoop-docker/zeppelin
+docker compose up --no-build
 
-  # attach
-  docker exec -it zeppelin bash
+# attach
+docker exec -it zeppelin bash
 
-  # ls
-  hadoop@efa0809b5859:~$ ls -al ~/
-  drwxr-xr-x 1 hadoop hadoop 4096 Sep 21 01:27 zeppelin-0.12.0
-  drwxr-xr-x 1 hadoop hadoop 4096 Nov 13  2023 flink-1.17.2
-  drwxr-xr-x 1 hadoop hadoop 4096 Sep 19 06:47 hive-4.0.1
-  drwxr-xr-x 1 hadoop hadoop 4096 Sep 19 06:47 spark-3.5.6
-  drwxr-xr-x 1 hadoop hadoop 4096 Sep 19 06:24 hbase-2.6.3
-  drwxr-xr-x 1 hadoop hadoop 4096 Sep 21 01:27 hadoop-3.4.2
-  ```
+# ls
+hadoop@efa0809b5859:~$ ls -al ~/
+drwxr-xr-x 1 hadoop hadoop 4096 Sep 21 01:27 zeppelin-0.12.0
+drwxr-xr-x 1 hadoop hadoop 4096 Nov 13  2023 flink-1.17.2
+drwxr-xr-x 1 hadoop hadoop 4096 Sep 19 06:47 hive-4.0.1
+drwxr-xr-x 1 hadoop hadoop 4096 Sep 19 06:47 spark-3.5.6
+drwxr-xr-x 1 hadoop hadoop 4096 Sep 19 06:24 hbase-2.6.3
+drwxr-xr-x 1 hadoop hadoop 4096 Sep 21 01:27 hadoop-3.4.2
+```
 </details>
 
 <details>
@@ -55,15 +55,15 @@
 ### Simple zeppelin stack information
 <details><summary>Details</summary>
 
-  ``` bash
-  # run
-  docker run --rm -it -p 8083:8083 -p 9995:9995 -p 18080:18080 --name zeppelin-tmp hibuz/zeppelin-dev:simple
-  # ls
-  docker exec -it zeppelin ls -al /home/hadoop
-  drwxr-xr-x  1 hadoop hadoop 4096 Sep 21 01:23 zeppelin-0.12.0
-  drwxr-xr-x  1 hadoop hadoop 4096 Nov 13  2023 flink-1.17.2
-  drwxr-xr-x 13 hadoop hadoop 4096 May 23 06:49 spark-3.5.6
-  ```
+```bash
+# run
+docker run --rm -it -p 8083:8083 -p 9995:9995 -p 18080:18080 --name zeppelin-tmp hibuz/zeppelin-dev:simple
+# ls
+docker exec -it zeppelin ls -al /home/hadoop
+drwxr-xr-x  1 hadoop hadoop 4096 Sep 21 01:23 zeppelin-0.12.0
+drwxr-xr-x  1 hadoop hadoop 4096 Nov 13  2023 flink-1.17.2
+drwxr-xr-x 13 hadoop hadoop 4096 May 23 06:49 spark-3.5.6
+```
 </details>
 
 | App              | Version | Date         | Size   |
@@ -75,17 +75,17 @@
 ### Simple flink stack information
 <details><summary>Details</summary>
 
-  ``` bash
-  # run
-  docker run --rm -it -p 8083:8083 --name flink-tmp hibuz/flink-dev:simple
+```bash
+# run
+docker run --rm -it -p 8083:8083 --name flink-tmp hibuz/flink-dev:simple
 
-  # ls
-  docker exec -it flink-tmp ls -al /home/hadoop
-  drwxr-xr-x 1 hadoop hadoop 4096 Jul 21 12:58 flink-2.1.0
-  drwxr-xr-x 1 hadoop hadoop 4096 Sep 21 00:39 hive-4.1.0
-  drwxr-xr-x 1 hadoop hadoop 4096 Jul  8 10:57 spark-4.1.0-preview1
-  drwxr-xr-x 1 hadoop hadoop 4096 Sep 21 00:48 hadoop-3.4.2
-  ```
+# ls
+docker exec -it flink-tmp ls -al /home/hadoop
+drwxr-xr-x 1 hadoop hadoop 4096 Jul 21 12:58 flink-2.1.0
+drwxr-xr-x 1 hadoop hadoop 4096 Sep 21 00:39 hive-4.1.0
+drwxr-xr-x 1 hadoop hadoop 4096 Jul  8 10:57 spark-4.1.0-preview1
+drwxr-xr-x 1 hadoop hadoop 4096 Sep 21 00:48 hadoop-3.4.2
+```
 </details>
 
 | App        | Version        | Date         | Size   |
@@ -98,43 +98,43 @@
 
 # Quick usage for hadoop-dev docker image
 - Docker build and run
-``` bash
- git clone https://github.com/hibuz/hadoop-docker
- cd hadoop-docker
+```bash
+git clone https://github.com/hibuz/hadoop-docker
+cd hadoop-docker
 
- docker compose up hadoop-dev --no-build
+docker compose up hadoop-dev --no-build
 ```
 
 ## Docker build & run for custom hadoop user and version
 - see [Dockerfile](Dockerfile)
-  <details><summary>Hadoop Docker Build & Push Order</summary>
+<details><summary>Hadoop Docker Build & Push Order</summary>
 
-  ``` bash
-  # hadoop
-  hadoop-docker$ docker build -t hibuz/hadoop-dev .
-  # hbase|spark|hive|flink
-  hadoop-docker/(hbase|spark|hive|flink)$ docker compose up --build
-  # flink-base for zeppelin
-  hadoop-docker/zeppelin$ docker compose build flink-base
-  # zeppelin
-  hadoop-docker/zeppelin$ docker compose up --build
+```bash
+# hadoop
+hadoop-docker$ docker build -t hibuz/hadoop-dev .
+# hbase|spark|hive|flink
+hadoop-docker/(hbase|spark|hive|flink)$ docker compose up --build
+# flink-base for zeppelin
+hadoop-docker/zeppelin$ docker compose build flink-base
+# zeppelin
+hadoop-docker/zeppelin$ docker compose up --build
 
 
-  # docker taagging & push
-  docker tag hibuz/hadoop-dev hibuz/hadoop-dev:3.x.x
-  docker push hibuz/hadoop-dev
-  docker push hibuz/hadoop-dev:3.x.x
-  ```
-  </details>
+# docker taagging & push
+docker tag hibuz/hadoop-dev hibuz/hadoop-dev:3.x.x
+docker push hibuz/hadoop-dev
+docker push hibuz/hadoop-dev:3.x.x
+```
+</details>
 
 
 ### Attach to running container
-``` bash
+```bash
 docker exec -it hadoop bash
 ```
 
 ### Prepare input files into the distributed filesystem
-``` bash
+```bash
 # Make the HDFS directories
 hdfs dfs -mkdir -p /user/hadoop/input
 # Copy the input files
@@ -142,7 +142,7 @@ hdfs dfs -put $HADOOP_HOME/etc/hadoop/*.xml input
 ```
 
 ### Run some of the examples provided:
-``` bash
+```bash
 # Run example wordcount job:
 hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-*.jar wordcount input output
 # View the output files on the distributed filesystem:
@@ -165,9 +165,8 @@ hdfs dfs -rm -r output
 - Yarn Dashboard: http://localhost:8088 (run start-yarn.sh or uncomment command props in [docker-compose.yml](docker-compose.yml))
 - Hadoop Job History: http://localhost:19888
 
-### Stops containers and removes containers, networks, and volumes created by `up`.
-``` bash
-
+### Stops containers and removes containers, networks, and volumes created by `compose up`.
+```bash
 docker compose down -v
 
 [+] Running 3/3
