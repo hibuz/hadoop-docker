@@ -15,7 +15,7 @@ docker exec -it flink bash
 ### Run some of the examples provided:
 ``` bash
 # To deploy the example word count job to the running cluster, issue the following command:
-~/flink-1.x.x$ flink run examples/streaming/WordCount.jar
+~/flink-x.y.z$ flink run examples/streaming/WordCount.jar
 Executing example with default input data.
 Use --input to specify file input.
 Printing result to stdout. Use --output to specify output path.
@@ -25,7 +25,7 @@ Job with JobID 25baa559e2f20096e1595cf15dedd4d8 has finished.
 Job Runtime: 1302 ms
 
 # You can verify the output by viewing the logs:
-~/flink-1.x.x$ tail log/flink-*-taskexecutor-*.out
+~/flink-x.y.z$ tail log/flink-*-taskexecutor-*.out
 (nymph,1)
 (in,3)
 (thy,1)

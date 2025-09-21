@@ -17,11 +17,11 @@ FROM hibuz/hadoop-dev:jdk${JDK_VERSION}
 LABEL org.opencontainers.image.authors="hibuz@hibuz.com"
 
 # == Install ============================
-ARG SPARK_VERSION=4.0.1
+ARG SPARK_VERSION=4.1.0-preview1
 ENV SPARK_HOME=/home/${DEFAULT_USER}/spark-${SPARK_VERSION}
 
 RUN set -x \
-    && DOWNLOAD_URL="https://dlcdn.apache.org/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop3.tgz" \
+    && DOWNLOAD_URL="https://dlcdn.apache.org/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-without-hadoop.tgz" \
     && curl -fSL "$DOWNLOAD_URL" -o download.tar.gz \
     && tar -xvf download.tar.gz \
     && mv spark-${SPARK_VERSION}-bin-* $SPARK_HOME \
@@ -30,7 +30,7 @@ RUN set -x \
 
 
 # == Install ============================
-ARG HIVE_VERSION=4.0.1
+ARG HIVE_VERSION=4.1.0
 ENV HIVE_HOME=/home/${DEFAULT_USER}/hive-${HIVE_VERSION}
 
 RUN set -x \
@@ -69,32 +69,6 @@ RUN set -x \
     && tar -xvf download.tar.gz \
     && mv flink-${FLINK_VERSION} $FLINK_HOME \
     && rm download.tar.gz
-
-# flink-connector-<NAME> which is a thin JAR including only the connector code, but excluding eventual third-party dependencies
-# flink-sql-connector-<NAME> which is an uber JAR ready to use with all the connector third-party dependencies
-RUN echo "export HADOOP_CLASSPATH=\$(\$HADOOP_HOME/bin/hadoop classpath)" >> $FLINK_HOME/bin/config.sh \
-    && cd $FLINK_HOME/lib \
-    && curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-table-api-java-bridge/${FLINK_VERSION}/flink-table-api-java-bridge-${FLINK_VERSION}.jar" \
-    && curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-table-api-scala-bridge_2.12/${FLINK_VERSION}/flink-table-api-scala-bridge_2.12-${FLINK_VERSION}.jar" \
-    && curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-csv/${FLINK_VERSION}/flink-csv-${FLINK_VERSION}.jar" \
-    && curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-json/${FLINK_VERSION}/flink-json-${FLINK_VERSION}.jar" \
-    && curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-parquet/${FLINK_VERSION}/flink-parquet-${FLINK_VERSION}.jar" \
-    && curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-sql-connector-hive-3.1.3_2.12/${FLINK_VERSION}/flink-sql-connector-hive-3.1.3_2.12-${FLINK_VERSION}.jar" \
-    && curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-sql-connector-hbase-2.2/4.0.0-1.19/flink-sql-connector-hbase-2.2-4.0.0-1.19.jar" \
-    && cp ../opt/flink-sql-*.jar ../opt/flink-python-*.jar ./ 
-
-
-# == Install ============================
-ARG MINICONDA_VERSION=py313_25.7.0-2
-ENV CONDA_HOME=/opt/conda
-ENV PATH=$PATH:$CONDA_HOME/bin
-
-RUN set -x \
-    && DOWNLOAD_URL="https://repo.anaconda.com/miniconda/Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh" \
-    && curl -fSL "$DOWNLOAD_URL" -o miniconda.sh \
-    && sudo bash miniconda.sh -b -p ${CONDA_HOME} \
-    && pip install --upgrade pip \
-    && rm miniconda.sh
 
 COPY docker-entrypoint.sh /
 
