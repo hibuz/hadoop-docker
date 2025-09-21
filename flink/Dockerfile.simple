@@ -1,12 +1,12 @@
 # == Info =======================================
-# hibuz/bash==hibuz/hadoop-base(SIZE: 292MB) -> hibuz/hadoop-dev(SIZE: 4.32GB)
+# hibuz/bash==hibuz/hadoop-base(SIZE: 292MB) -> hibuz/hadoop-dev(SIZE: 3.53GB)
 
 # == Build ======================================
 # docker build -t hibuz/hadoop-dev:jdk21 ../ --build-arg JDK_VERSION=21
 # docker build -t hibuz/flink-dev:simple -f Dockerfile.simple .
 
 # == Run and Attatch ============================
-# docker run --rm -it -p 9870:9870 -p 8088:8088 -p 19888:19888 -p 8083:8083 -p 9995:9995 -p 18080:18080 --name flink-tmp hibuz/flink-dev:simple [yarn,historyserver]
+# docker run --rm -it -p 8083:8083 --name flink-tmp hibuz/flink-dev:simple
 # 
 # docker exec -it flink-tmp bash
 
@@ -30,6 +30,10 @@ RUN set -x \
 
 ENV PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin
 
+RUN cp $SPARK_HOME/conf/spark-env.sh.template $SPARK_HOME/conf/spark-env.sh \
+    && echo "export HADOOP_HOME=$HADOOP_HOME" >> $SPARK_HOME/conf/spark-env.sh \
+    && echo "export SPARK_DIST_CLASSPATH=\$(\$HADOOP_HOME/bin/hadoop classpath)" >> $SPARK_HOME/conf/spark-env.sh
+
 # == Install ============================
 ARG HIVE_VERSION=4.1.0
 ENV HIVE_HOME=/home/${DEFAULT_USER}/hive-${HIVE_VERSION}
@@ -43,8 +47,7 @@ RUN set -x \
 
 ENV PATH=$PATH:$HIVE_HOME/bin
 
-RUN mv $SPARK_HOME/bin/beeline $SPARK_HOME/bin/spark-beeline \
-    && cp $HIVE_HOME/conf/hive-env.sh.template $HIVE_HOME/conf/hive-env.sh \
+RUN cp $HIVE_HOME/conf/hive-env.sh.template $HIVE_HOME/conf/hive-env.sh \
     && echo "export HADOOP_HEAPSIZE=512" >> $HIVE_HOME/conf/hive-env.sh \
     && cp $HIVE_HOME/conf/hive-default.xml.template $HIVE_HOME/conf/hive-site.xml
 

@@ -102,7 +102,7 @@ hdfs dfs -cat output2/* |grep PySpark
 - Master Web UI: http://localhost:8080
 - Worker Web UI: http://localhost:8081
 - Spark History Server: http://localhost:18080
-- Spark Jobs: http://localhost:4040
+- Spark Jobs: http://localhost:4040 (spark-shell only)
 ![Spark Jobs](.assets/spark_jobs.jpg)
 
 ### Stops containers and removes containers, networks, and volumes created by `up`.
