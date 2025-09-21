@@ -28,6 +28,7 @@ RUN set -x \
     && mkdir /tmp/spark-events \
     && rm download.tar.gz
 
+ENV PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin
 
 # == Install ============================
 ARG HIVE_VERSION=4.1.0
@@ -69,6 +70,8 @@ RUN set -x \
     && tar -xvf download.tar.gz \
     && mv flink-${FLINK_VERSION} $FLINK_HOME \
     && rm download.tar.gz
+
+ENV PATH=$PATH:$FLINK_HOME/bin
 
 COPY docker-entrypoint.sh /
 
