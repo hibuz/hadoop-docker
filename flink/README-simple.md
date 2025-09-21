@@ -42,7 +42,7 @@ scala> :q
 ```bash
 # flink
 # To deploy the example word count job to the running cluster, issue the following command:
-~/flink-x.y.z$ TODO : flink run examples/streaming/WordCount.jar
+~/flink-x.y.z$ flink run examples/streaming/WordCount.jar
 Executing example with default input data.
 Use --input to specify file input.
 Printing result to stdout. Use --output to specify output path.
@@ -86,16 +86,16 @@ Job Runtime: 1302 ms
 Command history file path: /home/hadoop/.flink-sql-history
 
 # Create and use hive catalog
-Flink SQL> TODO : CREATE CATALOG myhive WITH (
+Flink SQL> CREATE CATALOG myhive WITH (
     'type' = 'hive',
     'hive-conf-dir' = '/home/hadoop/hive-4.1.0/conf'
 );
 [INFO] Execute statement succeed.
 
-Flink SQL> USE CATALOG myhive;
+Flink SQL> TODO: USE CATALOG myhive;
 [INFO] Execute statement succeed.
 
-# Connecting To FileSystem(csv)
+# Connecting To FileSystem
 Flink SQL> CREATE TABLE people (
     name VARCHAR,
     age INT,
@@ -131,7 +131,7 @@ done.
 +-----------+
 | tab_name  |
 +-----------+
-| people    |
+| people    | (TODO)
 +-----------+
 1 rows selected (0.481 seconds)
 

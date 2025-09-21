@@ -47,7 +47,8 @@ RUN set -x \
 
 ENV PATH=$PATH:$HIVE_HOME/bin
 
-RUN cp $HIVE_HOME/conf/hive-env.sh.template $HIVE_HOME/conf/hive-env.sh \
+RUN mv $SPARK_HOME/bin/beeline $SPARK_HOME/bin/spark-beeline \
+    && cp $HIVE_HOME/conf/hive-env.sh.template $HIVE_HOME/conf/hive-env.sh \
     && echo "export HADOOP_HEAPSIZE=512" >> $HIVE_HOME/conf/hive-env.sh \
     && cp $HIVE_HOME/conf/hive-default.xml.template $HIVE_HOME/conf/hive-site.xml
 
@@ -75,6 +76,13 @@ RUN set -x \
     && rm download.tar.gz
 
 ENV PATH=$PATH:$FLINK_HOME/bin
+
+RUN echo "export HADOOP_CLASSPATH=\$(\$HADOOP_HOME/bin/hadoop classpath)" >> $FLINK_HOME/bin/config.sh \
+    && cd $FLINK_HOME/lib \
+#    && curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-sql-connector-hive-3.1.3_2.12/${FLINK_VERSION}/flink-sql-connector-hive-3.1.3_2.12-${FLINK_VERSION}.jar" \
+    && cp ../opt/flink-sql-*.jar ./ \
+    && sed -i "s/# port: 8081/port: 8083/" $FLINK_HOME/conf/*.yaml \
+    && sed -i "s/bind-address: localhost/bind-address: 0.0.0.0/" $FLINK_HOME/conf/*.yaml
 
 COPY docker-entrypoint.sh /
 
