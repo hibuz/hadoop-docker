@@ -5,6 +5,7 @@
     "features": {
       "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
     },
+    "postCreateCommand": "sudo mkdir -p /workspaces/hadoop-example && sudo chown vscode:root /workspaces/hadoop-example && git clone https://github.com/hibuz/hadoop-example.git /workspaces/hadoop-example; sudo chown -R vscode:root /workspaces/hadoop-example && sudo chmod -R 755 /workspaces/hadoop-example",
     "customizations": {
       "vscode": {
         "extensions": [
