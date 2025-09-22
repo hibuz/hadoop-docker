@@ -18,7 +18,6 @@ services:
       - 8080:8080
       - 8081:8081
       - 18080:18080
-      - 9083:9083
       - 10002:10002
     #command: spark,hbase,yarn,historyserver
     volumes:

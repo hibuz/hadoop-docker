@@ -7,7 +7,7 @@
 # docker build -t hibuz/hive-dev --build-arg HIVE_VERSION=x.y.z .
 
 # == Run and Attatch ============================
-# docker run --rm -it -p 9083:9083 -p 9870:9870 -p 10002:10002 --name hive-tmp hibuz/hive-dev
+# docker run --rm -it -p 9870:9870 -p 10002:10002 --name hive-tmp hibuz/hive-dev
 # 
 # docker exec -it hive-tmp bash
 

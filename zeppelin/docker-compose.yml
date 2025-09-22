@@ -23,7 +23,6 @@ services:
       args:
         FLINK_VERSION: ${FLINK_VERSION}
     ports:
-      - 9083:9083
       - 9870:9870
       - 8088:8088
       - 10002:10002
