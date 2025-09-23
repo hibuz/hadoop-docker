@@ -1,6 +1,6 @@
 # Quick usage for flink-dev simple docker image
 ```bash
-docker run --rm -it -p 9870:9870 -p 8088:8088 -p 19888:19888 -p 8080:8080 -p 8081:8081 -p 18080:18080 -p 4040:4040 -p 10002:10002 -p 8083:8083 --name flink-tmp hibuz/flink-dev:simple yarn,historyserver,spark,hive
+docker run --rm -it -p 9870:9870 -p 8088:8088 -p 19888:19888 -p 8090:8090 -p 8091:8091 -p 18080:18080 -p 4040:4040 -p 10002:10002 -p 8081:8081 --name flink-tmp hibuz/flink-dev:simple yarn,historyserver,spark,hive
 
 # attach
 docker exec -it flink-tmp bash
@@ -19,7 +19,7 @@ docker exec -it flink-tmp bash
 ### Hive
 - http://localhost:10002
 ### Flink
-- Flink: http://localhost:8083
+- Flink: http://localhost:8081
 
 
 ### Run some of the examples provided:
@@ -84,16 +84,6 @@ Job Runtime: 1302 ms
         Welcome! Enter 'HELP;' to list all available commands. 'QUIT;' to exit.
 
 Command history file path: /home/hadoop/.flink-sql-history
-
-# Create and use hive catalog
-Flink SQL> CREATE CATALOG myhive WITH (
-    'type' = 'hive',
-    'hive-conf-dir' = '/home/hadoop/hive-4.1.0/conf'
-);
-[INFO] Execute statement succeed.
-
-Flink SQL> TODO: USE CATALOG myhive;
-[INFO] Execute statement succeed.
 
 # Connecting To FileSystem
 Flink SQL> CREATE TABLE people (

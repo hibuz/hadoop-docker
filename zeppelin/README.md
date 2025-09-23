@@ -131,7 +131,7 @@ pip install matplotlib seaborn bokeh==2.4.3 pyarrow==11.0.0 plotnine holoviews h
 # Visit zeppelin dashboards
 - Zeppelin Tutorials: http://localhost:9995
 - Spark Jobs (Optional) : http://localhost:4040
-- Flink Dashboard (Optional) : http://localhost:8083
+- Flink Dashboard (Optional) : http://localhost:8081
 ![Zeppelin Tutorials](.assets/zeppelin_dev.jpg)
 
 ### Stops containers and removes containers, networks, and volumes created by `up`.

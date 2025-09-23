@@ -32,7 +32,7 @@ services:
       - 8090:8090
       - 8091:8091
       - 18080:18080
-      - 8083:8083
+      - 8081:8081
       - 9995:9995
     #command: yarn,historyserver,flink,spark,hive,hbase
     volumes:

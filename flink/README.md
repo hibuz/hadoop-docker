@@ -65,6 +65,15 @@ Flink SQL> CREATE CATALOG myhive WITH (
 );
 [INFO] Execute statement succeed.
 
+Flink SQL> SHOW CATALOGS;
++-----------------+
+|    catalog name |
++-----------------+
+| default_catalog |
+|          myhive |
++-----------------+
+2 rows in set
+
 Flink SQL> USE CATALOG myhive;
 [INFO] Execute statement succeed.
 
@@ -113,7 +122,7 @@ Closing: 0: jdbc:hive2://localhost:10000
 ```
 
 #  Visit flink dashboard
-- http://localhost:8083
+- http://localhost:8081
 
 ### Stops containers and removes containers, networks, and volumes created by `up`.
 ```bash

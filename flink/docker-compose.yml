@@ -19,7 +19,7 @@ services:
       - 8091:8091
       - 18080:18080
       - 10002:10002
-      - 8083:8083
+      - 8081:8081
     command: hive #hive,spark,hbase,yarn,historyserver
     volumes:
       - flink-vol:/tmp

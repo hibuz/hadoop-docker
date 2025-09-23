@@ -57,7 +57,7 @@ drwxr-xr-x 1 hadoop hadoop 4096 Sep 21 01:27 hadoop-3.4.2
 
 ```bash
 # run
-docker run --rm -it -p 8083:8083 -p 9995:9995 -p 18080:18080 --name zeppelin-tmp hibuz/zeppelin-dev:simple
+docker run --rm -it -p 8081:8081 -p 9995:9995 -p 18080:18080 --name zeppelin-tmp hibuz/zeppelin-dev:simple
 # ls
 docker exec -it zeppelin ls -al /home/hadoop
 drwxr-xr-x  1 hadoop hadoop 4096 Sep 21 01:23 zeppelin-0.12.0
@@ -77,7 +77,7 @@ drwxr-xr-x 13 hadoop hadoop 4096 May 23 06:49 spark-3.5.6
 
 ```bash
 # run
-docker run --rm -it -p 8083:8083 --name flink-tmp hibuz/flink-dev:simple
+docker run --rm -it -p 8081:8081 --name flink-tmp hibuz/flink-dev:simple
 
 # ls
 docker exec -it flink-tmp ls -al /home/hadoop

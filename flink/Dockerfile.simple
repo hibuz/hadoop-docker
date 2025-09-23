@@ -6,7 +6,7 @@
 # docker build -t hibuz/flink-dev:simple -f Dockerfile.simple .
 
 # == Run and Attatch ============================
-# docker run --rm -it -p 8083:8083 --name flink-tmp hibuz/flink-dev:simple
+# docker run --rm -it -p 8081:8081 --name flink-tmp hibuz/flink-dev:simple
 # 
 # docker exec -it flink-tmp bash
 
@@ -66,6 +66,7 @@ RUN core_conf="<property><name>hadoop.proxyuser.${DEFAULT_USER}.hosts</name><val
     
 # == Install ============================
 ARG FLINK_VERSION=2.1.0
+ENV FLINK_VERSION=${FLINK_VERSION}
 ENV FLINK_HOME=/home/${DEFAULT_USER}/flink-${FLINK_VERSION}
 
 RUN set -x \
@@ -81,13 +82,12 @@ RUN echo "export HADOOP_CLASSPATH=\$(\$HADOOP_HOME/bin/hadoop classpath)" >> $FL
     && cd $FLINK_HOME/lib \
 #    && curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-sql-connector-hive-3.1.3_2.12/${FLINK_VERSION}/flink-sql-connector-hive-3.1.3_2.12-${FLINK_VERSION}.jar" \
     && cp ../opt/flink-sql-*.jar ./ \
-    && sed -i "s/# port: 8081/port: 8083/" $FLINK_HOME/conf/*.yaml \
     && sed -i "s/bind-address: localhost/bind-address: 0.0.0.0/" $FLINK_HOME/conf/*.yaml
 
 COPY docker-entrypoint.sh /
 
 WORKDIR ${FLINK_HOME}
 
-EXPOSE 6123 8083
+EXPOSE 6123 8081
 
 ENTRYPOINT ["/docker-entrypoint.sh"]

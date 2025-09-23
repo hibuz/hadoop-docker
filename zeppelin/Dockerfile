@@ -51,6 +51,6 @@ COPY docker-entrypoint.sh /
 
 WORKDIR ${ZEPPELIN_HOME}
 
-EXPOSE 4040 8083 $ZEPPELIN_PORT
+EXPOSE 4040 8081 $ZEPPELIN_PORT
 
 ENTRYPOINT ["/docker-entrypoint.sh"]

@@ -7,7 +7,7 @@
 # docker build -t hibuz/zeppelin-dev:simple --build-arg ZEPPELIN_VERSION=x.y.z -f Dockerfile.simple .
 
 # == Run and Attatch ============================
-# docker run --rm -it -p 8083:8083 -p 9995:9995 -p 18080:18080 --name zeppelin-tmp hibuz/zeppelin-dev:simple
+# docker run --rm -it -p 8081:8081 -p 9995:9995 -p 18080:18080 --name zeppelin-tmp hibuz/zeppelin-dev:simple
 # 
 # docker exec -it zeppelin-tmp bash
 
@@ -95,6 +95,6 @@ COPY docker-entrypoint.sh /
 
 WORKDIR ${ZEPPELIN_HOME}
 
-EXPOSE 4040 8083 $ZEPPELIN_PORT
+EXPOSE 4040 8081 $ZEPPELIN_PORT
 
 ENTRYPOINT $ZEPPELIN_HOME/bin/zeppelin-daemon.sh start && bash
