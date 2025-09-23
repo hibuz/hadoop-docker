@@ -7,7 +7,7 @@
 # docker build -t hibuz/spark-dev --build-arg SPARK_VERSION=x.y.z .
 
 # == Run and Attatch ============================
-# docker run --rm -it -p 8080:8080 -p 4040:4040 --name spark-tmp hibuz/spark-dev
+# docker run --rm -it -p 8090:8090 -p 4040:4040 --name spark-tmp hibuz/spark-dev
 # 
 # docker exec -it spark-tmp bash
 
@@ -42,6 +42,8 @@ ENV PATH=$PATH:$CONDA_HOME/bin:$SPARK_HOME/bin:$SPARK_HOME/sbin
 
 RUN cp $SPARK_HOME/conf/spark-env.sh.template $SPARK_HOME/conf/spark-env.sh \
     && echo "export HADOOP_HOME=$HADOOP_HOME" >> $SPARK_HOME/conf/spark-env.sh \
+    && echo "export SPARK_MASTER_WEBUI_PORT=8090" >> $SPARK_HOME/conf/spark-env.sh \
+    && echo "export SPARK_WORKER_WEBUI_PORT=8091" >> $SPARK_HOME/conf/spark-env.sh \
     && echo "export SPARK_DIST_CLASSPATH=\$(\$HADOOP_HOME/bin/hadoop classpath)" >> $SPARK_HOME/conf/spark-env.sh
 
 
@@ -49,6 +51,6 @@ COPY docker-entrypoint.sh /
 
 WORKDIR ${SPARK_HOME}
 
-EXPOSE 4040 8080 8081
+EXPOSE 4040 8090 8091
 
 ENTRYPOINT ["/docker-entrypoint.sh"]

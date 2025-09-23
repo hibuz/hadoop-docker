@@ -12,8 +12,8 @@ docker exec -it flink-tmp bash
 - Yarn Dashboard: http://localhost:8088
 - Hadoop Job History: http://localhost:19888
 ### Spark
-- Master Web UI: http://localhost:8080
-- Worker Web UI: http://localhost:8081
+- Master Web UI: http://localhost:8090
+- Worker Web UI: http://localhost:8091
 - Spark History Server: http://localhost:18080
 - Spark Jobs: http://localhost:4040 (spark-shell only)
 ### Hive
