@@ -24,7 +24,7 @@ drwxr-xr-x 1 hadoop hadoop 4096 Sep 21 01:27 hadoop-3.4.2
 <summary>HBS <code>VS</code> Amazon EMR</summary>
 <strong>릴리스 정보</strong>
 <ul>
-  <li>Hibuz`s HBS(0.12.0) <code>2025-09-20</code></li>
+  <li>Hibuz`s HBS(0.12.0) <code>2025-09-29</code></li>
   <li>Amazon EMR(7.10.0) <code>2025-08-15</code></li>
 </ul>
 
@@ -42,8 +42,8 @@ drwxr-xr-x 1 hadoop hadoop 4096 Sep 21 01:27 hadoop-3.4.2
 
 | App        | Version              | Date         | Size   |
 | ---------- | -------------------- | ------------ | ------ |
-| Zeppelin   | 0.12.0(flink:1.17.2) | `2025-01-31` | 6.61GB |
-| Flink      | 1.20.2               | `2025-07-07` | 4.33GB |
+| Zeppelin   | 0.12.0(flink:1.17.2) | `2024-12-28` | 6.61GB |
+| Flink      | 1.20.3               | `2025-09-20` | 4.33GB |
 | Hive       | 4.0.1                | `2024-10-02` | 3.68GB |
 | Spark      | 3.5.7                | `2025-09-17` | 3.22GB |
 | Miniconda3 | py310_25.7.0-2       | `2025-08-25` | -      |
