@@ -26,7 +26,7 @@ RUN set -x \
     && sudo bash miniconda.sh -b -p ${CONDA_HOME} \
     && rm miniconda.sh
 
-ARG SPARK_VERSION=3.5.6
+ARG SPARK_VERSION=3.5.7
 ENV SPARK_HOME=/home/${DEFAULT_USER}/spark-${SPARK_VERSION}
 
 RUN set -x \

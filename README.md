@@ -14,7 +14,7 @@ hadoop@efa0809b5859:~$ ls -al ~/
 drwxr-xr-x 1 hadoop hadoop 4096 Sep 21 01:27 zeppelin-0.12.0
 drwxr-xr-x 1 hadoop hadoop 4096 Nov 13  2023 flink-1.17.2
 drwxr-xr-x 1 hadoop hadoop 4096 Sep 19 06:47 hive-4.0.1
-drwxr-xr-x 1 hadoop hadoop 4096 Sep 19 06:47 spark-3.5.6
+drwxr-xr-x 1 hadoop hadoop 4096 Sep 19 06:47 spark-3.5.7
 drwxr-xr-x 1 hadoop hadoop 4096 Sep 19 06:24 hbase-2.6.3
 drwxr-xr-x 1 hadoop hadoop 4096 Sep 21 01:27 hadoop-3.4.2
 ```
@@ -45,7 +45,7 @@ drwxr-xr-x 1 hadoop hadoop 4096 Sep 21 01:27 hadoop-3.4.2
 | Zeppelin   | 0.12.0(flink:1.17.2) | `2025-01-31` | 6.61GB |
 | Flink      | 1.20.2               | `2025-07-07` | 4.33GB |
 | Hive       | 4.0.1                | `2024-10-02` | 3.68GB |
-| Spark      | 3.5.6                | `2025-05-23` | 3.22GB |
+| Spark      | 3.5.7                | `2025-09-17` | 3.22GB |
 | Miniconda3 | py310_25.7.0-2       | `2025-08-25` | -      |
 | Hbase      | 2.6.3                | `2025-07-15` | 2.25GB |
 | Hadoop     | 3.4.2                | `2025-08-28` | 1.8GB  |
@@ -62,7 +62,7 @@ docker run --rm -it -p 8081:8081 -p 9995:9995 -p 18080:18080 --name zeppelin-tmp
 docker exec -it zeppelin ls -al /home/hadoop
 drwxr-xr-x  1 hadoop hadoop 4096 Sep 21 01:23 zeppelin-0.12.0
 drwxr-xr-x  1 hadoop hadoop 4096 Nov 13  2023 flink-1.17.2
-drwxr-xr-x 13 hadoop hadoop 4096 May 23 06:49 spark-3.5.6
+drwxr-xr-x 13 hadoop hadoop 4096 May 23 06:49 spark-3.5.7
 ```
 </details>
 
@@ -70,7 +70,7 @@ drwxr-xr-x 13 hadoop hadoop 4096 May 23 06:49 spark-3.5.6
 | ---------------- | ------- | ------------ | ------ |
 | Zeppelin(python) | 0.12.0  | `2025-06-13` | 4.53GB |
 | Flink            | 1.17.2  | `2023-11-28` | -      |
-| Spark(java)      | 3.5.6   | `2025-05-23` | -      |
+| Spark(java)      | 3.5.7   | `2025-09-17` | -      |
 
 ### Simple flink stack information
 <details><summary>Details</summary>
