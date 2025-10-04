@@ -40,7 +40,7 @@ if [[ "$1" == *"hive"* ]]; then
         schematool -dbType derby -initSchema
     fi
     mkdir $HIVE_HOME/logs
-    nohup hiveserver2 --hiveconf hive.metastore.uris=' ' 2>&1 | tee $HIVE_HOME/logs/hisveserver2.log &
+    nohup hiveserver2 --hiveconf hive.metastore.uris=' ' 2>&1 | tee $HIVE_HOME/logs/hiveserver2.log &
 fi
 
 if [[ "$1" == *"flink"* ]]; then

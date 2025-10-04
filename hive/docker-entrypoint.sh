@@ -42,7 +42,7 @@ mkdir $HIVE_HOME/logs
 nohup hive --service metastore 2>&1 | tee $HIVE_HOME/logs/metastore.log &
 hdfs dfsadmin -report
 
-nohup hiveserver2 2>&1 | tee $HIVE_HOME/logs/hisveserver2.log &
+nohup hiveserver2 2>&1 | tee $HIVE_HOME/logs/hiveserver2.log &
 jps
 
-tail -f $HIVE_HOME/logs/hisveserver2.log
+tail -f $HIVE_HOME/logs/hiveserver2.log
