@@ -42,13 +42,13 @@ drwxr-xr-x 1 hadoop hadoop 4096 Sep 21 01:27 hadoop-3.4.2
 
 | App        | Version              | Date         | Size   |
 | ---------- | -------------------- | ------------ | ------ |
-| Zeppelin   | 0.12.0(flink:1.17.2) | `2024-12-28` | 6.61GB |
-| Flink      | 1.20.3               | `2025-09-20` | 4.33GB |
-| Hive       | 4.0.1                | `2024-10-02` | 3.68GB |
-| Spark      | 3.5.7                | `2025-09-17` | 3.22GB |
-| Miniconda3 | py310_25.7.0-2       | `2025-08-25` | -      |
-| Hbase      | 2.6.3                | `2025-07-15` | 2.25GB |
-| Hadoop     | 3.4.2                | `2025-08-28` | 1.8GB  |
+| Zeppelin   | [0.12.0(flink:1.17.2)](https://zeppelin.apache.org/download.html) | `2025-01-31` | 6.61GB |
+| Flink      | [1.20.3](https://github.com/apache/flink/tags)               | `2025-09-25` | 4.33GB |
+| Hive       | [4.0.1](https://hive.apache.org/general/downloads/)                | `2024-10-02` | 3.68GB |
+| Spark      | [3.5.7](https://spark.apache.org/downloads.html)                | `2025-09-24` | 3.22GB |
+| Miniconda3 | [py310_25.7.0-2](https://repo.anaconda.com/miniconda/)       | `2025-08-25` | -      |
+| Hbase      | [2.6.3](https://hbase.apache.org/downloads.html)                | `2025-07-15` | 2.25GB |
+| Hadoop     | [3.4.2](https://hadoop.apache.org/releases.html)               | `2025-08-29` | 1.8GB  |
 | Java       | 11.0.28              | `2025-07-15` | -      |
 | Ubuntu     | 24.04.1 LTS          | `2024-08-20` | 117MB  |
 
@@ -68,9 +68,9 @@ drwxr-xr-x 13 hadoop hadoop 4096 May 23 06:49 spark-3.5.7
 
 | App              | Version | Date         | Size   |
 | ---------------- | ------- | ------------ | ------ |
-| Zeppelin(python) | 0.12.0  | `2025-06-13` | 4.53GB |
-| Flink            | 1.17.2  | `2023-11-28` | -      |
-| Spark(java)      | 3.5.7   | `2025-09-17` | -      |
+| Zeppelin(python) | 0.12.0  | `2025-01-31` | 4.53GB |
+| Flink            | 1.17.2  | `2023-11-27` | -      |
+| Spark(java)      | 3.5.7   | `2025-09-24` | -      |
 
 ### Simple flink stack information
 <details><summary>Details</summary>
@@ -91,9 +91,9 @@ drwxr-xr-x 1 hadoop hadoop 4096 Sep 21 00:48 hadoop-3.4.2
 | App        | Version        | Date         | Size   |
 | ---------- | -------------- | ------------ | ------ |
 | Flink      | 2.1.0          | `2025-07-29` | 3.53GB |
-| Hive       | 4.1.0          | `2025-07-30` | -      |
-| Spark      | 4.1.0-preview1 | `2025-05-23` | -      |
-| Hadoop     | 3.4.2          | `2025-08-28` | -      |
+| Hive       | 4.1.0          | `2025-07-31` | -      |
+| Spark      | 4.1.0-preview1 | `2025-09-02` | -      |
+| Hadoop     | 3.4.2          | `2025-08-29` | -      |
 | Java       | 21.0.8         | `2025-07-15` | -      |
 
 # Quick usage for hadoop-dev docker image
