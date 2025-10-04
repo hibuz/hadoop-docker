@@ -1,5 +1,5 @@
 # == Info =======================================
-# hibuz/bash==hibuz/hadoop-base(SIZE: 292MB) -> hibuz/hadoop-dev(SIZE: 3.53GB)
+# hibuz/bash==hibuz/hadoop-base(SIZE: 292MB) -> hibuz/hadoop-dev(SIZE: 3.54GB)
 
 # == Build ======================================
 # docker build -t hibuz/hadoop-dev:jdk21 ../ --build-arg JDK_VERSION=21
@@ -17,7 +17,7 @@ FROM hibuz/hadoop-dev:jdk${JDK_VERSION}
 LABEL org.opencontainers.image.authors="hibuz@hibuz.com"
 
 # == Install ============================
-ARG SPARK_VERSION=4.1.0-preview1
+ARG SPARK_VERSION=4.1.0-preview2
 ENV SPARK_HOME=/home/${DEFAULT_USER}/spark-${SPARK_VERSION}
 
 RUN set -x \

@@ -34,7 +34,7 @@ Welcome to
       ____              __
      / __/__  ___ _____/ /__
     _\ \/ _ \/ _ `/ __/  '_/
-   /___/ .__/\_,_/_/ /_/\_\   version 4.1.0-preview1
+   /___/ .__/\_,_/_/ /_/\_\   version 4.x.x
       /_/
 Using Scala version 2.13.16 (OpenJDK 64-Bit Server VM, Java 21.0.8)
 scala> :q
