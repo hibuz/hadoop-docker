@@ -15,7 +15,7 @@ drwxr-xr-x 1 hadoop hadoop 4096 Sep 21 01:27 zeppelin-0.12.0
 drwxr-xr-x 1 hadoop hadoop 4096 Nov 13  2023 flink-1.17.2
 drwxr-xr-x 1 hadoop hadoop 4096 Sep 19 06:47 hive-4.0.1
 drwxr-xr-x 1 hadoop hadoop 4096 Sep 19 06:47 spark-3.5.7
-drwxr-xr-x 1 hadoop hadoop 4096 Sep 19 06:24 hbase-2.6.3
+drwxr-xr-x 1 hadoop hadoop 4096 Sep 19 06:24 hbase-2.6.4
 drwxr-xr-x 1 hadoop hadoop 4096 Sep 21 01:27 hadoop-3.4.2
 ```
 </details>
@@ -24,18 +24,18 @@ drwxr-xr-x 1 hadoop hadoop 4096 Sep 21 01:27 hadoop-3.4.2
 <summary>HBS <code>VS</code> Amazon EMR</summary>
 <strong>릴리스 정보</strong>
 <ul>
-  <li>Hibuz`s HBS(0.12.0) <code>2025-09-29</code></li>
-  <li>Amazon EMR(7.10.0) <code>2025-08-15</code></li>
+  <li>Hibuz`s HBS(0.12.0-2) <code>2025-11-29</code></li>
+  <li>Amazon EMR(7.12.0) <code>2025-11-21</code></li>
 </ul>
 
 <strong>EMR 버전 정보</strong>
 <ul>
   <li>Zeppelin: 0.11.1</li>
-  <li>Flink: 1.20.0-amzn-4</li>
-  <li>Hive: 3.1.3-amzn-19</li>
-  <li>Spark: 3.5.5-amzn-1</li>
-  <li>HBase: 2.6.2-amzn-1</li>
-  <li>Hadoop: 3.4.1-amzn-2</li>
+  <li>Flink: 1.20.0-amzn-6</li>
+  <li>Hive: 3.1.3-amzn-21</li>
+  <li>Spark: 3.5.6-amzn-1</li>
+  <li>HBase: 2.6.2-amzn-3</li>
+  <li>Hadoop: 3.4.1-amzn-4</li>
   <li>Python: 3.9, 3.11</li>
 </ul>
 </details>
@@ -46,8 +46,8 @@ drwxr-xr-x 1 hadoop hadoop 4096 Sep 21 01:27 hadoop-3.4.2
 | Flink      | [1.20.3](https://github.com/apache/flink/tags)               | `2025-09-25` | 4.33GB |
 | Hive       | [4.0.1](https://hive.apache.org/general/downloads/)                | `2024-10-02` | 3.68GB |
 | Spark      | [3.5.7](https://spark.apache.org/downloads.html)                | `2025-09-24` | 3.22GB |
-| Miniconda3 | [py310_25.7.0-2](https://repo.anaconda.com/miniconda/)       | `2025-08-25` | -      |
-| Hbase      | [2.6.3](https://hbase.apache.org/downloads.html)                | `2025-07-15` | 2.25GB |
+| Miniconda3 | [py310_25.9.1-3](https://repo.anaconda.com/miniconda/)       | `2025-11-11` | -      |
+| Hbase      | [2.6.4](https://hbase.apache.org/downloads.html)                | `2025-11-14` | 2.25GB |
 | Hadoop     | [3.4.2](https://hadoop.apache.org/releases.html)               | `2025-08-29` | 1.8GB  |
 | Java       | 11.0.28              | `2025-07-15` | -      |
 | Ubuntu     | 24.04.1 LTS          | `2024-08-20` | 117MB  |
@@ -81,18 +81,18 @@ docker run --rm -it -p 8081:8081 --name flink-tmp hibuz/flink-dev:simple
 
 # ls
 docker exec -it flink-tmp ls -al /home/hadoop
-drwxr-xr-x 1 hadoop hadoop 4096 Jul 21 12:58 flink-2.1.0
-drwxr-xr-x 1 hadoop hadoop 4096 Sep 21 00:39 hive-4.1.0
-drwxr-xr-x 1 hadoop hadoop 4096 Jul  8 10:57 spark-4.1.0-preview1
+drwxr-xr-x 1 hadoop hadoop 4096 Jul 21 12:58 flink-2.1.1
+drwxr-xr-x 1 hadoop hadoop 4096 Sep 21 00:39 hive-4.2.0
+drwxr-xr-x 1 hadoop hadoop 4096 Jul  8 10:57 spark-4.1.0-preview4
 drwxr-xr-x 1 hadoop hadoop 4096 Sep 21 00:48 hadoop-3.4.2
 ```
 </details>
 
 | App        | Version        | Date         | Size   |
 | ---------- | -------------- | ------------ | ------ |
-| Flink      | 2.1.0          | `2025-07-29` | 3.53GB |
-| Hive       | 4.1.0          | `2025-07-31` | -      |
-| Spark      | 4.1.0-preview2 | `2025-09-28` | -      |
+| Flink      | 2.1.1          | `2025-10-15` | 3.56GB |
+| Hive       | 4.2.0          | `2025-11-23` | -      |
+| Spark      | 4.1.0-preview4 | `2025-11-19` | -      |
 | Hadoop     | 3.4.2          | `2025-08-29` | -      |
 | Java       | 21.0.8         | `2025-07-15` | -      |
 

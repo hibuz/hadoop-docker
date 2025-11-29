@@ -1,5 +1,5 @@
 # == Info =======================================
-# hibuz/hbase-dev(SIZE: 2.25GB) -> hibuz/spark-dev(SIZE: 3.22GB)
+# hibuz/hbase-dev(SIZE: 2.25GB) -> hibuz/spark-dev(SIZE: 3.27GB)
 
 # == Build ======================================
 # docker build -t hibuz/spark-dev .
@@ -17,7 +17,7 @@ FROM hibuz/hbase-dev
 LABEL org.opencontainers.image.authors="hibuz@hibuz.com"
 
 # == Install ============================
-ARG MINICONDA_VERSION=py310_25.7.0-2
+ARG MINICONDA_VERSION=py310_25.9.1-3
 ENV CONDA_HOME=/opt/conda
 
 RUN set -x \

@@ -17,7 +17,7 @@ FROM hibuz/hadoop-dev
 LABEL org.opencontainers.image.authors="hibuz@hibuz.com"
 
 # == Install ============================
-ARG HBASE_VERSION=2.6.3
+ARG HBASE_VERSION=2.6.4
 ENV HBASE_HOME=/home/${DEFAULT_USER}/hbase-${HBASE_VERSION}
 
 RUN set -x \

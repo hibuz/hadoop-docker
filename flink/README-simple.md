@@ -36,7 +36,7 @@ Welcome to
     _\ \/ _ \/ _ `/ __/  '_/
    /___/ .__/\_,_/_/ /_/\_\   version 4.x.x
       /_/
-Using Scala version 2.13.16 (OpenJDK 64-Bit Server VM, Java 21.0.8)
+Using Scala version 2.13.x (OpenJDK 64-Bit Server VM, Java 21.0.8)
 scala> :q
 ```
 ```bash

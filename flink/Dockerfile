@@ -1,5 +1,5 @@
 # == Info =======================================
-# hibuz/hive-dev(SIZE: 3.68GB) -> hibuz/flink-dev(SIZE: 4.33GB)
+# hibuz/hive-dev(SIZE: 3.73GB) -> hibuz/flink-dev(SIZE: 4.38GB)
 
 # == Build ======================================
 # docker build -t hibuz/flink-dev .

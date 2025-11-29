@@ -1,5 +1,5 @@
 # == Info =======================================
-# hibuz/bash==hibuz/hadoop-base(SIZE: 292MB) -> hibuz/hadoop-dev(SIZE: 3.65GB)
+# hibuz/bash==hibuz/hadoop-base(SIZE: 292MB) -> hibuz/hadoop-dev(SIZE: 1.8GB)
 
 # == Build ======================================
 # docker build -t hibuz/hadoop-dev .

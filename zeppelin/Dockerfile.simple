@@ -59,7 +59,7 @@ RUN set -x \
     && tar -xvf download.tar.gz \
     && rm download.tar.gz
 
-ARG MINICONDA_VERSION=py310_25.7.0-2
+ARG MINICONDA_VERSION=py310_25.9.1-3
 ENV CONDA_HOME=/opt/conda
 
 RUN set -x \
