@@ -67,7 +67,7 @@ RUN core_conf="<property><name>hadoop.proxyuser.${DEFAULT_USER}.hosts</name><val
 
     
 # == Install ============================
-ARG FLINK_VERSION=2.1.1
+ARG FLINK_VERSION=2.2.0
 ENV FLINK_VERSION=${FLINK_VERSION}
 ENV FLINK_HOME=/home/${DEFAULT_USER}/flink-${FLINK_VERSION}
 
