@@ -83,18 +83,18 @@ docker run --rm -it -p 8081:8081 --name flink-tmp hibuz/flink-dev:simple
 docker exec -it flink-tmp ls -al /home/hadoop
 drwxr-xr-x 1 hadoop hadoop 4096 Jul 21 12:58 flink-2.1.1
 drwxr-xr-x 1 hadoop hadoop 4096 Sep 21 00:39 hive-4.2.0
-drwxr-xr-x 1 hadoop hadoop 4096 Jul  8 10:57 spark-4.1.0-preview4
+drwxr-xr-x 1 hadoop hadoop 4096 Jul  8 10:57 spark-4.1.0
 drwxr-xr-x 1 hadoop hadoop 4096 Sep 21 00:48 hadoop-3.4.2
 ```
 </details>
 
-| App        | Version        | Date         | Size   |
-| ---------- | -------------- | ------------ | ------ |
-| Flink      | 2.2.0          | `2025-12-03` | 3.56GB |
-| Hive       | 4.2.0          | `2025-11-23` | -      |
-| Spark      | 4.1.0-preview4 | `2025-11-19` | -      |
-| Hadoop     | 3.4.2          | `2025-08-29` | -      |
-| Java       | 21.0.8         | `2025-07-15` | -      |
+| App        | Version | Date         | Size   |
+| ---------- | ------- | ------------ | ------ |
+| Flink      | 2.2.0   | `2025-12-03` | 3.56GB |
+| Hive       | 4.2.0   | `2025-11-23` | -      |
+| Spark      | 4.1.0   | `2025-12-16` | -      |
+| Hadoop     | 3.4.2   | `2025-08-29` | -      |
+| Java       | 21.0.8  | `2025-07-15` | -      |
 
 # Quick usage for hadoop-dev docker image
 - Docker build and run

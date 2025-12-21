@@ -17,7 +17,7 @@ FROM hibuz/hadoop-dev:jdk${JDK_VERSION}
 LABEL org.opencontainers.image.authors="hibuz@hibuz.com"
 
 # == Install ============================
-ARG SPARK_VERSION=4.1.0-preview4
+ARG SPARK_VERSION=4.1.0
 ENV SPARK_HOME=/home/${DEFAULT_USER}/spark-${SPARK_VERSION}
 
 RUN set -x \
