@@ -14,7 +14,7 @@ hadoop@efa0809b5859:~$ ls -al ~/
 drwxr-xr-x 1 hadoop hadoop 4096 Sep 21 01:27 zeppelin-0.12.0
 drwxr-xr-x 1 hadoop hadoop 4096 Nov 13  2023 flink-1.17.2
 drwxr-xr-x 1 hadoop hadoop 4096 Sep 19 06:47 hive-4.0.1
-drwxr-xr-x 1 hadoop hadoop 4096 Sep 19 06:47 spark-3.5.7
+drwxr-xr-x 1 hadoop hadoop 4096 Sep 19 06:47 spark-3.5.8
 drwxr-xr-x 1 hadoop hadoop 4096 Sep 19 06:24 hbase-2.6.4
 drwxr-xr-x 1 hadoop hadoop 4096 Sep 21 01:27 hadoop-3.4.2
 ```
@@ -46,7 +46,7 @@ drwxr-xr-x 1 hadoop hadoop 4096 Sep 21 01:27 hadoop-3.4.2
 | Flink      | [1.20.3](https://github.com/apache/flink/tags)               | `2025-09-25` | 4.33GB |
 | Hive       | [4.0.1](https://hive.apache.org/general/downloads/)                | `2024-10-02` | 3.68GB |
 | Spark      | [3.5.7](https://spark.apache.org/downloads.html)                | `2025-09-24` | 3.22GB |
-| Miniconda3 | [py310_25.9.1-3](https://repo.anaconda.com/miniconda/)       | `2025-11-11` | -      |
+| Miniconda3 | [py310_25.11.1-1](https://repo.anaconda.com/miniconda/)       | `2025-12-16` | -      |
 | Hbase      | [2.6.4](https://hbase.apache.org/downloads.html)                | `2025-11-14` | 2.25GB |
 | Hadoop     | [3.4.2](https://hadoop.apache.org/releases.html)               | `2025-08-29` | 1.8GB  |
 | Java       | 11.0.28              | `2025-07-15` | -      |
@@ -62,7 +62,7 @@ docker run --rm -it -p 8081:8081 -p 9995:9995 -p 18080:18080 --name zeppelin-tmp
 docker exec -it zeppelin ls -al /home/hadoop
 drwxr-xr-x  1 hadoop hadoop 4096 Sep 21 01:23 zeppelin-0.12.0
 drwxr-xr-x  1 hadoop hadoop 4096 Nov 13  2023 flink-1.17.2
-drwxr-xr-x 13 hadoop hadoop 4096 May 23 06:49 spark-3.5.7
+drwxr-xr-x 13 hadoop hadoop 4096 May 23 06:49 spark-3.5.8
 ```
 </details>
 
@@ -83,18 +83,18 @@ docker run --rm -it -p 8081:8081 --name flink-tmp hibuz/flink-dev:simple
 docker exec -it flink-tmp ls -al /home/hadoop
 drwxr-xr-x 1 hadoop hadoop 4096 Jul 21 12:58 flink-2.1.1
 drwxr-xr-x 1 hadoop hadoop 4096 Sep 21 00:39 hive-4.2.0
-drwxr-xr-x 1 hadoop hadoop 4096 Jul  8 10:57 spark-4.1.0
+drwxr-xr-x 1 hadoop hadoop 4096 Jul  8 10:57 spark-4.2.0-preview1
 drwxr-xr-x 1 hadoop hadoop 4096 Sep 21 00:48 hadoop-3.4.2
 ```
 </details>
 
-| App        | Version | Date         | Size   |
-| ---------- | ------- | ------------ | ------ |
-| Flink      | 2.2.0   | `2025-12-03` | 3.56GB |
-| Hive       | 4.2.0   | `2025-11-23` | -      |
-| Spark      | 4.1.0   | `2025-12-16` | -      |
-| Hadoop     | 3.4.2   | `2025-08-29` | -      |
-| Java       | 21.0.8  | `2025-07-15` | -      |
+| App        | Version        | Date         | Size   |
+| ---------- | -------------- | ------------ | ------ |
+| Flink      | 2.2.0          | `2025-12-03` | 3.56GB |
+| Hive       | 4.2.0          | `2025-11-23` | -      |
+| Spark      | 4.2.0-preview1 | `2026-01-11` | -      |
+| Hadoop     | 3.4.2          | `2025-08-29` | -      |
+| Java       | 21.0.8         | `2025-07-15` | -      |
 
 # Quick usage for hadoop-dev docker image
 - Docker build and run

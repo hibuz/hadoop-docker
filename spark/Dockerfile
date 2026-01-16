@@ -17,7 +17,7 @@ FROM hibuz/hbase-dev
 LABEL org.opencontainers.image.authors="hibuz@hibuz.com"
 
 # == Install ============================
-ARG MINICONDA_VERSION=py310_25.9.1-3
+ARG MINICONDA_VERSION=py310_25.11.1-1
 ENV CONDA_HOME=/opt/conda
 
 RUN set -x \
@@ -26,7 +26,7 @@ RUN set -x \
     && sudo bash miniconda.sh -b -p ${CONDA_HOME} \
     && rm miniconda.sh
 
-ARG SPARK_VERSION=3.5.7
+ARG SPARK_VERSION=3.5.8
 ENV SPARK_HOME=/home/${DEFAULT_USER}/spark-${SPARK_VERSION}
 
 RUN set -x \
