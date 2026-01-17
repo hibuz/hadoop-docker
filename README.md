@@ -24,13 +24,14 @@ drwxr-xr-x 1 hadoop hadoop 4096 Sep 21 01:27 hadoop-3.4.2
 <summary>HBS <code>VS</code> Amazon EMR</summary>
 <strong>릴리스 정보</strong>
 <ul>
-  <li>Hibuz`s HBS(0.12.0-2) <code>2025-11-29</code></li>
+  <li>Hibuz`s HBS(0.12.0-3) <code>2026-01-17</code></li>
   <li>Amazon EMR(7.12.0) <code>2025-11-21</code></li>
 </ul>
 
 <strong>EMR 버전 정보</strong>
 <ul>
   <li>Zeppelin: 0.11.1</li>
+  <li>Iceberg: 1.10.0-amzn-0</li>
   <li>Flink: 1.20.0-amzn-6</li>
   <li>Hive: 3.1.3-amzn-21</li>
   <li>Spark: 3.5.6-amzn-1</li>
@@ -88,13 +89,14 @@ drwxr-xr-x 1 hadoop hadoop 4096 Sep 21 00:48 hadoop-3.4.2
 ```
 </details>
 
-| App        | Version        | Date         | Size   |
-| ---------- | -------------- | ------------ | ------ |
-| Flink      | 2.2.0          | `2025-12-03` | 3.56GB |
-| Hive       | 4.2.0          | `2025-11-23` | -      |
-| Spark      | 4.2.0-preview1 | `2026-01-11` | -      |
-| Hadoop     | 3.4.2          | `2025-08-29` | -      |
-| Java       | 21.0.8         | `2025-07-15` | -      |
+| App     | Version        | Date         | Size   |
+| ------- | -------------- | ------------ | ------ |
+| Iceberg | [1.10.1](https://iceberg.apache.org/releases)          | `2025-12-03` | 4.03GB |
+| Flink   | 2.2.0          | `2025-12-03` | -      |
+| Hive    | 4.2.0          | `2025-11-23` | -      |
+| Spark   | 4.2.0-preview1 | `2026-01-11` | -      |
+| Hadoop  | 3.4.2          | `2025-08-29` | -      |
+| Java    | 21.0.8         | `2025-07-15` | -      |
 
 # Quick usage for hadoop-dev docker image
 - Docker build and run

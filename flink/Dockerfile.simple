@@ -80,10 +80,24 @@ RUN set -x \
 
 ENV PATH=$PATH:$FLINK_HOME/bin
 
+ARG HADOOP_VERSION=3.4.2
+ARG ICEBERG_VERSION=1.10.1
+# == Additional jars ============================
+ADD https://repo1.maven.org/maven2/com/mysql/mysql-connector-j/9.5.0/mysql-connector-j-9.5.0.jar $FLINK_HOME/lib
+ADD https://repo1.maven.org/maven2/com/mysql/mysql-connector-j/9.5.0/mysql-connector-j-9.5.0.jar $SPARK_HOME/jars
+ADD https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-aws-bundle/$ICEBERG_VERSION/iceberg-aws-bundle-$ICEBERG_VERSION.jar $FLINK_HOME/lib
+ADD https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-aws-bundle/$ICEBERG_VERSION/iceberg-aws-bundle-$ICEBERG_VERSION.jar $SPARK_HOME/jars
+ADD https://repo1.maven.org/maven2/org/apache/flink/flink-sql-connector-mysql-cdc/3.5.0/flink-sql-connector-mysql-cdc-3.5.0.jar $FLINK_HOME/lib
+ADD https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-client-api/$HADOOP_VERSION/hadoop-client-api-$HADOOP_VERSION.jar $FLINK_HOME/lib
+ADD https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-client-runtime/$HADOOP_VERSION/hadoop-client-runtime-$HADOOP_VERSION.jar $FLINK_HOME/lib
+ADD https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-flink-runtime-2.0/$ICEBERG_VERSION/iceberg-flink-runtime-2.0-$ICEBERG_VERSION.jar $FLINK_HOME/lib
+ADD https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-spark-runtime-4.0_2.13/$ICEBERG_VERSION/iceberg-spark-runtime-4.0_2.13-$ICEBERG_VERSION.jar $SPARK_HOME/jars
+
 RUN echo "export HADOOP_CLASSPATH=\$(\$HADOOP_HOME/bin/hadoop classpath)" >> $FLINK_HOME/bin/config.sh \
     && cd $FLINK_HOME/lib \
-#    && curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-sql-connector-hive-3.1.3_2.12/${FLINK_VERSION}/flink-sql-connector-hive-3.1.3_2.12-${FLINK_VERSION}.jar" \
     && cp ../opt/flink-sql-*.jar ./ \
+    && sudo chown ${DEFAULT_USER}:${DEFAULT_USER} *.jar \
+    && sudo chmod 644 *.jar \
     && sed -i "s/bind-address: localhost/bind-address: 0.0.0.0/" $FLINK_HOME/conf/*.yaml
 
 COPY docker-entrypoint.sh /
