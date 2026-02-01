@@ -34,7 +34,7 @@ ENV HBASE_CONF_DIR=$HBASE_HOME/conf
 RUN echo "export HBASE_DISABLE_HADOOP_CLASSPATH_LOOKUP=\"true\"" >> $HBASE_CONF_DIR/hbase-env.sh \
     && echo "export HADOOP_CLASSPATH=\$($HBASE_HOME/bin/hbase mapredcp):\$HADOOP_CLASSPATH" >> $HADOOP_CONF_DIR/hadoop-env.sh
 
-RUN hbase_conf="<property><name>hbase.rootdir</name><value>hdfs://localhost:9000/hbase</value></property>" \
+RUN hbase_conf="<property><name>hbase.rootdir</name><value>hdfs://localhost:9000/hbase</value></property><property><name>hbase.zookeeper.property.clientPortAddress</name><value>0.0.0.0</value></property>" \
     && escaped_hbase_conf=$(echo $hbase_conf | sed 's/\//\\\//g') \
     && sed -i "/<\/configuration>/ s/.*/${escaped_hbase_conf}&/" $HBASE_CONF_DIR/hbase-site.xml
 

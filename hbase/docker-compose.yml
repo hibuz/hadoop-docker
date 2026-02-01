@@ -10,6 +10,7 @@ services:
     image: hibuz/hbase-dev
     build: .
     ports:
+      - 2181:2181
       - 9870:9870
       - 8088:8088
       - 19888:19888
