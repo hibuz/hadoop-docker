@@ -79,9 +79,9 @@ wordCounts.show()
 %sh
 
 ## Pre-requisites for Tutorials
-sudo apt update && sudo apt install wget unzip  && sudo rm -rf /var/lib/apt/lists/* \
-  && sudo apt autoclean \
-  && sudo apt clean
+sudo apt update && sudo apt install wget unzip \
+    && sudo apt autoremove -y \
+    && sudo rm -rf /var/lib/apt/lists/*
 
 
 pip install matplotlib seaborn bokeh==2.4.3 pyarrow==11.0.0 plotnine holoviews hvplot altair vega_datasets plotly
