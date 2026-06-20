@@ -58,6 +58,9 @@ Transaction isolation: TRANSACTION_REPEATABLE_READ
 1 row selected (0.274 seconds)
 
 # Count the number of rows in table pokes:
+0: jdbc:hive2://localhost:10000> SET hive.execution.engine=mr;
+No rows affected (0.01 seconds)
+
 0: jdbc:hive2://localhost:10000> SELECT count(*) FROM pokes;
 ...
 +------+

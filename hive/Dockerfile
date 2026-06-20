@@ -1,5 +1,5 @@
 # == Info =======================================
-# hibuz/spark-dev(SIZE: 3.27GB) -> hibuz/hive-dev(SIZE: 3.73GB)
+# hibuz/spark-dev(SIZE: 3.79GB) -> hibuz/hive-dev(SIZE: 3.73GB)
 
 # == Build ======================================
 # docker build -t hibuz/hive-dev .
@@ -17,7 +17,7 @@ FROM hibuz/spark-dev
 LABEL org.opencontainers.image.authors="hibuz@hibuz.com"
 
 # == Install ============================
-ARG HIVE_VERSION=4.0.1
+ARG HIVE_VERSION=4.2.0
 ENV HIVE_HOME=/home/${DEFAULT_USER}/hive-${HIVE_VERSION}
 
 RUN set -x \
@@ -28,7 +28,7 @@ RUN set -x \
     && rm download.tar.gz
 
 # == Env Setting ============================
-ENV PATH=$PATH:$HIVE_HOME/bin
+ENV PATH $PATH:$HIVE_HOME/bin
 
 RUN mv $SPARK_HOME/bin/beeline $SPARK_HOME/bin/spark-beeline \
     && cp $HIVE_HOME/conf/hive-env.sh.template $HIVE_HOME/conf/hive-env.sh \
