@@ -1,5 +1,5 @@
 # == Info =======================================
-# hibuz/hadoop-dev(SIZE: 1.8GB) -> hibuz/hbase-dev(SIZE: 2.25GB)
+# hibuz/hadoop-dev(SIZE: 1.94GB) -> hibuz/hbase-dev(SIZE: 2.4GB)
 
 # == Build ======================================
 # docker build -t hibuz/hbase-dev .
@@ -17,8 +17,8 @@ FROM hibuz/hadoop-dev
 LABEL org.opencontainers.image.authors="hibuz@hibuz.com"
 
 # == Install ============================
-ARG HBASE_VERSION=2.6.4
-ENV HBASE_HOME=/home/${DEFAULT_USER}/hbase-${HBASE_VERSION}
+ARG HBASE_VERSION=2.6.6
+ENV HBASE_HOME /home/${DEFAULT_USER}/hbase-${HBASE_VERSION}
 
 RUN set -x \
     && DOWNLOAD_URL="https://dlcdn.apache.org/hbase/${HBASE_VERSION}/hbase-${HBASE_VERSION}-hadoop3-client-bin.tar.gz" \
@@ -28,8 +28,9 @@ RUN set -x \
     && rm download.tar.gz
 
 # == Env Setting ============================
-ENV PATH=$PATH:$HBASE_HOME/bin
-ENV HBASE_CONF_DIR=$HBASE_HOME/conf
+ENV PATH $PATH:$HBASE_HOME/bin
+ENV HBASE_CONF_DIR $HBASE_HOME/conf
+ENV HADOOP_CLIENT_OPTS $HADOOP_CLIENT_OPTS --add-opens=java.base/java.nio=ALL-UNNAMED
 
 RUN echo "export HBASE_DISABLE_HADOOP_CLASSPATH_LOOKUP=\"true\"" >> $HBASE_CONF_DIR/hbase-env.sh \
     && echo "export HADOOP_CLASSPATH=\$($HBASE_HOME/bin/hbase mapredcp):\$HADOOP_CLASSPATH" >> $HADOOP_CONF_DIR/hadoop-env.sh
