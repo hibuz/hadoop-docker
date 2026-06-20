@@ -2,7 +2,6 @@
 # hibuz/bash==hibuz/hadoop-dev(SIZE: 1.94GB) -> hibuz/flink-dev(SIZE: 4.24GB)
 
 # == Build ======================================
-# docker build -t hibuz/hadoop-dev:jdk21 ../ --build-arg JDK_VERSION=21
 # docker build -t hibuz/flink-dev:simple -f Dockerfile.simple .
 
 # == Run and Attatch ============================
@@ -12,8 +11,7 @@
 
 
 # == Init =======================================
-ARG JDK_VERSION=21
-FROM hibuz/hadoop-dev:jdk${JDK_VERSION}
+FROM hibuz/hadoop-dev
 LABEL org.opencontainers.image.authors="hibuz@hibuz.com"
 
 # == Install ============================
@@ -37,7 +35,7 @@ RUN cp $SPARK_HOME/conf/spark-env.sh.template $SPARK_HOME/conf/spark-env.sh \
     && echo "export SPARK_DIST_CLASSPATH=\$(\$HADOOP_HOME/bin/hadoop classpath)" >> $SPARK_HOME/conf/spark-env.sh
 
 # == Install ============================
-ARG HIVE_VERSION=4.2.0
+ARG HIVE_VERSION=4.1.2
 ENV HIVE_HOME /home/${DEFAULT_USER}/hive-${HIVE_VERSION}
 
 RUN set -x \
@@ -67,7 +65,7 @@ RUN core_conf="<property><name>hadoop.proxyuser.${DEFAULT_USER}.hosts</name><val
 
     
 # == Install ============================
-ARG FLINK_VERSION=2.2.1
+ARG FLINK_VERSION=1.20.5
 ENV FLINK_VERSION ${FLINK_VERSION}
 ENV FLINK_HOME /home/${DEFAULT_USER}/flink-${FLINK_VERSION}
 

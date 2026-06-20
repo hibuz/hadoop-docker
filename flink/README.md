@@ -58,10 +58,11 @@ Job Runtime: 1302 ms
 
 Command history file path: /home/hadoop/.flink-sql-history
 
-# Create and use hive catalog
-Flink SQL> CREATE CATALOG myhive WITH (
-    'type' = 'hive',
-    'hive-conf-dir' = '/home/hadoop/hive-4.0.1/conf'
+# Create and use iceberg catalog
+CREATE CATALOG my_catalog WITH (
+  'type' = 'iceberg',
+  'catalog-type' = 'hadoop',
+  'warehouse' = 'hdfs://localhost:9000/iceberg/warehouse'
 );
 [INFO] Execute statement succeed.
 
@@ -70,12 +71,16 @@ Flink SQL> SHOW CATALOGS;
 |    catalog name |
 +-----------------+
 | default_catalog |
-|          myhive |
+|      my_catalog |
 +-----------------+
 2 rows in set
 
-Flink SQL> USE CATALOG myhive;
+Flink SQL> USE CATALOG my_catalog;
 [INFO] Execute statement succeed.
+
+Flink SQL> CREATE DATABASE IF NOT EXISTS file_db;
+
+Flink SQL> USE file_db;
 
 # Connecting To FileSystem(csv)
 Flink SQL> CREATE TABLE people (
@@ -104,21 +109,12 @@ Shutting down the session...
 done.
 ```
 
-### Verify the table is also visible to Hive via Beeline CLI:
+### Verify metadata creation in HDFS
 ```bash
 # Connect to HiveServer2 with Beeline from shell:
-~/flink-x.y.z$ beeline -n hadoop -u jdbc:hive2://localhost:10000
+~/flink-x.y.z$ hdfs dfs -cat /iceberg/warehouse/file_db/people/metadata/*.json
 
-0: jdbc:hive2://localhost:10000> show tables;
-+-----------+
-| tab_name  |
-+-----------+
-| people    |
-+-----------+
-1 rows selected (0.481 seconds)
-
-0: jdbc:hive2://localhost:10000> !q
-Closing: 0: jdbc:hive2://localhost:10000
+{"format-version":2, ...
 ```
 
 #  Visit flink dashboard
