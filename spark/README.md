@@ -32,21 +32,21 @@ Welcome to
       ____              __
      / __/__  ___ _____/ /__
     _\ \/ _ \/ _ `/ __/  '_/
-   /___/ .__/\_,_/_/ /_/\_\   version 3.x.x
+   /___/ .__/\_,_/_/ /_/\_\   version 4.x.x
       /_/
          
-Using Scala version 2.12.18 (OpenJDK 64-Bit Server VM, Java 11.0.26)
+Using Scala version 2.13.x (OpenJDK 64-Bit Server VM, Java 21.x.x)
 Type in expressions to have them evaluated.
 Type :help for more information.
 
 scala> val textFile = spark.read.textFile("README.md")
-textFile: org.apache.spark.sql.Dataset[String] = [value: string]
+val textFile: org.apache.spark.sql.Dataset[String] = [value: string]
 
 scala> val wordCounts = textFile.flatMap(line => line.split(" ")).groupByKey(identity).count()
-wordCounts: org.apache.spark.sql.Dataset[(String, Long)] = [key: string, count(1): bigint]
+val wordCounts: org.apache.spark.sql.Dataset[(String, Long)] = [key: string, count(1): bigint]
 
 scala> wordCounts.collect()
-res0: Array[(String, Long)] = Array(([![PySpark,1), (online,1), (graphs,1)...
+val res0: Array[(String, Long)] = Array(([![PySpark,1), (online,1), (graphs,1)...
 
 scala> :q
 ```
@@ -60,10 +60,10 @@ Welcome to
       ____              __
      / __/__  ___ _____/ /__
     _\ \/ _ \/ _ `/ __/  '_/
-   /__ / .__/\_,_/_/ /_/\_\   version 3.x.x
+   /__ / .__/\_,_/_/ /_/\_\   version 4.x.x
       /_/
 
-Using Python version 3.10.16 (main, Dec 11 2024 16:24:50)
+Using Python version 3.14.x (main, ***)
 Spark context Web UI available at http://74285e639cf8:4040
 Spark context available as 'sc' (master = local[*], app id = local-1645883920521).
 SparkSession available as 'spark'.
@@ -73,7 +73,7 @@ SparkSession available as 'spark'.
 
 # Number of rows in this DataFrame
 >>> textFile.count()
-125
+166
 
 # First row in this DataFrame
 >>> textFile.first()
@@ -81,7 +81,7 @@ Row(value='# Apache Spark')
 
 # Count words in the text file
 >>> from pyspark.sql.functions import explode, split
->>> wordCounts = textFile.select(explode(split(textFile.value, "\s+")).alias("word")).groupBy("word").count()
+>>> wordCounts = textFile.select(explode(split(textFile.value, "\\s+")).alias("word")).groupBy("word").count()
 >>> wordCounts.collect()
 [Row(word='[![PySpark', count=1), Row(word='online', count=1), Row(word='graphs', count=1)...
 
