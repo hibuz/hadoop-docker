@@ -82,21 +82,21 @@ docker run --rm -it -p 8081:8081 --name flink-tmp hibuz/flink-dev:simple
 
 # ls
 docker exec -it flink-tmp ls -al /home/hadoop
-drwxr-xr-x 1 hadoop hadoop 4096 Jul 21 12:58 flink-2.1.1
+drwxr-xr-x 1 hadoop hadoop 4096 Jul 21 12:58 flink-2.2.1
 drwxr-xr-x 1 hadoop hadoop 4096 Sep 21 00:39 hive-4.2.0
-drwxr-xr-x 1 hadoop hadoop 4096 Jul  8 10:57 spark-4.2.0-preview1
-drwxr-xr-x 1 hadoop hadoop 4096 Sep 21 00:48 hadoop-3.4.2
+drwxr-xr-x 1 hadoop hadoop 4096 Jul  8 10:57 spark-4.2.0-preview5
+drwxr-xr-x 1 hadoop hadoop 4096 Sep 21 00:48 hadoop-3.5.0
 ```
 </details>
 
 | App     | Version        | Date         | Size   |
 | ------- | -------------- | ------------ | ------ |
-| Iceberg | [1.10.1](https://iceberg.apache.org/releases)          | `2025-12-03` | 4.03GB |
-| Flink   | 2.2.0          | `2025-12-03` | -      |
+| Iceberg | [1.11.0](https://iceberg.apache.org/releases)          | `2026-05-19` | 4.24GB |
+| Flink   | 2.2.1          | `2026-05-15` | -      |
 | Hive    | 4.2.0          | `2025-11-23` | -      |
-| Spark   | 4.2.0-preview1 | `2026-01-11` | -      |
-| Hadoop  | 3.4.2          | `2025-08-29` | -      |
-| Java    | 21.0.8         | `2025-07-15` | -      |
+| Spark   | 4.2.0-preview5 | `2026-05-01` | -      |
+| Hadoop  | 3.5.0          | `2026-04-02` | -      |
+| Java    | 21.0.11        | `2026-04-21` | -      |
 
 # Quick usage for hadoop-dev docker image
 - Docker build and run

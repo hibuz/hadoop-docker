@@ -1,5 +1,5 @@
 # == Info =======================================
-# hibuz/bash==hibuz/hadoop-dev(SIZE: 1.83GB) -> hibuz/flink-dev(SIZE: 3.56GB)
+# hibuz/bash==hibuz/hadoop-dev(SIZE: 1.94GB) -> hibuz/flink-dev(SIZE: 4.24GB)
 
 # == Build ======================================
 # docker build -t hibuz/hadoop-dev:jdk21 ../ --build-arg JDK_VERSION=21
@@ -17,8 +17,8 @@ FROM hibuz/hadoop-dev:jdk${JDK_VERSION}
 LABEL org.opencontainers.image.authors="hibuz@hibuz.com"
 
 # == Install ============================
-ARG SPARK_VERSION=4.2.0-preview1
-ENV SPARK_HOME=/home/${DEFAULT_USER}/spark-${SPARK_VERSION}
+ARG SPARK_VERSION=4.2.0-preview5
+ENV SPARK_HOME /home/${DEFAULT_USER}/spark-${SPARK_VERSION}
 
 RUN set -x \
     && DOWNLOAD_URL="https://dlcdn.apache.org/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-without-hadoop.tgz" \
@@ -28,7 +28,7 @@ RUN set -x \
     && mkdir /tmp/spark-events \
     && rm download.tar.gz
 
-ENV PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin
+ENV PATH $PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin
 
 RUN cp $SPARK_HOME/conf/spark-env.sh.template $SPARK_HOME/conf/spark-env.sh \
     && echo "export HADOOP_HOME=$HADOOP_HOME" >> $SPARK_HOME/conf/spark-env.sh \
@@ -38,7 +38,7 @@ RUN cp $SPARK_HOME/conf/spark-env.sh.template $SPARK_HOME/conf/spark-env.sh \
 
 # == Install ============================
 ARG HIVE_VERSION=4.2.0
-ENV HIVE_HOME=/home/${DEFAULT_USER}/hive-${HIVE_VERSION}
+ENV HIVE_HOME /home/${DEFAULT_USER}/hive-${HIVE_VERSION}
 
 RUN set -x \
     && DOWNLOAD_URL="https://dlcdn.apache.org/hive/hive-${HIVE_VERSION}/apache-hive-${HIVE_VERSION}-bin.tar.gz" \
@@ -47,7 +47,7 @@ RUN set -x \
     && mv apache-hive-${HIVE_VERSION}-bin $HIVE_HOME \
     && rm download.tar.gz
 
-ENV PATH=$PATH:$HIVE_HOME/bin
+ENV PATH $PATH:$HIVE_HOME/bin
 
 RUN mv $SPARK_HOME/bin/beeline $SPARK_HOME/bin/spark-beeline \
     && cp $HIVE_HOME/conf/hive-env.sh.template $HIVE_HOME/conf/hive-env.sh \
@@ -67,9 +67,9 @@ RUN core_conf="<property><name>hadoop.proxyuser.${DEFAULT_USER}.hosts</name><val
 
     
 # == Install ============================
-ARG FLINK_VERSION=2.2.0
-ENV FLINK_VERSION=${FLINK_VERSION}
-ENV FLINK_HOME=/home/${DEFAULT_USER}/flink-${FLINK_VERSION}
+ARG FLINK_VERSION=2.2.1
+ENV FLINK_VERSION ${FLINK_VERSION}
+ENV FLINK_HOME /home/${DEFAULT_USER}/flink-${FLINK_VERSION}
 
 RUN set -x \
     && DOWNLOAD_URL="https://dlcdn.apache.org/flink/flink-${FLINK_VERSION}/flink-${FLINK_VERSION}-bin-scala_2.12.tgz" \
@@ -78,20 +78,21 @@ RUN set -x \
     && mv flink-${FLINK_VERSION} $FLINK_HOME \
     && rm download.tar.gz
 
-ENV PATH=$PATH:$FLINK_HOME/bin
+ENV PATH $PATH:$FLINK_HOME/bin
 
-ARG HADOOP_VERSION=3.4.2
-ARG ICEBERG_VERSION=1.10.1
+ARG HADOOP_VERSION=3.5.0
+ARG ICEBERG_VERSION=1.11.0
+ARG MYSQL_CONNECTOR_VERSION=9.7.0
 # == Additional jars ============================
-ADD https://repo1.maven.org/maven2/com/mysql/mysql-connector-j/9.5.0/mysql-connector-j-9.5.0.jar $FLINK_HOME/lib
-ADD https://repo1.maven.org/maven2/com/mysql/mysql-connector-j/9.5.0/mysql-connector-j-9.5.0.jar $SPARK_HOME/jars
+ADD https://repo1.maven.org/maven2/com/mysql/mysql-connector-j/${MYSQL_CONNECTOR_VERSION}/mysql-connector-j-${MYSQL_CONNECTOR_VERSION}.jar $FLINK_HOME/lib
+ADD https://repo1.maven.org/maven2/com/mysql/mysql-connector-j/${MYSQL_CONNECTOR_VERSION}/mysql-connector-j-${MYSQL_CONNECTOR_VERSION}.jar $SPARK_HOME/jars
 ADD https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-aws-bundle/$ICEBERG_VERSION/iceberg-aws-bundle-$ICEBERG_VERSION.jar $FLINK_HOME/lib
 ADD https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-aws-bundle/$ICEBERG_VERSION/iceberg-aws-bundle-$ICEBERG_VERSION.jar $SPARK_HOME/jars
-ADD https://repo1.maven.org/maven2/org/apache/flink/flink-sql-connector-mysql-cdc/3.5.0/flink-sql-connector-mysql-cdc-3.5.0.jar $FLINK_HOME/lib
+ADD https://repo1.maven.org/maven2/org/apache/flink/flink-sql-connector-mysql-cdc/3.6.0-2.2/flink-sql-connector-mysql-cdc-3.6.0-2.2.jar $FLINK_HOME/lib
 ADD https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-client-api/$HADOOP_VERSION/hadoop-client-api-$HADOOP_VERSION.jar $FLINK_HOME/lib
 ADD https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-client-runtime/$HADOOP_VERSION/hadoop-client-runtime-$HADOOP_VERSION.jar $FLINK_HOME/lib
-ADD https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-flink-runtime-2.0/$ICEBERG_VERSION/iceberg-flink-runtime-2.0-$ICEBERG_VERSION.jar $FLINK_HOME/lib
-ADD https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-spark-runtime-4.0_2.13/$ICEBERG_VERSION/iceberg-spark-runtime-4.0_2.13-$ICEBERG_VERSION.jar $SPARK_HOME/jars
+ADD https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-flink-runtime-2.1/$ICEBERG_VERSION/iceberg-flink-runtime-2.1-$ICEBERG_VERSION.jar $FLINK_HOME/lib
+ADD https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-spark-runtime-4.1_2.13/$ICEBERG_VERSION/iceberg-spark-runtime-4.1_2.13-$ICEBERG_VERSION.jar $SPARK_HOME/jars
 
 RUN echo "export HADOOP_CLASSPATH=\$(\$HADOOP_HOME/bin/hadoop classpath)" >> $FLINK_HOME/bin/config.sh \
     && cd $FLINK_HOME/lib \
@@ -99,6 +100,10 @@ RUN echo "export HADOOP_CLASSPATH=\$(\$HADOOP_HOME/bin/hadoop classpath)" >> $FL
     && sudo chown ${DEFAULT_USER}:${DEFAULT_USER} *.jar \
     && sudo chmod 644 *.jar \
     && sed -i "s/bind-address: localhost/bind-address: 0.0.0.0/" $FLINK_HOME/conf/*.yaml
+
+RUN cd $SPARK_HOME/jars \
+    && sudo chown ${DEFAULT_USER}:${DEFAULT_USER} *.jar \
+    && sudo chmod 644 *.jar
 
 COPY docker-entrypoint.sh /
 

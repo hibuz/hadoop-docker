@@ -1,5 +1,5 @@
 # == Info =======================================
-# hibuz/bash==hibuz/hadoop-base(SIZE: 292MB) -> hibuz/hadoop-dev(SIZE: 1.8GB)
+# hibuz/bash==hibuz/hadoop-base(SIZE: 323MB) -> hibuz/hadoop-dev(SIZE: 1.94GB)
 
 # == Build ======================================
 # docker build -t hibuz/hadoop-dev .
@@ -13,7 +13,7 @@
 
 
 # == Init =======================================
-FROM hibuz/hadoop-base:24.04
+FROM hibuz/hadoop-base:26.04
 LABEL org.opencontainers.image.authors="hibuz@hibuz.com"
 
 # == Package Setting ============================
@@ -24,24 +24,24 @@ RUN sudo apt update && DEBIAN_FRONTEND=noninteractive sudo apt install -y --no-i
     ssh \
     netcat-openbsd \
     libsnappy-dev \
-    && sudo rm -rf /var/lib/apt/lists/* \
-    && sudo apt autoclean \
-    && sudo apt clean
+    bsdextrautils \
+    && sudo apt autoremove -y \
+    && sudo rm -rf /var/lib/apt/lists/*
 
 # == Install ============================
-ARG HADOOP_VERSION=3.4.2
+ARG HADOOP_VERSION=3.5.0
 RUN set -x \
-    && DOWNLOAD_URL="https://dlcdn.apache.org/hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}-lean.tar.gz" \
+    && DOWNLOAD_URL="https://dlcdn.apache.org/hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz" \
     && curl -fSL "$DOWNLOAD_URL" -o download.tar.gz \
     && tar -xvf download.tar.gz \
     && rm download.tar.gz
 
 # == Env Setting ============================
-ENV JAVA_HOME=/usr/lib/jvm/java-${JDK_VERSION}-openjdk-amd64
-ENV HADOOP_HOME=/home/${DEFAULT_USER}/hadoop-${HADOOP_VERSION}
-ENV HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
-ENV PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
-ENV LD_LIBRARY_PATH=$HADOOP_HOME/lib/native
+ENV JAVA_HOME /usr/lib/jvm/java-${JDK_VERSION}-openjdk-amd64
+ENV HADOOP_HOME /home/${DEFAULT_USER}/hadoop-${HADOOP_VERSION}
+ENV HADOOP_CONF_DIR $HADOOP_HOME/etc/hadoop
+ENV PATH $PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
+ENV LD_LIBRARY_PATH $HADOOP_HOME/lib/native
 
 RUN echo "export HADOOP_HOME=$HADOOP_HOME" >> ~/.bashrc \
     && echo "export HADOOP_CLASSPATH=\$(\$HADOOP_HOME/bin/hadoop classpath)" >> ~/.bashrc \
