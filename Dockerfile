@@ -17,7 +17,7 @@ FROM hibuz/hadoop-base:26.04
 LABEL org.opencontainers.image.authors="hibuz@hibuz.com"
 
 # == Package Setting ============================
-ARG JDK_VERSION=11
+ARG JDK_VERSION=21
 RUN sudo apt update && DEBIAN_FRONTEND=noninteractive sudo apt install -y --no-install-recommends \
     openjdk-${JDK_VERSION}-jdk-headless \
     tini \

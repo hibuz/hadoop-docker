@@ -1,102 +1,50 @@
-## Basic Hibuz Bigdata Stack information
-<details><summary>Details</summary>
+# Basic Hibuz Bigdata Stack information
+The Hibuz Bigdata Stack (HBS) is a fully containerized, production-ready big data development environment tailored for modern data engineering and analytics. Built on top of Ubuntu 26.04 LTS and Java 21, it delivers a pre-configured, localized ecosystem that allows developers to spin up a comprehensive big data stack instantly using Docker Compose.
 
-```bash
-# run
-cd hadoop-docker/zeppelin
-docker compose up --no-build
+Unlike cloud-managed alternatives like Amazon EMR, HBS provides a lightweight, cost-effective, and highly customizable local environment featuring the latest stable open-source releases:
 
-# attach
-docker exec -it zeppelin bash
+- Orchestration & Notebooks: Apache Zeppelin
+- Data Warehousing: Apache Hive
+- Processing Engines: Apache Spark and Apache Flink
+- Storage & Table Formats: Apache Hadoop (HDFS), Apache HBase, and Apache Iceberg
 
-# ls
-hadoop@efa0809b5859:~$ ls -al ~/
-drwxr-xr-x 1 hadoop hadoop 4096 Sep 21 01:27 zeppelin-0.12.0
-drwxr-xr-x 1 hadoop hadoop 4096 Nov 13  2023 flink-1.17.2
-drwxr-xr-x 1 hadoop hadoop 4096 Sep 19 06:47 hive-4.0.1
-drwxr-xr-x 1 hadoop hadoop 4096 Sep 19 06:47 spark-3.5.8
-drwxr-xr-x 1 hadoop hadoop 4096 Sep 19 06:24 hbase-2.6.4
-drwxr-xr-x 1 hadoop hadoop 4096 Sep 21 01:27 hadoop-3.4.2
-```
-</details>
 
-<details>
-<summary>HBS <code>VS</code> Amazon EMR</summary>
-<strong>릴리스 정보</strong>
-<ul>
-  <li>Hibuz`s HBS(0.12.0-3) <code>2026-01-17</code></li>
-  <li>Amazon EMR(7.12.0) <code>2025-11-21</code></li>
-</ul>
+### Key Features
+- Instant Local Setup: Spin up Hadoop, Spark, Hive, Flink, and Zeppelin with a single docker compose up command.
+- Modern Component Stack: Actively maintained with cutting-edge versions that often surpass the baselines of standard cloud providers (e.g., Amazon EMR v7.13.0).
+- Built-in Python Support: Integrated with Miniconda3 for seamless PySpark, PyFlink, and advanced data science workflows.
+---
+Feel free to tweak it depending on whether you want to emphasize specific use cases or further developments!
 
-<strong>EMR 버전 정보</strong>
+## HBS <code>VS</code> Amazon EMR
+
+| App        | Version  | Date   | Size   |
+| ---------- | -------- | ------ | ------ |
+| Zeppelin   | [0.12.1](https://zeppelin.apache.org/download.html)         | `2026-06-12` | 6.61GB |
+| Iceberg    | [1.11.0](https://iceberg.apache.org/releases)               | `2026-05-19` | 4.5GB |
+| Flink      | [2.2.1](https://flink.apache.org/downloads/#apache-flink-2) | `2026-05-15` | 4.33GB |
+| Hive       | [4.2.0](https://hive.apache.org/general/downloads/)         | `2025-11-23` | 3.68GB |
+| Spark      | [4.1.2](https://spark.apache.org/downloads.html)            | `2026-05-21` | 3.22GB |
+| Miniconda3 | [py311_26.3.2-2](https://repo.anaconda.com/miniconda/)      | `2026-04-14` | -      |
+| Hbase      | [2.6.6](https://hbase.apache.org/downloads.html)            | `2026-06-09` | 2.25GB |
+| Hadoop     | [3.5.0](https://hadoop.apache.org/releases.html)            | `2026-04-02` | 1.8GB  |
+| Java       | 21.0.11                                                     | `2026-04-21` | -      |
+| Ubuntu     | [26.04 LTS](https://ubuntu.com/project/docs/release-team/list-of-releases/)| `2026-04-23` | 323MB  |
+
+- Amazon EMR [v7.13.0](https://docs.aws.amazon.com/emr/latest/ReleaseGuide/emr-release-components.html) | `2026-04-21` 
+<details><summary>Version Details</summary>
 <ul>
   <li>Zeppelin: 0.11.1</li>
-  <li>Iceberg: 1.10.0-amzn-0</li>
-  <li>Flink: 1.20.0-amzn-6</li>
-  <li>Hive: 3.1.3-amzn-21</li>
-  <li>Spark: 3.5.6-amzn-1</li>
-  <li>HBase: 2.6.2-amzn-3</li>
-  <li>Hadoop: 3.4.1-amzn-4</li>
+  <li>Iceberg: 1.10.0-amzn-1</li>
+  <li>Flink: 1.20.0-amzn-7</li>
+  <li>Hive: 3.1.3-amzn-22</li>
+  <li>Spark: 3.5.6-amzn-2</li>
+  <li>HBase: 2.6.4-amzn-0</li>
+  <li>Hadoop: 3.4.2-amzn-0</li>
   <li>Python: 3.9, 3.11</li>
 </ul>
 </details>
 
-| App        | Version              | Date         | Size   |
-| ---------- | -------------------- | ------------ | ------ |
-| Zeppelin   | [0.12.0(flink:1.17.2)](https://zeppelin.apache.org/download.html) | `2025-01-31` | 6.61GB |
-| Flink      | [1.20.3](https://github.com/apache/flink/tags)               | `2025-09-25` | 4.33GB |
-| Hive       | [4.0.1](https://hive.apache.org/general/downloads/)                | `2024-10-02` | 3.68GB |
-| Spark      | [3.5.8](https://spark.apache.org/downloads.html)                | `2026-01-15` | 3.22GB |
-| Miniconda3 | [py310_25.11.1-1](https://repo.anaconda.com/miniconda/)       | `2025-12-16` | -      |
-| Hbase      | [2.6.4](https://hbase.apache.org/downloads.html)                | `2025-11-14` | 2.25GB |
-| Hadoop     | [3.4.2](https://hadoop.apache.org/releases.html)               | `2025-08-29` | 1.8GB  |
-| Java       | 11.0.28              | `2025-07-15` | -      |
-| Ubuntu     | 24.04.1 LTS          | `2024-08-20` | 117MB  |
-
-### Simple zeppelin stack information
-<details><summary>Details</summary>
-
-```bash
-# run
-docker run --rm -it -p 8081:8081 -p 9995:9995 -p 18080:18080 --name zeppelin-tmp hibuz/zeppelin-dev:simple
-# ls
-docker exec -it zeppelin ls -al /home/hadoop
-drwxr-xr-x  1 hadoop hadoop 4096 Sep 21 01:23 zeppelin-0.12.0
-drwxr-xr-x  1 hadoop hadoop 4096 Nov 13  2023 flink-1.17.2
-drwxr-xr-x 13 hadoop hadoop 4096 May 23 06:49 spark-3.5.8
-```
-</details>
-
-| App              | Version | Date         | Size   |
-| ---------------- | ------- | ------------ | ------ |
-| Zeppelin(python) | 0.12.0  | `2025-01-31` | 4.53GB |
-| Flink            | 1.17.2  | `2023-11-27` | -      |
-| Spark(java)      | 3.5.8   | `2026-01-15` | -      |
-
-### Simple flink stack information
-<details><summary>Details</summary>
-
-```bash
-# run
-docker run --rm -it -p 8081:8081 --name flink-tmp hibuz/flink-dev:simple
-
-# ls
-docker exec -it flink-tmp ls -al /home/hadoop
-drwxr-xr-x 1 hadoop hadoop 4096 Jul 21 12:58 flink-2.2.1
-drwxr-xr-x 1 hadoop hadoop 4096 Sep 21 00:39 hive-4.2.0
-drwxr-xr-x 1 hadoop hadoop 4096 Jul  8 10:57 spark-4.2.0-preview5
-drwxr-xr-x 1 hadoop hadoop 4096 Sep 21 00:48 hadoop-3.5.0
-```
-</details>
-
-| App     | Version        | Date         | Size   |
-| ------- | -------------- | ------------ | ------ |
-| Iceberg | [1.11.0](https://iceberg.apache.org/releases)          | `2026-05-19` | 4.24GB |
-| Flink   | 2.2.1          | `2026-05-15` | -      |
-| Hive    | 4.2.0          | `2025-11-23` | -      |
-| Spark   | 4.2.0-preview5 | `2026-05-01` | -      |
-| Hadoop  | 3.5.0          | `2026-04-02` | -      |
-| Java    | 21.0.11        | `2026-04-21` | -      |
 
 # Quick usage for hadoop-dev docker image
 - Docker build and run
@@ -115,7 +63,7 @@ docker compose up hadoop-dev --no-build
 # hadoop
 hadoop-docker$ docker build -t hibuz/hadoop-dev .
 # hbase|spark|hive|flink
-hadoop-docker/(hbase|spark|hive|flink)$ docker compose up --build
+hadoop-docker/(hbase|spark|hive|flink|zepplein)$ docker compose up --build
 # flink-base for zeppelin
 hadoop-docker/zeppelin$ docker compose build flink-base
 # zeppelin
@@ -184,15 +132,8 @@ docker compose down -v
 
 # TODOs
 ```
-Hive 4.1.0 error
-
- Exception in thread "main" java.lang.UnsupportedClassVersionError: org/apache/hive/service/server/HiveServer2 has been compiled by a more recent version of the Java Runtime (class file version 61.0), this version of the Java Runtime only recognizes class file versions up to 55.0
-
-Flink 2.1.0 error
+Flink 2.2.1 error
  Flink SQL> CREATE CATALOG myhive WITH (
     >     'type' = 'hive',
    [ERROR] Could not execute SQL statement. Reason: org.apache.flink.table.api.ValidationException: Could not find any factory for identifier 'hive' that implements 'org.apache.flink.table.factories.CatalogFactory' in the classpath.
-
-Zeppelin 0.12.0 error
- Caused by: java.lang.Exception: This is not officially supported spark version: 4.0.1 
 ```
