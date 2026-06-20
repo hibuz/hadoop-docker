@@ -1,24 +1,22 @@
 {
     "name": "Build docker image",
-    "service": "hadoop-dev",
-    "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+    "image": "hibuz/zsh",
     "features": {
-      "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
+      "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {
+        "moby": false
+      }
     },
-    "postCreateCommand": "sudo mkdir -p /workspaces/hadoop-example && sudo chown vscode:root /workspaces/hadoop-example && git clone https://github.com/hibuz/hadoop-example.git /workspaces/hadoop-example; sudo chown -R vscode:root /workspaces/hadoop-example && sudo chmod -R 755 /workspaces/hadoop-example",
+    "remoteUser": "ubuntu",
+    "postCreateCommand": ".devcontainer/post-create.sh",
     "customizations": {
       "vscode": {
         "extensions": [
-          "mhutchie.git-graph",
-          "seatonjiang.gitmoji-vscode"
+          "mhutchie.git-graph"
         ],
         "settings": {
           "locale": "en"
         }
       }
-    },
-    "remoteEnv": {
-      "DOCKER_API_VERSION": "1.43"
     },
     "forwardPorts": [
         9870,
