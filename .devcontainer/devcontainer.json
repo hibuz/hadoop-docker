@@ -14,7 +14,13 @@
           "mhutchie.git-graph"
         ],
         "settings": {
-          "locale": "en"
+          "locale": "en",
+          "terminal.integrated.defaultProfile.linux": "zsh",
+          "terminal.integrated.profiles.linux": {
+            "zsh": {
+              "path": "/bin/zsh"
+            }
+          }
         }
       }
     },
