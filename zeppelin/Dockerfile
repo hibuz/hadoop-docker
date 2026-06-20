@@ -1,5 +1,5 @@
 # == Info =======================================
-# hibuz/flink-dev(SIZE: 4.38GB) -> hibuz/zeppelin-dev(SIZE: 6.67GB)
+# hibuz/flink-dev(SIZE: 5.21GB) -> hibuz/zeppelin-dev(SIZE: 6.67GB)
 
 # == Build ======================================
 # docker build -t hibuz/zeppelin-dev .
@@ -13,12 +13,11 @@
 
 
 # == Init =======================================
-ARG FLINK_VERSION=1.17.2
-FROM hibuz/flink-dev:${FLINK_VERSION}
+FROM hibuz/flink-dev
 LABEL org.opencontainers.image.authors="hibuz@hibuz.com"
 
 # == Install ============================
-ARG ZEPPELIN_VERSION=0.12.0
+ARG ZEPPELIN_VERSION=0.12.1
 ENV ZEPPELIN_HOME=/home/${DEFAULT_USER}/zeppelin-${ZEPPELIN_VERSION}
 
 RUN set -x \
@@ -36,12 +35,9 @@ ENV ZEPPELIN_ADDR=0.0.0.0
 ENV ZEPPELIN_PORT=9995
 
 RUN cp $ZEPPELIN_HOME/conf/zeppelin-env.sh.template $ZEPPELIN_HOME/conf/zeppelin-env.sh \
-    && echo "export PYSPARK_PYTHON=/usr/bin/python" >> $ZEPPELIN_HOME/conf/zeppelin-env.sh \
     && cp $HIVE_HOME/jdbc/hive-jdbc-*.jar $ZEPPELIN_HOME/interpreter/jdbc
 
-ARG FLINK_VERSION=1.17.2
-
-RUN pip install jupyter grpcio protobuf==3.19.6 pandas apache-flink==${FLINK_VERSION}
+RUN pip install jupyter grpcio protobuf pandas apache-flink
 
 ENV USE_HADOOP=false
 ENV DISABLE_JEMALLOC=true
