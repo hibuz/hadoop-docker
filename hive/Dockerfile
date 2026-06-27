@@ -1,5 +1,5 @@
 # == Info =======================================
-# hibuz/spark-dev(SIZE: 3.79GB) -> hibuz/hive-dev(SIZE: 3.73GB)
+# hibuz/spark-dev(SIZE: 3.79GB) -> hibuz/hive-dev(SIZE: 4.37GB)
 
 # == Build ======================================
 # docker build -t hibuz/hive-dev .

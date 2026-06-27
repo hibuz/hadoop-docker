@@ -1,5 +1,5 @@
 # == Info =======================================
-# hibuz/hbase-dev(SIZE: 2.4GB) -> hibuz/spark-dev(SIZE: 3.27GB)
+# hibuz/hbase-dev(SIZE: 2.4GB) -> hibuz/spark-dev(SIZE: 3.79GB)
 
 # == Build ======================================
 # docker build -t hibuz/spark-dev .

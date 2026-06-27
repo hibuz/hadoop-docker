@@ -21,15 +21,15 @@ Feel free to tweak it depending on whether you want to emphasize specific use ca
 | App        | Version  | Date   | Size   |
 | ---------- | -------- | ------ | ------ |
 | Zeppelin   | [0.12.1](https://zeppelin.apache.org/download.html)         | `2026-06-12` | 6.61GB |
-| Iceberg    | [1.11.0](https://iceberg.apache.org/releases)               | `2026-05-19` | 4.5GB |
-| Flink      | [2.2.1](https://flink.apache.org/downloads/#apache-flink-2) | `2026-05-15` | 4.33GB |
-| Hive       | [4.2.0](https://hive.apache.org/general/downloads/)         | `2025-11-23` | 3.68GB |
-| Spark      | [4.1.2](https://spark.apache.org/downloads.html)            | `2026-05-21` | 3.22GB |
+| Iceberg    | [1.11.0](https://iceberg.apache.org/releases)               | `2026-05-19` | -      |
+| Flink      | [2.3.0](https://flink.apache.org/downloads/#apache-flink-2) | `2026-06-25` | 5.25GB |
+| Hive       | [4.2.0](https://hive.apache.org/general/downloads/)         | `2025-11-23` | 4.37GB |
+| Spark      | [4.1.2](https://spark.apache.org/downloads.html)            | `2026-05-21` | 3.79GB |
 | Miniconda3 | [py311_26.3.2-2](https://repo.anaconda.com/miniconda/)      | `2026-04-14` | -      |
-| Hbase      | [2.6.6](https://hbase.apache.org/downloads.html)            | `2026-06-09` | 2.25GB |
-| Hadoop     | [3.5.0](https://hadoop.apache.org/releases.html)            | `2026-04-02` | 1.8GB  |
+| Hbase      | [2.6.6](https://hbase.apache.org/downloads.html)            | `2026-06-09` | 2.4GB  |
+| Hadoop     | [3.5.0](https://hadoop.apache.org/releases.html)            | `2026-04-02` | 1.94GB |
 | Java       | 21.0.11                                                     | `2026-04-21` | -      |
-| Ubuntu     | [26.04 LTS](https://ubuntu.com/project/docs/release-team/list-of-releases/)| `2026-04-23` | 323MB  |
+| Ubuntu     | [26.04 LTS](https://ubuntu.com/project/docs/release-team/list-of-releases/)| `2026-04-23` | 323MB |
 
 - Amazon EMR [v7.13.0](https://docs.aws.amazon.com/emr/latest/ReleaseGuide/emr-release-components.html) | `2026-04-21` 
 <details><summary>Version Details</summary>
