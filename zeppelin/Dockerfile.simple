@@ -17,17 +17,28 @@ FROM hibuz/hadoop-base
 LABEL org.opencontainers.image.authors="hibuz@hibuz.com"
 
 # == Package Setting ============================
-ARG JDK_VERSION=17
+ARG JDK_VERSION=11
 RUN sudo apt update && DEBIAN_FRONTEND=noninteractive sudo apt install -y --no-install-recommends \
   openjdk-${JDK_VERSION}-jdk-headless \
   tini \
   ssh \
   netcat-openbsd \
   libsnappy-dev \
+  wget \
+  unzip \
   && sudo apt autoremove -y \
   && sudo rm -rf /var/lib/apt/lists/*
 
 # == Install ============================
+ARG MINICONDA_VERSION=py310_26.3.2-2
+ENV CONDA_HOME /opt/conda
+
+RUN set -x \
+    && DOWNLOAD_URL="https://repo.anaconda.com/miniconda/Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh" \
+    && curl -fSL "$DOWNLOAD_URL" -o miniconda.sh \
+    && sudo bash miniconda.sh -b -p ${CONDA_HOME} \
+    && rm miniconda.sh
+
 ARG SPARK_VERSION=3.5.8
 ENV SPARK_HOME /home/${DEFAULT_USER}/spark-${SPARK_VERSION}
 
@@ -39,6 +50,7 @@ RUN set -x \
     && mkdir /tmp/spark-events \
     && rm download.tar.gz
 
+# == Env Setting ============================
 ENV PATH $PATH:$CONDA_HOME/bin:$SPARK_HOME/bin:$SPARK_HOME/sbin
 
 RUN cp $SPARK_HOME/conf/spark-env.sh.template $SPARK_HOME/conf/spark-env.sh \
@@ -47,16 +59,6 @@ RUN cp $SPARK_HOME/conf/spark-env.sh.template $SPARK_HOME/conf/spark-env.sh \
     && echo "export SPARK_MASTER_WEBUI_PORT=8090" >> $SPARK_HOME/conf/spark-env.sh \
     && echo "export SPARK_WORKER_WEBUI_PORT=8091" >> $SPARK_HOME/conf/spark-env.sh \
     && echo "export SPARK_DIST_CLASSPATH=\$(\$HADOOP_HOME/bin/hadoop classpath)" >> $SPARK_HOME/conf/spark-env.sh
-
-ARG ZEPPELIN_VERSION=0.12.0
-ENV ZEPPELIN_HOME /home/${DEFAULT_USER}/zeppelin-${ZEPPELIN_VERSION}
-
-RUN set -x \
-    && DOWNLOAD_URL="https://dlcdn.apache.org/zeppelin/zeppelin-${ZEPPELIN_VERSION}/zeppelin-${ZEPPELIN_VERSION}-bin-all.tgz" \
-    && curl -fSL "$DOWNLOAD_URL" -o download.tar.gz \
-    && tar -xvf download.tar.gz \
-    && mv zeppelin-${ZEPPELIN_VERSION}-bin-all $ZEPPELIN_HOME \
-    && rm download.tar.gz
 
 ARG FLINK_VERSION=1.17.2
 ENV FLINK_HOME /home/${DEFAULT_USER}/flink-${FLINK_VERSION}
@@ -67,15 +69,15 @@ RUN set -x \
     && tar -xvf download.tar.gz \
     && rm download.tar.gz
 
-ARG MINICONDA_VERSION=py310_25.11.1-1
-ENV CONDA_HOME /opt/conda
+ARG ZEPPELIN_VERSION=0.12.1
+ENV ZEPPELIN_HOME /home/${DEFAULT_USER}/zeppelin-${ZEPPELIN_VERSION}
 
 RUN set -x \
-    && DOWNLOAD_URL="https://repo.anaconda.com/miniconda/Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh" \
-    && curl -fSL "$DOWNLOAD_URL" -o miniconda.sh \
-    && sudo bash miniconda.sh -b -p ${CONDA_HOME} \
-    && ${CONDA_HOME}/bin/python -m pip install --upgrade pip \
-    && rm miniconda.sh
+    && DOWNLOAD_URL="https://dlcdn.apache.org/zeppelin/zeppelin-${ZEPPELIN_VERSION}/zeppelin-${ZEPPELIN_VERSION}-bin-all.tgz" \
+    && curl -fSL "$DOWNLOAD_URL" -o download.tar.gz \
+    && tar -xvf download.tar.gz \
+    && mv zeppelin-${ZEPPELIN_VERSION}-bin-all $ZEPPELIN_HOME \
+    && rm download.tar.gz
 
 # == Env Setting ============================
 ENV PATH /home/${DEFAULT_USER}/.local/bin:$PATH:$FLINK_HOME/bin:$ZEPPELIN_HOME/bin
@@ -84,19 +86,16 @@ ENV ZEPPELIN_PORT 9995
 ENV USE_HADOOP false
 ENV DISABLE_JEMALLOC true
 
-# flink-connector-<NAME> which is a thin JAR including only the connector code, but excluding eventual third-party dependencies
-# flink-sql-connector-<NAME> which is an uber JAR ready to use with all the connector third-party dependencies
 RUN echo "export HADOOP_CLASSPATH=\$(\$HADOOP_HOME/bin/hadoop classpath)" >> $FLINK_HOME/bin/config.sh \
     && cd $FLINK_HOME/lib \
     && curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-table-api-java-bridge/${FLINK_VERSION}/flink-table-api-java-bridge-${FLINK_VERSION}.jar" \
     && curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-table-api-scala-bridge_2.12/${FLINK_VERSION}/flink-table-api-scala-bridge_2.12-${FLINK_VERSION}.jar" \
     && curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-csv/${FLINK_VERSION}/flink-csv-${FLINK_VERSION}.jar" \
     && curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-json/${FLINK_VERSION}/flink-json-${FLINK_VERSION}.jar" \
-    && curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-parquet/${FLINK_VERSION}/flink-parquet-${FLINK_VERSION}.jar" \
-    && curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-sql-connector-hive-3.1.3_2.12/${FLINK_VERSION}/flink-sql-connector-hive-3.1.3_2.12-${FLINK_VERSION}.jar" \
-    && curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-sql-connector-hbase-2.2/4.0.0-1.19/flink-sql-connector-hbase-2.2-4.0.0-1.19.jar" \
-    && cp ../opt/flink-sql-*.jar ../opt/flink-python-*.jar ./ 
-    
+    && curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-orc/${FLINK_VERSION}/flink-orc-${FLINK_VERSION}.jar" \
+    && cp ../opt/flink-sql-*.jar ./ \
+    && cp ../opt/flink-python-*.jar ./
+
 RUN pip install jupyter grpcio protobuf==3.19.6 pandas apache-flink==${FLINK_VERSION}
 
 COPY docker-entrypoint.sh /

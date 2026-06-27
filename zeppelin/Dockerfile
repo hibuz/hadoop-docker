@@ -1,5 +1,5 @@
 # == Info =======================================
-# hibuz/flink-dev(SIZE: 5.21GB) -> hibuz/zeppelin-dev(SIZE: 6.67GB)
+# hibuz/flink-dev(SIZE: 4.34GB) -> hibuz/zeppelin-dev(SIZE: 6.64GB)
 
 # == Build ======================================
 # docker build -t hibuz/zeppelin-dev .
@@ -13,7 +13,7 @@
 
 
 # == Init =======================================
-FROM hibuz/flink-dev
+FROM hibuz/flink-dev:1.17.2
 LABEL org.opencontainers.image.authors="hibuz@hibuz.com"
 
 # == Install ============================
@@ -37,7 +37,7 @@ ENV ZEPPELIN_PORT=9995
 RUN cp $ZEPPELIN_HOME/conf/zeppelin-env.sh.template $ZEPPELIN_HOME/conf/zeppelin-env.sh \
     && cp $HIVE_HOME/jdbc/hive-jdbc-*.jar $ZEPPELIN_HOME/interpreter/jdbc
 
-RUN pip install jupyter grpcio protobuf pandas apache-flink
+RUN pip install jupyter grpcio protobuf==3.19.6 pandas apache-flink==${FLINK_VERSION}
 
 ENV USE_HADOOP=false
 ENV DISABLE_JEMALLOC=true

@@ -20,9 +20,9 @@ Feel free to tweak it depending on whether you want to emphasize specific use ca
 
 | App        | Version  | Date   | Size   |
 | ---------- | -------- | ------ | ------ |
-| Zeppelin   | [0.12.1](https://zeppelin.apache.org/download.html)         | `2026-06-12` | 6.61GB |
+| Zeppelin   | [0.12.1](https://zeppelin.apache.org/download.html)         | `2026-06-12` | 6.64GB |
 | Iceberg    | [1.11.0](https://iceberg.apache.org/releases)               | `2026-05-19` | -      |
-| Flink      | [2.3.0](https://flink.apache.org/downloads/#apache-flink-2) | `2026-06-25` | 5.25GB |
+| Flink      | [2.3.0](https://flink.apache.org/downloads/#apache-flink-2) | `2026-06-25` | 5.15GB |
 | Hive       | [4.2.0](https://hive.apache.org/general/downloads/)         | `2025-11-23` | 4.37GB |
 | Spark      | [4.1.2](https://spark.apache.org/downloads.html)            | `2026-05-21` | 3.79GB |
 | Miniconda3 | [py311_26.3.2-2](https://repo.anaconda.com/miniconda/)      | `2026-04-14` | -      |
