@@ -7,7 +7,7 @@
 # docker build -t hibuz/flink-dev --build-arg FLINK_VERSION=x.y.z .
 
 # == Run and Attatch ============================
-# docker run --rm -it -p 801:8081 --name flink-tmp hibuz/flink-dev
+# docker run --rm -it -p 8081:8081 --name flink-tmp hibuz/flink-dev
 # 
 # docker exec -it flink-tmp bash
 
@@ -27,7 +27,6 @@ RUN set -x \
     && mv flink-${FLINK_VERSION} $FLINK_HOME \
     && rm download.tar.gz
 
-# == Env Setting ============================
 ENV PATH $PATH:$FLINK_HOME/bin
 
 ARG HADOOP_VERSION=3.5.0
@@ -39,12 +38,11 @@ RUN echo "export HADOOP_CLASSPATH=\$(\$HADOOP_HOME/bin/hadoop classpath)" >> $FL
     && curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-csv/${FLINK_VERSION}/flink-csv-${FLINK_VERSION}.jar" \
     && curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-json/${FLINK_VERSION}/flink-json-${FLINK_VERSION}.jar" \
     && curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-orc/${FLINK_VERSION}/flink-orc-${FLINK_VERSION}.jar" \
-    && curl -O "https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-aws-bundle/$ICEBERG_VERSION/iceberg-aws-bundle-$ICEBERG_VERSION.jar" \
-    && curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-sql-connector-mysql-cdc/3.6.0-2.2/flink-sql-connector-mysql-cdc-3.6.0-2.2.jar" \
     && curl -O "https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-client-api/$HADOOP_VERSION/hadoop-client-api-$HADOOP_VERSION.jar" \
     && curl -O "https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-client-runtime/$HADOOP_VERSION/hadoop-client-runtime-$HADOOP_VERSION.jar" \
     && curl -O "https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-flink-runtime-2.1/$ICEBERG_VERSION/iceberg-flink-runtime-2.1-$ICEBERG_VERSION.jar" \
-    && cp ../opt/flink-sql-*.jar ../opt/flink-python-*.jar ./ \
+    && curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-sql-connector-hbase-2.2/4.0.0-1.19/flink-sql-connector-hbase-2.2-4.0.0-1.19.jar" \
+    && cp ../opt/flink-sql-*.jar ./ \
     && sed -i "s/bind-address: localhost/bind-address: 0.0.0.0/" $FLINK_HOME/conf/*.yaml
 
 

@@ -85,6 +85,25 @@ Job Runtime: 1302 ms
 
 Command history file path: /home/hadoop/.flink-sql-history
 
+# Create and use hive catalog
+Flink SQL> CREATE CATALOG myhive WITH (
+    'type' = 'hive',
+    'hive-conf-dir' = '/home/hadoop/hive-4.2.0/conf'
+);
+[INFO] Execute statement succeed.
+
+Flink SQL> SHOW CATALOGS;
++-----------------+
+|    catalog name |
++-----------------+
+| default_catalog |
+|          myhive |
++-----------------+
+2 rows in set
+
+Flink SQL> USE CATALOG myhive;
+[INFO] Execute statement succeed.
+
 # Connecting To FileSystem
 Flink SQL> CREATE TABLE people (
     name VARCHAR,
@@ -121,7 +140,7 @@ done.
 +-----------+
 | tab_name  |
 +-----------+
-| people    | (TODO)
+| people    |
 +-----------+
 1 rows selected (0.481 seconds)
 
