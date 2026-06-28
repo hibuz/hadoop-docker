@@ -1,5 +1,5 @@
 # == Info =======================================
-# hibuz/bash==hibuz/hadoop-dev(SIZE: 1.94GB) -> hibuz/flink-dev(SIZE: 3.67GB)
+# hibuz/hive-dev(SIZE: 4.37GB) -> hibuz/flink-dev(SIZE: 5.18GB)
 
 # == Build ======================================
 # docker build -t hibuz/flink-dev:simple -f Dockerfile.simple .
@@ -11,59 +11,9 @@
 
 
 # == Init =======================================
-FROM hibuz/hadoop-dev
+FROM hibuz/hive-dev
 LABEL org.opencontainers.image.authors="hibuz@hibuz.com"
 
-# == Install ============================
-ARG SPARK_VERSION=4.2.0-preview5
-ENV SPARK_HOME /home/${DEFAULT_USER}/spark-${SPARK_VERSION}
-
-RUN set -x \
-    && DOWNLOAD_URL="https://dlcdn.apache.org/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-without-hadoop.tgz" \
-    && curl -fSL "$DOWNLOAD_URL" -o download.tar.gz \
-    && tar -xvf download.tar.gz \
-    && mv spark-${SPARK_VERSION}-bin-* $SPARK_HOME \
-    && mkdir /tmp/spark-events \
-    && rm download.tar.gz
-
-ENV PATH $PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin
-
-RUN cp $SPARK_HOME/conf/spark-env.sh.template $SPARK_HOME/conf/spark-env.sh \
-    && echo "export HADOOP_HOME=$HADOOP_HOME" >> $SPARK_HOME/conf/spark-env.sh \
-    && echo "export SPARK_MASTER_WEBUI_PORT=8090" >> $SPARK_HOME/conf/spark-env.sh \
-    && echo "export SPARK_WORKER_WEBUI_PORT=8091" >> $SPARK_HOME/conf/spark-env.sh \
-    && echo "export SPARK_DIST_CLASSPATH=\$(\$HADOOP_HOME/bin/hadoop classpath)" >> $SPARK_HOME/conf/spark-env.sh
-
-# == Install ============================
-ARG HIVE_VERSION=4.2.0
-ENV HIVE_HOME /home/${DEFAULT_USER}/hive-${HIVE_VERSION}
-
-RUN set -x \
-    && DOWNLOAD_URL="https://dlcdn.apache.org/hive/hive-${HIVE_VERSION}/apache-hive-${HIVE_VERSION}-bin.tar.gz" \
-    && curl -fSL "$DOWNLOAD_URL" -o download.tar.gz \
-    && tar -xvf download.tar.gz \
-    && mv apache-hive-${HIVE_VERSION}-bin $HIVE_HOME \
-    && rm download.tar.gz
-
-ENV PATH $PATH:$HIVE_HOME/bin
-
-RUN mv $SPARK_HOME/bin/beeline $SPARK_HOME/bin/spark-beeline \
-    && cp $HIVE_HOME/conf/hive-env.sh.template $HIVE_HOME/conf/hive-env.sh \
-    && echo "export HADOOP_HEAPSIZE=512" >> $HIVE_HOME/conf/hive-env.sh \
-    && cp $HIVE_HOME/conf/hive-default.xml.template $HIVE_HOME/conf/hive-site.xml
-
-RUN core_conf="<property><name>system:java.io.tmpdir</name><value>/tmp/hive/java</value></property>\
-                <property><name>system:user.name</name><value>${DEFAULT_USER}</value></property>\
-                <property><name>hive.metastore.uris</name><value>thrift://localhost:9083</value></property>" \
-    && escaped_core_conf=$(echo $core_conf | sed 's/\//\\\//g') \
-    && sed -i "/<\/configuration>/ s/.*/${escaped_core_conf}&/" $HIVE_HOME/conf/hive-site.xml
-
-RUN core_conf="<property><name>hadoop.proxyuser.${DEFAULT_USER}.hosts</name><value>*</value></property>\
-            <property><name>hadoop.proxyuser.${DEFAULT_USER}.groups</name><value>*</value></property>" \
-    && escaped_core_conf=$(echo $core_conf | sed 's/\//\\\//g') \
-    && sed -i "/<\/configuration>/ s/.*/${escaped_core_conf}&/" $HADOOP_CONF_DIR/core-site.xml
-
-    
 # == Install ============================
 ARG FLINK_VERSION=1.20.5
 ENV FLINK_VERSION ${FLINK_VERSION}
@@ -80,11 +30,26 @@ ENV PATH $PATH:$FLINK_HOME/bin
 
 ARG HADOOP_VERSION=3.5.0
 ARG ICEBERG_VERSION=1.11.0
+ARG MYSQL_CONNECTOR_VERSION=9.7.0
 RUN echo "export HADOOP_CLASSPATH=\$(\$HADOOP_HOME/bin/hadoop classpath)" >> $FLINK_HOME/bin/config.sh \
     && cd $FLINK_HOME/lib \
+    && curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-table-api-java-bridge/${FLINK_VERSION}/flink-table-api-java-bridge-${FLINK_VERSION}.jar" \
+    && curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-table-api-scala-bridge_2.12/${FLINK_VERSION}/flink-table-api-scala-bridge_2.12-${FLINK_VERSION}.jar" \
     && curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-csv/${FLINK_VERSION}/flink-csv-${FLINK_VERSION}.jar" \
-    && curl -O "https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-flink-runtime-2.1/${ICEBERG_VERSION}/iceberg-flink-runtime-2.1-${ICEBERG_VERSION}.jar" \
+    && curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-json/${FLINK_VERSION}/flink-json-${FLINK_VERSION}.jar" \
+    && curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-orc/${FLINK_VERSION}/flink-orc-${FLINK_VERSION}.jar" \
+    && curl -O "https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-client-api/$HADOOP_VERSION/hadoop-client-api-$HADOOP_VERSION.jar" \
+    && curl -O "https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-client-runtime/$HADOOP_VERSION/hadoop-client-runtime-$HADOOP_VERSION.jar" \
+    && curl -O "https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-flink-runtime-2.1/$ICEBERG_VERSION/iceberg-flink-runtime-2.1-$ICEBERG_VERSION.jar" \
+    && curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-sql-connector-hbase-2.2/4.0.0-1.19/flink-sql-connector-hbase-2.2-4.0.0-1.19.jar" \
     && curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-sql-connector-hive-3.1.3_2.12/${FLINK_VERSION}/flink-sql-connector-hive-3.1.3_2.12-${FLINK_VERSION}.jar" \
+    # for flink cdc example
+    && curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-sql-connector-kafka/3.4.0-1.20/flink-sql-connector-kafka-3.4.0-1.20.jar" \
+    && curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-cdc-pipeline-connector-kafka/3.6.0-1.20/flink-cdc-pipeline-connector-kafka-3.6.0-1.20.jar" \
+    && curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-sql-connector-mysql-cdc/3.6.0-1.20/flink-sql-connector-mysql-cdc-3.6.0-1.20.jar" \
+    && curl -O "https://repo1.maven.org/maven2/org/apache/flink/flink-sql-connector-mysql/${MYSQL_CONNECTOR_VERSION}/flink-sql-connector-mysql-${MYSQL_CONNECTOR_VERSION}.jar" \
+    && curl -O "https://repo1.maven.org/maven2/com/mysql/mysql-connector-j/${MYSQL_CONNECTOR_VERSION}/mysql-connector-j-${MYSQL_CONNECTOR_VERSION}.jar" \
+    && curl -O "https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-aws-bundle/$ICEBERG_VERSION/iceberg-aws-bundle-$ICEBERG_VERSION.jar" \
     && cp ../opt/flink-sql-*.jar ./ \
     && sed -i "s/bind-address: localhost/bind-address: 0.0.0.0/" $FLINK_HOME/conf/*.yaml
 
